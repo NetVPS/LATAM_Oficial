@@ -1,0 +1,35 @@
+   \e[1;31m                 Vercion: \e[32m2.0\e[97m
+ - Se corrigieron links rotos
+ - Se reformo instalador
+ - Correccion de instalacion de dropbear 
+   \e[1;31m                 Vercion: \e[32m1.1\e[97m
+ - Se agrego SSLH
+ - Fix importante en admin de base de user
+ - Correccion en Monitor Op8 
+   \e[1;31m                 Vercion: \e[32m1.0\e[97m
+ - Source Code Renovado
+ - Creacion de SSH mediante SSH Normal/Token/HWID
+ - Optimizacion en menus de control SSH/SSL/V2RAY
+ - Optimizacion en indicadores de Estado
+ - Optimizacion en instalacion de Protocolos 
+ - Optimizacion en monitores SSH/OPENVPN
+ - Actulizador Remoto y sobre mismo entorno
+ - Contador de Onlines mejorado
+ - No de Cuentas Registradas SSH/SSR/V2RAY
+ - Auto Inicio mejorado
+ - Monitor de Protocolos mejorado
+ - BadVPN multipuerto 
+ - Limitador y Desbloqueo Renovado
+  (Consumo de recursos casi nulos a comparacion de VPS-MX)
+ - Agregar SSH Normal , HWID Inyector y Tokens 
+   Apss personalizadas
+ - NotiFy BOT Renovado(SSH BLOCK,SSH EXPIRADA,
+   REINICIO DEL VPS,PROTOCOLOS CAIDOS,AVISO DE
+   LOGIN ROOT)
+ - Proxy Websoket Autonomo y Auto Guardado de 
+   Configuracion 
+ - Backup SSH VPS a VPS info desde sistema
+ - Remocion del Script Total
+ - El script se ejecuta en solo un entorno y directorio
+ - Control Remota de Key
+ ####
