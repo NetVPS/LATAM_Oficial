@@ -244,7 +244,7 @@ Install_key() {
   }
   install_fim() {
     echo -e "               \033[1;4;32mFinalizando Instalacion\033[0;39m"
-    wget -O /bin/rebootnb https://raw.githubusercontent.com/NetVPS/LATAM/main/Install/rebootnb.sh &>/dev/null
+    wget -O /bin/rebootnb https://raw.githubusercontent.com/NetVPS/LATAM_Oficial/main/Ejecutables/rebootnb.sh &>/dev/null
     chmod +x /bin/rebootnb
     wget -O /etc/SCRIPT-LATAM/temp/version_actual https://raw.githubusercontent.com/NetVPS/LATAM_Oficial/main/Version &>/dev/null
     msgi -bar2
@@ -266,15 +266,11 @@ Install_key() {
     echo 'echo -e "\033[92m  -->> SLOGAN:\033[93m $mess1 "' >>.bashrc
     echo 'echo "" ' >>.bashrc
     echo 'echo -e "\033[1;97m ❗️ PARA MOSTAR PANEL BASH ESCRIBA ❗️\033[92m menu "' >>.bashrc
-    echo 'wget -O /etc/SCRIPT-LATAM/temp/version_actual https://raw.githubusercontent.com/NetVPS/LATAM/main/Version &>/dev/null' >>.bashrc
+    echo 'wget -O /etc/SCRIPT-LATAM/temp/version_actual https://raw.githubusercontent.com/NetVPS/LATAM_Oficial/main/Version &>/dev/null' >>.bashrc
     echo 'echo ""' >>.bashrc
     #-BASH SOPORTE ONLINE
     wget https://raw.githubusercontent.com/NetVPS/LATAM/main/Install/SPR.sh -O /usr/bin/SPR >/dev/null 2>&1
     chmod +x /usr/bin/SPR
-    #-BASH SOPORTE ONLINE
-    wget https://raw.githubusercontent.com/NetVPS/LATAM/main/Install/killmenu -O /usr/bin/killmenu >/dev/null 2>&1
-    chmod +x /usr/bin/killmenu
-
     timeespera="1"
     times="10"
     if [ "$timeespera" = "1" ]; then
