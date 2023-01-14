@@ -1,3 +1,304 @@
-z="
-";rOz='ELL ';VOz=' -f ';HPz=' -L ';LIz='N} "';wDz=' Sho';OBz='il/g';yHz='awk ';bz='//mu';GEz='.jso';RIz='inux';TJz='n th';QGz='d;/v';aJz='omma';yGz='emct';WGz='/d'\'' ';fFz='shar';MFz='&1';GIz='2`';KFz='/nul';ACz='ashr';HRz=' ${W';FJz='= "0';mHz='ice"';uNz='&& s';WBz='.sh"';DNz='re -';xPz=' -eq';MLz='s.sh';wIz='fig';wCz='VE=1';KCz='GREE';tz='CE_P';Vz='BASE';hFz='sh-c';HGz='root';WOz='h_co';pNz='FG >';qLz='IP|g';UGz='ELL=';RJz='ot t';yz='l.cf';xNz='/lan';kMz='ser.';mz='il/u';hEz='-L -';oPz='.ntp';BMz='"ipt';yLz='IPTA';oMz='l da';lMz='targ';TDz='esac';LBz='TABL';ZFz='unin';iFz='ompl';rGz='ANAG';wLz='les"';OOz='ash_';HOz='s $(';rz='ASE_';MBz='ES_S';Zz='="ht';CMz='s"';yPz='"${O';nEz='m/s/';jCz='whil';aGz='t';cCz='"\03';NKz=' cro';NQz='(gre';AMz='BLE_';XQz='G=ut';XKz='n nt';AIz=''\''{pr';IFz='-x >';SOz='ay.b';oCz='o';qKz='{';cDz='done';sEz='go.s';fPz='ing.';iQz='& so';xKz='&& c';JGz='es >';jDz='[-h|';RKz='ich ';KKz='nsta';iKz='tlif';INz='d +x';gJz='en';uz='ATH/';bIz='ELIN';mMz='et';SMz='C_SE';jMz='ti-u';ZNz='ATH ';RPz='20ln';rKz='[[ !';YHz='atus';tMz='/roo';pBz='echo';ZGz='b.tx';SIz='() {';TRz=''\'' co';VHz='ERVI';lQz='ay n';Gz='BEGI';dIz='nfor';uQz='ATH}';NPz='ox.c';CCz='| EN';fLz='=`cu';dMz='[Ins';lHz='serv';ALz='Echo';qOz='N_SH';eRz='lp &';mDz='[-k|';sMz=' "[[';yNz='g=en';tOz=' $(e';xGz='syst';OPz='om/s';jEz='//ww';SJz='o ru';pFz='ray ';cEz='Ray(';pKz='t() ';URz='mman';vJz='Not ';mEz='x.co';kDz='--he';YEz='retu';OJz='u mu';iPz='}"';pGz='ACKA';pJz=' -v ';Fz='3';wEz='v/nu';gHz='[A-Z';Cz='UPDA';NRz='r';FPz=' bas';PQz='~/$E';LGz='tab ';IHz='ay/d';gRz='turn';nFz='s/v2';DPz='} ==';jBz='sh) ';wMz='les ';BEz='ep  ';qPz='chro';ZBz='tc/r';wOz='LL|g';bJz='nd -';EPz=' 0 ]';OCz='OW="';QRz='ase ';tJz='o $R';rCz='case';mGz=''\''dnf';NLz='&& r';jOz='ash-';bKz='ce <';VLz='-e $';kKz='p/in';WDz='past';dFz=' -y';mQz='ew';fEz=' <(c';Bz='ING_';cQz='ENCO';dJz='t-ge';IOz='whic';KNz='-loc';OMz='C_FI';yMz='PTAB';gMz='Want';xIz='sete';eLz='L_IP';vEz='>/de';UFz='_IPT';LFz='l 2>';HDz='} "k';uOz='cho ';DLz='ip n';kPz='e` ]';eMz='tall';NIz='cces';ZPz='"${I';kQz=' v2r';CQz=' Suc';dEz=') {';xEz='ll 2';FNz=' >> ';EMz='in/b';XGz='> cr';nNz='curl';yEz='>&1';YNz='IL_P';yIz='ce 0';wPz='[ $?';MJz='rror';FDz='1';wNz='i "s';WIz='/con';MQz='nit(';qRz='n"';kRz='Ray ';LRz='; th';BKz='inst';PHz=' ~/$';vGz=' ]];';vBz=' && ';vFz='d/v2';xOz='zsh)';kLz='fy.o';bEz='veV2';xBz='FILE';XRz='age ';HMz=';the';hOz='/sha';cBz='leas';tHz='VICE';eBz=' -z ';mOz=' $BA';oFz='ray.';nz='til.';hJz='GER=';eCz='R}${';TGz=''\''/SH';vIz='/g'\'' ';aMz='CE <';KIz='ILE';dPz='nchr';HCz='RED=';nCz=']];d';QFz='ull ';wQz='="in';FEz='nfig';DCz='V_FI';tQz='IN_P';QCz='BLUE';LJz='} "E';dGz='f cr';eGz='t >/';RLz='ofil';bNz='$UTI';tDz='-h, ';OQz='p v2';kBz=']] &';UJz='is s';GKz='CKAG';tNz='== 1';eJz='t` ]';YKz='e ga';VNz='_uti';nHz='`';HJz='&& {';cOz='hare';nKz='tePr';mKz='upda';gIz='tc/s';aLz='ILE|';nDz='--ke';GBz='L="$';SHz='/$EN';NDz='\n"';HKz='E_MA';YQz='f-8 ';uGz='yum'\''';jLz='.ipi';sBz='grep';pHz='ILE=';lIz='hen';HLz='xit ';QOz='leti';pLz='CAL_';mIz='s/SE';RHz='ce ~';BIz='int ';DRz='{GRE';pCz='key=';JEz='ate"';aKz='y';ILz='e /e';yFz='n/v2';FMz='ash"';TNz='all ';BFz='rf /';Rz='REMO';qMz='-rel';aRz='{HEL';sIz='NUX=';RMz='t $R';NEz='ay &';CEz=' kee';cJz='v ap';gGz='[ ${';QEz='y"';ICz='"31m';gOz='/usr';AHz='l re';cRz='= 1 ';LHz='_FIL';APz='ray';KQz='`${F';AKz=' 1';jRz='1 ]]';GJz='" ] ';wFz='loca';jFz='etio';MMz='h" >';PJz='st b';iHz=']+/r';IKz='NAGE';rQz='cd $';gNz='ng=e';tFz='plet';hPz='Font';nGz=''\'' ||';cHz='oade';TFz='LEAN';hRz='{REM';dz='netl';IMz='n';DIz='|cut';yOz='ce /';XLz='|| -';uMz='t/.i';Jz='(pwd';mJz=' [[ ';wHz='ecSt';DOz='f /u';NBz='HELL';pDz='[--r';lFz='mple';ZRz='main';YIz='] &&';SNz='es';lNz='r -p';JBz='CLEA';sFz='_com';YMz='cat ';eDz='(){';JOz='h v2';kFz='n/co';fCz='@:2}';vKz='ull)';SQz='i '\''/';jKz='y.ap';iCz='}';lBz='& un';TCz='FUCH';JHz=''\'' ~/';SPz='68s0';dKz='l -s';QMz=' `ca';ORz='fo';aDz=' val';MEz='y,xr';RRz='inpu';MHz='E';SKz='-y';UBz='ipta';XJz='exit';WNz='[ -e';AOz='g=zh';JFz='/dev';oDz='ep] ';MDz='date';tIz='disa';EKz='dent';Kz=')';SEz='para';rJz='yum`';FHz='on >';YDz='umen';NNz='l';DMz=' "/b';GMz='` ]]';eQz='=utf';fKz='//py';nRz='E} "';aBz='edha';WMz='\[In';bPz=' Tim';uBz=') ]]';ODz='--zh';XHz='l st';gQz='>> ~';CJz='[ $(';lDz='lp] ';GPz='h <(';TMz='RVIC';BGz='prof';rIz='SELI';fDz=' "ba';pIz='forc';UPz='sh)';GDz='o ${';YPz='0 ]]';lJz='elif';qIz='ing/';QNz='e -c';sNz='ESE ';vDz='    ';lPz='ntpd';qEz='0ln6';ZOz='h';FIz='= -f';jJz='-get';oLz=' $LO';lOz='ns/v';oz='cfg"';gCz='\033';lCz=' $# ';fRz='& re';gPz='. ${';EOz='sr/l';WQz='ODIN';jz='etc/';sJz=''\''yum';GGz='h >/';kNz='mkdi';fMz=']';WHz='CE=`';vOz='$SHE';mBz='alia';EJz='u) !';kz='v2ra';bOz='sr/s';PMz='[ -z';az='tps:';oJz='mand';UKz='pdat';YFz='pip ';hMz='edBy';iDz='.sh ';xJz='ort ';RQz='ILE)';oKz='ojec';TQz=' PYT';xHz='art|';UEz='o ne';QDz='装中文版';MIz='l su';QKz='n wh';BOz='/g" ';ZCz='COLO';bHz='ep l';Qz='=0';aPz='nfo}';EGz='tabl';Xz='RCE_';tPz='-a m';GFz='var/';rHz=' $RC';YLz='z `c';aCz='R=$1';hLz='tp:/';WFz='S_SH';sGz='ER} ';BDz='p)';IJz=' col';rPz='nyc`';fBz='$(ec';hNz='n" >';VCz='"35m';jGz='MANA';EDz='-kee';NCz='YELL';TBz='ean_';vQz=' WAY';oBz='z $(';PDz='} "安';uKz='2>/d';QBz='l_se';aIz='p '\''S';RBz='ttin';eHz='rep ';tKz='ype ';VPz='time';UNz='-U v';vPz='tep';IBz='ay"';DDz='-k|-';qz='="$B';ZKz='wk -';LMz='/bas';GNz='$RC_';LPz='ww.d';tCz='y in';iRz='OVE}';ELz='o in';SCz='m"';OEz='& mu';WEz='stal';aEz='remo';KDz='ig t';TLz='.sh';PEz='lti-';QHz='sour';DFz='dev/';NMz='> $R';lz='y_ut';HNz='chmo';PIz='clos';Oz='0';XNz=' $UT';DKz='epen';DBz='PLET';JRz='succ';pQz='inis';ZEz='rn 0';LLz='le.d';ERz='EN} ';sLz=' IPT';FKz='${PA';gBz='ho $';oGz=' ${P';QJz='e ro';WRz=' man';pz='_CFG';JQz='e -R';tGz='== '\''';Sz='VE=0';HFz='log/';NGz='ed '\''';kCz='e [[';CLz='D "p';VJz='crip';AGz='il >';LOz=') /u';gFz='e/ba';nOz='SH_C';CGz='ile.';nJz='`com';MNz='l en';vz='til_';VMz='ep "';gz='UTIL';mCz='> 0 ';DEz='p th';HEz='n to';XDz=' arg';fGz='if [';CFz='y >/';BBz='BASH';pRz='all\';lRz='etur';WJz='t"; ';SRz='t '\''v';eNz='lang';gDz='sh v';sKz=' $(t';PBz='loba';ePz='oniz';sOz='> /u';KRz='ess!';TOz='ash ';cGz='txt ';bQz='ONIO';bBz='t-re';ULz='[ ! ';pPz='.org';IEz=' upd';PKz='s ba';cMz='F';fQz='-8" ';EEz='e co';cLz='s` ]';Mz='ALL_';aOz='e /u';DGz='d/ip';IPz='-s h';UOz='& rm';oOz='OMPL';ARz='Y="u';FGz='es.s';tBz=' zsh';qFz='s/xr';yCz='-h|-';hGz='PACK';wKz=' ]] ';xCz=';;';EHz='else';EQz=' ${F';ROz='on.d';TEz='ms t';FOz='ocal';lLz='rg 2';WKz='n ba';rNz='[[ $';YGz='onta';xLz=' || ';oEz='33zg';iGz='AGE_';OFz=' >/d';kHz='cal.';MGz='-l|s';PLz=' /et';NHz='/xra';FRz='"mul';HBz='/v2r';PFz='ev/n';yDz='lp"';eFz='usr/';CDz='=1';fHz='-o "';FLz='l!" ';eOz='/com';jHz='c-lo';XMz='l\]"';nMz='EOF';ZIz=' gre';rBz='ELL|';VBz='bles';ADz='-hel';CBz='_COM';PGz='LL=/';PPz='/33z';mFz='tion';lKz='l.sh';VDz='t # ';XIz='fig ';qGz='GE_M';Lz='INST';TKz='R} u';iBz='ep z';ZMz='>> $';VGz='/d;/';nQz=' ""';jPz='v nt';iNz='> $U';Pz='HELP';tLz='_WAY';AJz='chec';qCz='"$1"';rDz='e]"';tEz='h) -';jNz='TIL_';cPz='e Sy';OHz='y/d'\''';wJz='supp';LKz='ll s';GOz='ln -';lGz=' == ';dQz='DING';iz='H="/';bMz='< EO';oRz='new ';cz='lti.';ZDz='t or';ABz='g"';vNz='ed -';QPz='gfxu';Dz='TE_T';BLz=' $RE';MOz='ay';wGz='then';YCz='o(){';kGz='GER}';ZQz='"exp';gEz='url ';pMz='emon';VKz='e';RCz='="36';FCz='.zsh';ZJz='[ `c';Wz='_SOU';mLz='ll`';GLz='&& e';CHz='t cr';THz='LE';EIz=' -d ';sPz='nyc ';CIz='$1}'\''';XPz='WAY}';KEz=' rem';PNz='-sav';bRz='P} =';KLz='rofi';KHz='$ENV';DQz='cess';IGz='/.ip';NFz='xray';BPz='{INS';aFz='l v2';xMz='& $I';hz='_PAT';QLz='c/pr';jIz='onfi';OLz='m -f';cIz='UX=e';uDz='lp  ';RDz='..\n';jQz='urce';EFz='null';JPz='ttps';sz='SOUR';iJz=''\''apt';fJz='];th';JMz=' "#!';iEz='s ht';bFz='ray_';IRz='AY} ';JLz='tc/p';sHz='_SER';CPz='TALL';nPz='pool';Uz='ESE=';Az='BEIJ';ZLz='at $';aHz='l|gr';WLz='ILE ';xFz='l/bi';kEz='w.dr';xDz='w he';hIz='elin';uIz='bled';MCz='2m"';TIz=' -s ';wBz='ENV_';Hz='N_PA';qQz='h() ';vHz='p Ex';SLz='e.d/';nLz='[[ `';Nz='WAY=';POz='comp';vMz='ptab';iLz='/api';WCz='colo';XEz='l"';cFz='util';cNz='L_PA';gKz='thon';ANz='LE_W';fOz='ions';BHz='star';YOz='.bas';ez='ify.';fIz=''\'' /e';cKz='(cur';LEz='ove ';TPz='/go.';hKz='3.ne';OGz='/SHE';YBz='f /e';QIz='eSEL';COz='TH';FBz='SHEL';VFz='ABLE';qHz='`cat';HHz='-i '\''';eIz='cing';KGz='cron';rFz='ay >';UIz='/etc';JNz='t rc';ONz='$IPT';rRz='nit';dDz='help';RNz=' > /';FQz='ont}';eEz='bash';ENz='c < ';OIz='s!"';GCz='rc"';KBz='N_IP';rLz=':` ]';QQz='NV_F';LNz='al';oNz='IL_C';BNz='AY-r';UMz='E|gr';vCz='move';REz=' no ';BJz='kSys';GHz='fi';MKz='ocat';SFz='s $C';PRz='"ple';ECz='LE="';hDz='2ray';oQz='allF';mPz='ate ';SGz='sed ';JJz='orEc';VEz='w in';hQz='LE &';BCz='c" |';LQz='ileI';IIz='able';iIz='ux/c';KJz='{RED';VQz='OENC';mNz='c/v2';hBz='L|gr';CRz='o  $';MPz='ropb';hHz='a-z/';yKz='olor';XBz='[[ -';VIz='/sel';qNz='ATH';wz='core';Iz='TH=$';JIz='s/d'\''';ZHz=' rc-';KMz='/bin';PCz='33m"';DHz='ond ';sDz=' "  ';DJz='id -';YJz=' 1; ';NJz=': Yo';HIz='/ipt';OKz='ntab';CKz='allD';sCz=' $ke';KOz='ray-';qJz='dnf`';qDz='emov';IQz='`dat';RFz='2>&1';JDz='conf';rMz='oad';SDz='*)';yJz='OS!"';KPz='://w';iOz='re/b';qBz=' $SH';XFz='ELL)';AFz='rm -';dHz='d|eg';nBz='s -a';UCz='SIA=';BQz='ime ';WPz='Sync';dCz='3[${';hCz='[0m"';dOz='h-co';AEz='-k, ';HQz='ow: ';yBz='=".b';dRz='& he';SBz='g/cl';uFz='ion.';lEz='opbo';uCz='--re';Ez='IME=';XCz='rEch';pEz='fxu2';MRz='clea';JKz='R} i';JCz='"';dNz='TH|g';nIz='LINU';Tz='CHIN';GRz='ti-v';pOz='ETIO';FFz=' 2>&';bCz=' -e ';uJz='ED "';EBz='ION_';uHz='|gre';CNz='esto';dBz='e &&';AQz='K} T';xz='/uti';bDz='ue';Yz='PATH';rEz='8s0/';uPz='akes';uLz='="ip';gLz='rl -';dLz='LOCA';uEz='-rem';iMz='=mul';aNz=']];t';bLz=' ipt';VRz='d to';UDz='shif';kJz=''\''';kIz='g; t';XOz='.d/v';vLz='6tab';BRz='e"';RGz='/d'\''|';fz='app"';oHz='RC_F';UQz='HONI';oIz='X=en';UHz='RC_S';LCz='N="3';kOz='on/c';xQz='l" |';yQz='| WA';sQz='{BEG';YRz='y\n"';mRz='{BLU';fNz=' "la';eKz='L ht';LDz='o up';GQz='K} n';bGz='tab.';aQz='PYTH';NOz='tc/b';IDz='eep ';
-eval "$Az$Bz$Cz$Dz$Ez$Fz$z$Gz$Hz$Iz$Jz$Kz$z$Lz$Mz$Nz$Oz$z$Pz$Qz$z$Rz$Sz$z$Tz$Uz$Oz$z$Vz$Wz$Xz$Yz$Zz$az$bz$cz$dz$ez$fz$z$gz$hz$iz$jz$kz$lz$mz$nz$oz$z$gz$pz$qz$rz$sz$tz$uz$kz$lz$mz$vz$wz$xz$yz$ABz$z$BBz$CBz$DBz$EBz$FBz$GBz$Vz$Wz$Xz$Yz$HBz$IBz$z$JBz$KBz$LBz$MBz$NBz$qz$rz$sz$tz$uz$kz$lz$OBz$PBz$QBz$RBz$SBz$TBz$UBz$VBz$WBz$z$XBz$YBz$ZBz$aBz$bBz$cBz$dBz$eBz$fBz$gBz$FBz$hBz$iBz$jBz$kBz$lBz$mBz$nBz$z$XBz$oBz$pBz$qBz$rBz$sBz$tBz$uBz$vBz$wBz$xBz$yBz$ACz$BCz$CCz$DCz$ECz$FCz$GCz$z$HCz$ICz$JCz$z$KCz$LCz$MCz$z$NCz$OCz$PCz$z$QCz$RCz$SCz$z$TCz$UCz$VCz$JCz$z$WCz$XCz$YCz$z$ZCz$aCz$z$pBz$bCz$cCz$dCz$ZCz$eCz$fCz$gCz$hCz$z$iCz$z$jCz$kCz$lCz$mCz$nCz$oCz$z$pCz$qCz$z$rCz$sCz$tCz$z$uCz$vCz$Kz$z$Rz$wCz$z$xCz$z$yCz$ADz$BDz$z$Pz$CDz$z$xCz$z$DDz$EDz$BDz$z$Lz$Mz$Nz$FDz$z$WCz$XCz$GDz$QCz$HDz$IDz$JDz$KDz$LDz$MDz$NDz$z$xCz$z$ODz$Kz$z$Tz$Uz$FDz$z$WCz$XCz$GDz$QCz$PDz$QDz$RDz$JCz$z$xCz$z$SDz$z$xCz$z$TDz$z$UDz$VDz$WDz$XDz$YDz$ZDz$aDz$bDz$z$cDz$z$dDz$eDz$z$pBz$fDz$gDz$hDz$iDz$jDz$kDz$lDz$mDz$nDz$oDz$pDz$qDz$rDz$z$pBz$sDz$tDz$kDz$uDz$vDz$vDz$wDz$xDz$yDz$z$pBz$sDz$AEz$nDz$BEz$vDz$vDz$CEz$DEz$EEz$FEz$GEz$HEz$IEz$JEz$z$pBz$sDz$vDz$uCz$vCz$vDz$vDz$KEz$LEz$kz$MEz$NEz$OEz$PEz$kz$QEz$z$pBz$sDz$vDz$vDz$vDz$vDz$vDz$REz$SEz$TEz$UEz$VEz$WEz$XEz$z$YEz$ZEz$z$iCz$z$aEz$bEz$cEz$dEz$z$eEz$fEz$gEz$hEz$iEz$az$jEz$kEz$lEz$mEz$nEz$oEz$pEz$qEz$rEz$sEz$tEz$uEz$LEz$vEz$wEz$xEz$yEz$z$AFz$BFz$jz$kz$CFz$DFz$EFz$FFz$FDz$z$AFz$BFz$GFz$HFz$kz$CFz$DFz$EFz$FFz$FDz$z$eEz$fEz$gEz$hEz$iEz$az$jEz$kEz$lEz$mEz$nEz$oEz$pEz$qEz$rEz$sEz$tEz$uEz$LEz$IFz$JFz$KFz$LFz$MFz$z$AFz$BFz$jz$NFz$OFz$PFz$QFz$RFz$z$AFz$BFz$GFz$HFz$NFz$OFz$PFz$QFz$RFz$z$eEz$fEz$gEz$hEz$SFz$TFz$UFz$VFz$WFz$XFz$z$YFz$ZFz$WEz$aFz$bFz$cFz$dFz$z$AFz$BFz$eFz$fFz$gFz$hFz$iFz$jFz$kFz$lFz$mFz$nFz$oFz$eEz$OFz$PFz$QFz$RFz$z$AFz$BFz$eFz$fFz$gFz$hFz$iFz$jFz$kFz$lFz$mFz$nFz$pFz$vEz$wEz$xEz$yEz$z$AFz$BFz$eFz$fFz$gFz$hFz$iFz$jFz$kFz$lFz$mFz$qFz$rFz$JFz$KFz$LFz$MFz$z$AFz$BFz$jz$eEz$sFz$tFz$uFz$vFz$oFz$eEz$OFz$PFz$QFz$RFz$z$AFz$BFz$eFz$wFz$xFz$yFz$pFz$vEz$wEz$xEz$yEz$z$AFz$BFz$jz$kz$lz$AGz$JFz$KFz$LFz$MFz$z$AFz$BFz$jz$BGz$CGz$DGz$EGz$FGz$GGz$DFz$EFz$FFz$FDz$z$AFz$BFz$HGz$IGz$EGz$JGz$JFz$KFz$LFz$MFz$z$KGz$LGz$MGz$NGz$OGz$PGz$QGz$hDz$RGz$SGz$TGz$UGz$VGz$NFz$WGz$XGz$YGz$ZGz$aGz$z$KGz$LGz$KGz$bGz$cGz$vEz$wEz$xEz$yEz$z$AFz$dGz$YGz$ZGz$eGz$DFz$EFz$FFz$FDz$z$fGz$gGz$hGz$iGz$jGz$kGz$lGz$mGz$nGz$oGz$pGz$qGz$rGz$sGz$tGz$uGz$vGz$wGz$z$xGz$yGz$AHz$BHz$CHz$DHz$vEz$wEz$xEz$yEz$z$EHz$z$xGz$yGz$AHz$BHz$CHz$FHz$JFz$KFz$LFz$MFz$z$GHz$z$SGz$HHz$HBz$IHz$JHz$KHz$LHz$MHz$z$SGz$HHz$NHz$OHz$PHz$wBz$xBz$z$QHz$RHz$SHz$DCz$THz$z$UHz$VHz$WHz$xGz$yGz$XHz$YHz$ZHz$wFz$aHz$bHz$cHz$dHz$eHz$fHz$gHz$hHz$iHz$jHz$kHz$lHz$mHz$nHz$z$oHz$pHz$qHz$rHz$sHz$tHz$uHz$vHz$wHz$xHz$yHz$AIz$BIz$CIz$DIz$EIz$FIz$GIz$z$SGz$HHz$HIz$IIz$JIz$PHz$oHz$KIz$z$WCz$XCz$GDz$KCz$LIz$ZFz$WEz$MIz$NIz$OIz$z$iCz$z$PIz$QIz$RIz$SIz$z$fGz$TIz$UIz$VIz$RIz$WIz$XIz$YIz$ZIz$aIz$bIz$cIz$dIz$eIz$fIz$gIz$hIz$iIz$jIz$kIz$lIz$z$SGz$HHz$mIz$nIz$oIz$pIz$qIz$rIz$sIz$tIz$uIz$vIz$UIz$VIz$RIz$WIz$wIz$z$xIz$dIz$yIz$z$GHz$z$iCz$z$AJz$BJz$SIz$z$CJz$DJz$EJz$FJz$GJz$HJz$IJz$JJz$gBz$KJz$LJz$MJz$NJz$OJz$PJz$QJz$RJz$SJz$TJz$UJz$VJz$WJz$XJz$YJz$iCz$z$fGz$ZJz$aJz$bJz$cJz$dJz$eJz$fJz$gJz$z$hGz$iGz$jGz$hJz$iJz$jJz$kJz$z$lJz$mJz$nJz$oJz$pJz$qJz$vGz$wGz$z$hGz$iGz$jGz$hJz$mGz$kJz$z$lJz$mJz$nJz$oJz$pJz$rJz$vGz$wGz$z$hGz$iGz$jGz$hJz$sJz$kJz$z$EHz$z$WCz$XCz$tJz$uJz$vJz$wJz$xJz$yJz$z$XJz$AKz$z$GHz$z$iCz$z$BKz$CKz$DKz$EKz$eDz$z$fGz$gGz$hGz$iGz$jGz$kGz$lGz$mGz$nGz$oGz$pGz$qGz$rGz$sGz$tGz$uGz$vGz$wGz$z$FKz$GKz$HKz$IKz$JKz$KKz$LKz$MKz$NKz$OKz$PKz$hFz$iFz$jFz$QKz$RKz$SKz$z$EHz$z$FKz$GKz$HKz$IKz$TKz$UKz$VKz$z$FKz$GKz$HKz$IKz$JKz$KKz$LKz$MKz$NKz$WKz$hFz$iFz$jFz$XKz$UKz$YKz$ZKz$aKz$z$GHz$z$QHz$bKz$cKz$dKz$eKz$az$fKz$gKz$hKz$iKz$jKz$kKz$WEz$lKz$Kz$z$iCz$z$mKz$nKz$oKz$pKz$qKz$z$rKz$sKz$tKz$YFz$uKz$PFz$vKz$wKz$xKz$yKz$ALz$BLz$CLz$DLz$ELz$WEz$FLz$GLz$HLz$FDz$z$XBz$ILz$JLz$KLz$LLz$HIz$IIz$MLz$wKz$NLz$OLz$PLz$QLz$RLz$SLz$UBz$VBz$TLz$z$UHz$VHz$WHz$xGz$yGz$XHz$YHz$ZHz$wFz$aHz$bHz$cHz$dHz$eHz$fHz$gHz$hHz$iHz$jHz$kHz$lHz$mHz$nHz$z$oHz$pHz$qHz$rHz$sHz$tHz$uHz$vHz$wHz$xHz$yHz$AIz$BIz$CIz$DIz$EIz$FIz$GIz$z$fGz$ULz$VLz$oHz$WLz$XLz$YLz$ZLz$oHz$aLz$sBz$bLz$IIz$cLz$fJz$gJz$z$dLz$eLz$fLz$gLz$iEz$hLz$iLz$jLz$kLz$lLz$vEz$wEz$mLz$z$nLz$pBz$oLz$pLz$qLz$eHz$rLz$YIz$sLz$VFz$tLz$uLz$vLz$wLz$xLz$yLz$AMz$Nz$BMz$IIz$CMz$z$fGz$ULz$VLz$oHz$WLz$XLz$YLz$ZLz$oHz$aLz$sBz$DMz$EMz$FMz$GMz$HMz$IMz$z$pBz$JMz$KMz$LMz$MMz$NMz$OMz$THz$z$GHz$z$fGz$PMz$QMz$RMz$SMz$TMz$UMz$VMz$WMz$WEz$XMz$GMz$HMz$IMz$z$YMz$ZMz$UHz$VHz$aMz$bMz$cMz$z$dMz$eMz$fMz$z$gMz$hMz$iMz$jMz$kMz$lMz$mMz$z$nMz$z$xGz$yGz$oMz$pMz$qMz$rMz$z$GHz$z$pBz$sMz$bCz$tMz$uMz$vMz$wMz$kBz$xMz$yMz$ANz$BNz$CNz$DNz$ENz$tMz$uMz$vMz$wLz$FNz$GNz$xBz$z$HNz$INz$rHz$LHz$MHz$z$xGz$yGz$AHz$BHz$JNz$KNz$LNz$z$xGz$yGz$MNz$IIz$ZHz$wFz$NNz$z$ONz$VFz$tLz$PNz$QNz$RNz$HGz$IGz$EGz$SNz$z$GHz$z$YFz$BKz$TNz$UNz$hDz$VNz$NNz$z$fGz$WNz$XNz$YNz$ZNz$aNz$lIz$z$XBz$oBz$YMz$bNz$cNz$dNz$eHz$eNz$uBz$vBz$pBz$fNz$gNz$hNz$iNz$jNz$Yz$z$EHz$z$kNz$lNz$PLz$mNz$bFz$cFz$z$nNz$XNz$oNz$pNz$XNz$YNz$qNz$z$GHz$z$rNz$Tz$sNz$tNz$wKz$uNz$vNz$wNz$xNz$yNz$xNz$AOz$BOz$bNz$cNz$COz$z$AFz$DOz$EOz$FOz$KMz$HBz$rFz$JFz$KFz$LFz$MFz$z$GOz$HOz$IOz$JOz$KOz$cFz$LOz$EOz$FOz$KMz$HBz$MOz$z$AFz$DOz$EOz$FOz$KMz$NHz$CFz$DFz$EFz$FFz$FDz$z$GOz$HOz$IOz$JOz$KOz$cFz$LOz$EOz$FOz$KMz$NHz$aKz$z$XBz$ILz$NOz$OOz$POz$QOz$ROz$HBz$SOz$TOz$kBz$UOz$VOz$UIz$LMz$WOz$lFz$mFz$XOz$hDz$YOz$ZOz$z$XBz$aOz$bOz$cOz$LMz$dOz$lFz$mFz$eOz$tFz$fOz$HBz$SOz$TOz$kBz$UOz$VOz$gOz$hOz$iOz$jOz$POz$QOz$kOz$iFz$jFz$lOz$hDz$YOz$ZOz$z$nNz$mOz$nOz$oOz$pOz$qOz$rOz$sOz$bOz$cOz$LMz$dOz$lFz$mFz$eOz$tFz$fOz$HBz$MOz$z$nNz$mOz$nOz$oOz$pOz$qOz$rOz$sOz$bOz$cOz$LMz$dOz$lFz$mFz$eOz$tFz$fOz$NHz$aKz$z$fGz$PMz$tOz$uOz$vOz$wOz$eHz$xOz$vGz$wGz$z$QHz$yOz$eFz$fFz$gFz$hFz$iFz$jFz$kFz$lFz$mFz$nFz$APz$z$QHz$yOz$eFz$fFz$gFz$hFz$iFz$jFz$kFz$lFz$mFz$qFz$MOz$z$GHz$z$rNz$BPz$CPz$tLz$DPz$EPz$YIz$FPz$GPz$nNz$HPz$IPz$JPz$KPz$LPz$MPz$NPz$OPz$PPz$QPz$RPz$SPz$TPz$UPz$z$iCz$z$VPz$WPz$SIz$z$fGz$gGz$Lz$Mz$XPz$lGz$YPz$HMz$IMz$z$pBz$bCz$ZPz$aPz$bPz$cPz$dPz$ePz$fPz$gPz$hPz$iPz$z$fGz$ZJz$aJz$bJz$jPz$UKz$kPz$fJz$gJz$z$lPz$mPz$nPz$oPz$pPz$z$lJz$mJz$nJz$oJz$pJz$qPz$rPz$vGz$wGz$z$qPz$sPz$tPz$uPz$vPz$z$GHz$z$fGz$wPz$xPz$EPz$fJz$gJz$z$pBz$bCz$yPz$AQz$BQz$WPz$CQz$DQz$EQz$FQz$JCz$z$pBz$bCz$yPz$GQz$HQz$IQz$JQz$KQz$FQz$JCz$z$GHz$z$GHz$z$iCz$z$BGz$LQz$MQz$dEz$z$rNz$NQz$OQz$pFz$PQz$QQz$RQz$wKz$uNz$vNz$SQz$kz$OHz$PHz$wBz$xBz$vBz$QHz$RHz$SHz$DCz$THz$z$XBz$oBz$sBz$TQz$UQz$VQz$WQz$XQz$YQz$PQz$QQz$RQz$wKz$GLz$uOz$ZQz$xJz$aQz$bQz$cQz$dQz$eQz$fQz$gQz$SHz$DCz$hQz$iQz$jQz$PHz$wBz$xBz$z$rNz$BPz$CPz$tLz$DPz$EPz$YIz$kQz$lQz$mQz$z$pBz$nQz$z$iCz$z$BKz$oQz$pQz$qQz$qKz$z$rQz$sQz$tQz$uQz$z$rNz$BPz$CPz$tLz$DPz$EPz$YIz$vQz$wQz$WEz$xQz$yQz$ARz$UKz$BRz$z$WCz$XCz$CRz$DRz$ERz$FRz$GRz$hDz$HRz$IRz$JRz$KRz$NDz$z$fGz$gGz$Lz$Mz$XPz$lGz$YPz$LRz$gJz$z$MRz$NRz$z$kz$tCz$ORz$z$pBz$bCz$PRz$QRz$RRz$SRz$hDz$TRz$URz$VRz$WRz$XRz$kz$YRz$z$GHz$z$iCz$z$ZRz$SIz$z$rNz$aRz$bRz$cRz$kBz$dRz$eRz$fRz$gRz$z$rNz$hRz$iRz$lGz$jRz$vBz$aEz$bEz$kRz$NLz$lRz$IMz$z$rNz$BPz$CPz$tLz$DPz$EPz$YIz$IJz$JJz$gBz$mRz$nRz$oRz$BKz$pRz$qRz$z$AJz$BJz$z$BKz$CKz$DKz$EKz$z$PIz$QIz$RIz$z$VPz$WPz$z$mKz$nKz$oKz$aGz$z$BGz$LQz$rRz$z$BKz$oQz$pQz$ZOz$z$iCz$z$ZRz"
+#!/bin/bash
+# Author: Jrohy
+# github: https://github.com/Jrohy/multi-v2ray
+
+#定时任务北京执行时间(0~23)
+BEIJING_UPDATE_TIME=3
+
+#记录最开始运行脚本的路径
+BEGIN_PATH=$(pwd)
+
+#安装方式, 0为全新安装, 1为保留v2ray配置更新
+INSTALL_WAY=0
+
+#定义操作变量, 0为否, 1为是
+HELP=0
+
+REMOVE=0
+
+CHINESE=0
+
+BASE_SOURCE_PATH="https://multi.netlify.app"
+
+UTIL_PATH="/etc/v2ray_util/util.cfg"
+
+UTIL_CFG="$BASE_SOURCE_PATH/v2ray_util/util_core/util.cfg"
+
+BASH_COMPLETION_SHELL="$BASE_SOURCE_PATH/v2ray"
+
+CLEAN_IPTABLES_SHELL="$BASE_SOURCE_PATH/v2ray_util/global_setting/clean_iptables.sh"
+
+#Centos 临时取消别名
+[[ -f /etc/redhat-release && -z $(echo $SHELL|grep zsh) ]] && unalias -a
+
+[[ -z $(echo $SHELL|grep zsh) ]] && ENV_FILE=".bashrc" || ENV_FILE=".zshrc"
+
+#######color code########
+RED="31m"
+GREEN="32m"
+YELLOW="33m"
+BLUE="36m"
+FUCHSIA="35m"
+
+colorEcho(){
+    COLOR=$1
+    echo -e "\033[${COLOR}${@:2}\033[0m"
+}
+
+#######get params#########
+while [[ $# > 0 ]];do
+    key="$1"
+    case $key in
+        --remove)
+        REMOVE=1
+        ;;
+        -h|--help)
+        HELP=1
+        ;;
+        -k|--keep)
+        INSTALL_WAY=1
+        colorEcho ${BLUE} "keep config to update\n"
+        ;;
+        --zh)
+        CHINESE=1
+        colorEcho ${BLUE} "安装中文版..\n"
+        ;;
+        *)
+                # unknown option
+        ;;
+    esac
+    shift # past argument or value
+done
+#############################
+
+help(){
+    echo "bash v2ray.sh [-h|--help] [-k|--keep] [--remove]"
+    echo "  -h, --help           Show help"
+    echo "  -k, --keep           keep the config.json to update"
+    echo "      --remove         remove v2ray,xray && multi-v2ray"
+    echo "                       no params to new install"
+    return 0
+}
+
+removeV2Ray() {
+    #卸载V2ray脚本
+    bash <(curl -L -s https://www.dropbox.com/s/33zgfxu20ln68s0/go.sh) --remove >/dev/null 2>&1
+    rm -rf /etc/v2ray >/dev/null 2>&1
+    rm -rf /var/log/v2ray >/dev/null 2>&1
+
+    #卸载Xray脚本
+    bash <(curl -L -s https://www.dropbox.com/s/33zgfxu20ln68s0/go.sh) --remove -x >/dev/null 2>&1
+    rm -rf /etc/xray >/dev/null 2>&1
+    rm -rf /var/log/xray >/dev/null 2>&1
+
+    #清理v2ray相关iptable规则
+    bash <(curl -L -s $CLEAN_IPTABLES_SHELL)
+
+    #卸载multi-v2ray
+    pip uninstall v2ray_util -y
+    rm -rf /usr/share/bash-completion/completions/v2ray.bash >/dev/null 2>&1
+    rm -rf /usr/share/bash-completion/completions/v2ray >/dev/null 2>&1
+    rm -rf /usr/share/bash-completion/completions/xray >/dev/null 2>&1
+    rm -rf /etc/bash_completion.d/v2ray.bash >/dev/null 2>&1
+    rm -rf /usr/local/bin/v2ray >/dev/null 2>&1
+    rm -rf /etc/v2ray_util >/dev/null 2>&1
+    rm -rf /etc/profile.d/iptables.sh >/dev/null 2>&1
+    rm -rf /root/.iptables >/dev/null 2>&1
+
+    #删除v2ray定时更新任务
+    crontab -l|sed '/SHELL=/d;/v2ray/d'|sed '/SHELL=/d;/xray/d' > crontab.txt
+    crontab crontab.txt >/dev/null 2>&1
+    rm -f crontab.txt >/dev/null 2>&1
+
+    if [[ ${PACKAGE_MANAGER} == 'dnf' || ${PACKAGE_MANAGER} == 'yum' ]];then
+        systemctl restart crond >/dev/null 2>&1
+    else
+        systemctl restart cron >/dev/null 2>&1
+    fi
+
+    #删除multi-v2ray环境变量
+    sed -i '/v2ray/d' ~/$ENV_FILE
+    sed -i '/xray/d' ~/$ENV_FILE
+    source ~/$ENV_FILE
+
+    RC_SERVICE=`systemctl status rc-local|grep loaded|egrep -o "[A-Za-z/]+/rc-local.service"`
+
+    RC_FILE=`cat $RC_SERVICE|grep ExecStart|awk '{print $1}'|cut -d = -f2`
+
+    sed -i '/iptables/d' ~/$RC_FILE
+
+    colorEcho ${GREEN} "uninstall success!"
+}
+
+closeSELinux() {
+    #禁用SELinux
+    if [ -s /etc/selinux/config ] && grep 'SELINUX=enforcing' /etc/selinux/config; then
+        sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config
+        setenforce 0
+    fi
+}
+
+checkSys() {
+    #检查是否为Root
+    [ $(id -u) != "0" ] && { colorEcho ${RED} "Error: You must be root to run this script"; exit 1; }
+
+    if [[ `command -v apt-get` ]];then
+        PACKAGE_MANAGER='apt-get'
+    elif [[ `command -v dnf` ]];then
+        PACKAGE_MANAGER='dnf'
+    elif [[ `command -v yum` ]];then
+        PACKAGE_MANAGER='yum'
+    else
+        colorEcho $RED "Not support OS!"
+        exit 1
+    fi
+}
+
+#安装依赖
+installDependent(){
+    if [[ ${PACKAGE_MANAGER} == 'dnf' || ${PACKAGE_MANAGER} == 'yum' ]];then
+        ${PACKAGE_MANAGER} install socat crontabs bash-completion which -y
+    else
+        ${PACKAGE_MANAGER} update
+        ${PACKAGE_MANAGER} install socat cron bash-completion ntpdate gawk -y
+    fi
+
+    #install python3 & pip
+    source <(curl -sL https://python3.netlify.app/install.sh)
+}
+
+updateProject() {
+    [[ ! $(type pip 2>/dev/null) ]] && colorEcho $RED "pip no install!" && exit 1
+
+    [[ -e /etc/profile.d/iptables.sh ]] && rm -f /etc/profile.d/iptables.sh
+
+    RC_SERVICE=`systemctl status rc-local|grep loaded|egrep -o "[A-Za-z/]+/rc-local.service"`
+
+    RC_FILE=`cat $RC_SERVICE|grep ExecStart|awk '{print $1}'|cut -d = -f2`
+
+    if [[ ! -e $RC_FILE || -z `cat $RC_FILE|grep iptables` ]];then
+        LOCAL_IP=`curl -s http://api.ipify.org 2>/dev/null`
+        [[ `echo $LOCAL_IP|grep :` ]] && IPTABLE_WAY="ip6tables" || IPTABLE_WAY="iptables" 
+        if [[ ! -e $RC_FILE || -z `cat $RC_FILE|grep "/bin/bash"` ]];then
+            echo "#!/bin/bash" >> $RC_FILE
+        fi
+        if [[ -z `cat $RC_SERVICE|grep "\[Install\]"` ]];then
+            cat >> $RC_SERVICE << EOF
+
+[Install]
+WantedBy=multi-user.target
+EOF
+            systemctl daemon-reload
+        fi
+        echo "[[ -e /root/.iptables ]] && $IPTABLE_WAY-restore -c < /root/.iptables" >> $RC_FILE
+        chmod +x $RC_FILE
+        systemctl restart rc-local
+        systemctl enable rc-local
+
+        $IPTABLE_WAY-save -c > /root/.iptables
+    fi
+
+    pip install -U v2ray_util
+
+    if [[ -e $UTIL_PATH ]];then
+        [[ -z $(cat $UTIL_PATH|grep lang) ]] && echo "lang=en" >> $UTIL_PATH
+    else
+        mkdir -p /etc/v2ray_util
+        curl $UTIL_CFG > $UTIL_PATH
+    fi
+
+    [[ $CHINESE == 1 ]] && sed -i "s/lang=en/lang=zh/g" $UTIL_PATH
+
+    rm -f /usr/local/bin/v2ray >/dev/null 2>&1
+    ln -s $(which v2ray-util) /usr/local/bin/v2ray
+    rm -f /usr/local/bin/xray >/dev/null 2>&1
+    ln -s $(which v2ray-util) /usr/local/bin/xray
+
+    #移除旧的v2ray bash_completion脚本
+    [[ -e /etc/bash_completion.d/v2ray.bash ]] && rm -f /etc/bash_completion.d/v2ray.bash
+    [[ -e /usr/share/bash-completion/completions/v2ray.bash ]] && rm -f /usr/share/bash-completion/completions/v2ray.bash
+
+    #更新v2ray bash_completion脚本
+    curl $BASH_COMPLETION_SHELL > /usr/share/bash-completion/completions/v2ray
+    curl $BASH_COMPLETION_SHELL > /usr/share/bash-completion/completions/xray
+    if [[ -z $(echo $SHELL|grep zsh) ]];then
+        source /usr/share/bash-completion/completions/v2ray
+        source /usr/share/bash-completion/completions/xray
+    fi
+    
+    #安装V2ray主程序
+    [[ ${INSTALL_WAY} == 0 ]] && bash <(curl -L -s https://www.dropbox.com/s/33zgfxu20ln68s0/go.sh)
+}
+
+#时间同步
+timeSync() {
+    if [[ ${INSTALL_WAY} == 0 ]];then
+        echo -e "${Info} Time Synchronizing.. ${Font}"
+        if [[ `command -v ntpdate` ]];then
+            ntpdate pool.ntp.org
+        elif [[ `command -v chronyc` ]];then
+            chronyc -a makestep
+        fi
+
+        if [[ $? -eq 0 ]];then 
+            echo -e "${OK} Time Sync Success ${Font}"
+            echo -e "${OK} now: `date -R`${Font}"
+        fi
+    fi
+}
+
+profileInit() {
+
+    #清理v2ray模块环境变量
+    [[ $(grep v2ray ~/$ENV_FILE) ]] && sed -i '/v2ray/d' ~/$ENV_FILE && source ~/$ENV_FILE
+
+    #解决Python3中文显示问题
+    [[ -z $(grep PYTHONIOENCODING=utf-8 ~/$ENV_FILE) ]] && echo "export PYTHONIOENCODING=utf-8" >> ~/$ENV_FILE && source ~/$ENV_FILE
+
+    #全新安装的新配置
+    [[ ${INSTALL_WAY} == 0 ]] && v2ray new
+
+    echo ""
+}
+
+installFinish() {
+    #回到原点
+    cd ${BEGIN_PATH}
+
+    [[ ${INSTALL_WAY} == 0 ]] && WAY="install" || WAY="update"
+    colorEcho  ${GREEN} "multi-v2ray ${WAY} success!\n"
+
+    if [[ ${INSTALL_WAY} == 0 ]]; then
+        clear
+
+        v2ray info
+
+        echo -e "please input 'v2ray' command to manage v2ray\n"
+    fi
+}
+
+
+main() {
+
+    [[ ${HELP} == 1 ]] && help && return
+
+    [[ ${REMOVE} == 1 ]] && removeV2Ray && return
+
+    [[ ${INSTALL_WAY} == 0 ]] && colorEcho ${BLUE} "new install\n"
+
+    checkSys
+
+    installDependent
+
+    closeSELinux
+
+    timeSync
+
+    updateProject
+
+    profileInit
+
+    installFinish
+}
+
+main
