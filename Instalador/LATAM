@@ -4,7 +4,7 @@
 clear && clear
 colores="$(pwd)/colores"
 rm -rf ${colores}
-wget -O ${colores} "https://raw.githubusercontent.com/NetVPS/LATAM/main/Install/colores" &>/dev/null
+wget -O ${colores} "https://raw.githubusercontent.com/NetVPS/LATAM_Oficial/main/Ejecutables/colores" &>/dev/null
 [[ ! -e ${colores} ]] && exit
 chmod +x ${colores} &>/dev/null
 source ${colores}
