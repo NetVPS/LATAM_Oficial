@@ -2222,6 +2222,284 @@ recuperar_base() {
 
 }
 
+#--- CHEKER USER APKS
+chekc_users() {
+  clear && clear
+  msg -bar2
+  msg -tit
+  msg -bar2
+  msg -ama "                   CHECK USER APKS"
+  msg -bar2
+  verif_ptrs() {
+    porta=$1
+    PT=$(lsof -V -i tcp -P -n | grep -v "ESTABLISHED" | grep -v "COMMAND" | grep "LISTEN")
+    for pton in $(echo -e "$PT" | cut -d: -f2 | cut -d' ' -f1 | uniq); do
+      svcs=$(echo -e "$PT" | grep -w "$pton" | awk '{print $1}' | uniq)
+      [[ "$porta" = "$pton" ]] && {
+        echo -e "\n\033[1;31mPUERTO \033[1;33m$porta \033[1;31mEN USO PELO \033[1;37m$svcs\033[0m"
+        sleep 3
+        fun_initcheck
+      }
+    done
+  }
+
+  fun_bar() {
+    comando[0]="$1"
+    comando[1]="$2"
+    (
+      [[ -e $HOME/fim ]] && rm $HOME/fim
+      ${comando[0]} >/dev/null 2>&1
+      ${comando[1]} >/dev/null 2>&1
+      touch $HOME/fim
+    ) >/dev/null 2>&1 &
+    tput civis
+    echo -ne "\033[1;33m       ESPERE \033[1;37m- \033[1;33m["
+    while true; do
+      for ((i = 0; i < 18; i++)); do
+        echo -ne "\033[1;31m#"
+        sleep 0.1s
+      done
+      [[ -e $HOME/fim ]] && rm $HOME/fim && break
+      echo -e "\033[1;33m]"
+      sleep 1s
+      tput cuu1
+      tput dl1
+      echo -ne "\033[1;33m       ESPERE \033[1;37m- \033[1;33m["
+    done
+    echo -e "\033[1;33m]\033[1;37m -\033[1;32m OK !\033[1;37m"
+    tput cnorm
+  }
+
+  fun_initcheck() {
+
+    var_sks1=$(ps x | grep "checkuser" | grep -v grep >/dev/null && echo -e "\033[1;32m ON " || echo -e "\033[1;31mOFF ")
+    var_sks2=$(ps x | grep "4gcheck" | grep -v grep >/dev/null && echo -e "\033[1;32m   ON " || echo -e "\033[1;31m  OFF ")
+    echo ""
+    echo -e "     \033[1;31m[\033[1;36m 1 \033[1;31m] \033[1;37m• \033[1;33mACTIVAR CHECKUSER (BASICO) $var_sks1 \033[0m"
+    echo -e "     \033[1;31m[\033[1;36m 2 \033[1;31m] \033[1;37m• \033[1;33mACTIVAR CHECKUSER (PLUS) $var_sks2 \033[0m"
+    echo -e "     \033[1;31m[\033[1;36m 0 \033[1;31m] \033[1;37m• \033[1;31mCANCELAR\033[0m"
+    echo ""
+    echo -ne "\033[1;32mQUE DESEA REALIZAR \033[1;33m?\033[1;37m "
+    read resposta
+    if [[ "$resposta" = '1' ]]; then
+      if ps x | grep -w checkuser | grep -v grep 1>/dev/null 2>/dev/null; then
+        echo ""
+        echo -e "\E[1;92m                 CHECKUSER(BASICO)              \E[0m"
+        echo ""
+        fun_stopbad() {
+          screen -r -S "checkuser" -X quit
+          [[ $(grep -wc "check.py" /etc/autostart) != '0' ]] && {
+            sed -i '/check.py/d' /etc/autostart
+          }
+          sleep 1
+          screen -wipe >/dev/null
+        }
+        echo -e "           \033[1;91mDESACTIVANDO CHECKUSER(BASICO)\033[1;33m"
+        fun_stopbad
+        echo ""
+        msg -bar
+        read -t 60 -n 1 -rsp $'\033[1;39m       << Presiona enter para Continuar >>\n'
+        herramientas_fun
+      else
+        echo ""
+        echo -e "\e[48;5;40m\e[38;5;0m            ACTIVANDO CHECKUSER (BASICO)           \E[0m"
+        echo ""
+        echo -ne "\033[1;97mCUAL \033[1;91mPUERTO \033[1;32mDESEA ULTILIZAR \033[1;33m?\033[1;37m: "
+        read porta
+        [[ $porta != ?(+|-)+([0-9]) ]] && {
+          echo ""
+          echo -e "\033[1;31mPuerto Invalido!"
+          sleep 3
+          clear
+          fun_initcheck
+        }
+        verif_ptrs $porta
+        fun_check() {
+          screen -dmS checkuser python3 /etc/SCRIPT-LATAM/filespy/check.py $porta 1
+          [[ $(grep -wc "check.py" /etc/autostart) = '0' ]] && {
+            echo -e "netstat -tlpn | grep -w $porta > /dev/null || {  screen -r -S 'ws' -X quit;  screen -dmS checkuser python3 /etc/SCRIPT-LATAM/filespy/check.py $porta 1; }" >>/etc/autostart
+          } || {
+            sed -i '/check.py/d' /etc/autostart
+            echo -e "netstat -tlpn | grep -w $porta > /dev/null || {  screen -r -S 'ws' -X quit;  screen -dmS checkuser python3 /etc/SCRIPT-LATAM/filespy/check.py $porta 1; }" >>/etc/autostart
+          }
+          sleep 1
+        }
+
+        fun_check2() {
+          screen -dmS checkuser python3 /etc/SCRIPT-LATAM/filespy/4gcheck.py $porta 2
+          [[ $(grep -wc "4gcheck.py" /etc/autostart) = '0' ]] && {
+            echo -e "netstat -tlpn | grep -w $porta > /dev/null || {  screen -r -S 'ws' -X quit;  screen -dmS checkuser python3 /etc/SCRIPT-LATAM/filespy/check.py $porta 2; }" >>/etc/autostart
+          } || {
+            sed -i '/4gcheck.py/d' /etc/autostart
+            echo -e "netstat -tlpn | grep -w $porta > /dev/null || {  screen -r -S 'ws' -X quit;  screen -dmS checkuser python3 /etc/SCRIPT-LATAM/filespy/check.py $porta 2; }" >>/etc/autostart
+          }
+          sleep 1
+        }
+        echo ""
+        echo -e "\033[1;97mSELECIONE TIPO DE FORMATO.\033[0m"
+        echo ""
+        echo -e "\033[1;31m[\033[1;36m1\033[1;31m] \033[1;37m• \033[1;33mFORMATO YYYY/MM/DD (MAS COMUN)\033[0m"
+        echo -e "\033[1;31m[\033[1;36m2\033[1;31m] \033[1;37m• \033[1;33mFORMATO DD/MM/YYYY\033[0m"
+        echo ""
+        echo -ne "\033[1;36mOpcion: \033[1;37m"
+        read resposta
+        if [[ "$resposta" = '1' ]]; then
+          echo ""
+          fun_bar 'fun_check'
+        elif [[ "$resposta" = '2' ]]; then
+          echo ""
+          fun_bar 'fun_check2'
+        else
+          echo ""
+          echo -e "\033[1;31mOpcion Invalida !\033[0m"
+          sleep 3
+          fun_initcheck
+        fi
+        echo ""
+        echo -e "\033[1;32m     CHECKUSER(BASICO) ACTIVADO CON EXITO\033[1;33m"
+        echo ""
+        echo -e "     URL: \033[1;97mhttp://$(meu_ip):$porta/checkUser"
+        echo ""
+        msg -bar
+        read -t 60 -n 1 -rsp $'\033[1;39m       << Presiona enter para Continuar >>\n'
+        herramientas_fun
+      fi
+    elif [[ "$resposta" = '2' ]]; then
+      if ps x | grep -w 4gcheck | grep -v grep 1>/dev/null 2>/dev/null; then
+        echo ""
+        echo -e "\E[1;92m                  CHECKUSER(PLUS)              \E[0m"
+        echo ""
+        fun_stopbad() {
+          screen -r -S "4gcheck" -X quit
+          [[ $(grep -wc "4gcheck.py" /etc/autostart) != '0' ]] && {
+            sed -i '/4gcheck.py/d' /etc/autostart
+          }
+          sleep 1
+          screen -wipe >/dev/null
+        }
+                echo -e "           \033[1;91mDESACTIVANDO CHECKUSER(PLUS)\033[1;33m"
+        fun_stopbad
+        echo ""
+        msg -bar
+        read -t 60 -n 1 -rsp $'\033[1;39m       << Presiona enter para Continuar >>\n'
+        herramientas_fun
+      else
+        echo ""
+        echo -e "\e[48;5;40m\e[38;5;0m            ACTIVANDO CHECKUSER (PLUS)           \E[0m"
+        echo ""
+        echo -ne "\033[1;97mCUAL \033[1;91mPUERTO \033[1;32mDESEA ULTILIZAR \033[1;33m?\033[1;37m: "
+        read porta
+        [[ $porta != ?(+|-)+([0-9]) ]] && {
+          echo ""
+          echo -e "\033[1;31mPuerto Invalido!"
+          sleep 3
+
+          fun_initcheck
+        }
+        verif_ptrs $porta
+        fun_udpon() {
+          screen -dmS 4gcheck python3 /etc/SCRIPT-LATAM/filespy/4gcheck.py $porta
+          [[ $(grep -wc "4gcheck.py" /etc/autostart) = '0' ]] && {
+            echo -e "netstat -tlpn | grep -w $porta > /dev/null || {  screen -r -S 'ws' -X quit;  screen -dmS checkuser python3 /etc/SCRIPT-LATAM/filespy/4gcheck.py $porta; }" >>/etc/autostart
+          } || {
+            sed -i '/check.py/d' /etc/autostart
+            echo -e "netstat -tlpn | grep -w $porta > /dev/null || {  screen -r -S 'ws' -X quit;  screen -dmS checkuser python3 /etc/SCRIPT-LATAM/filespy/4gcheck.py $porta; }" >>/etc/autostart
+          }
+          sleep 1
+        }
+        echo ""
+        fun_bar 'fun_udpon'
+        echo ""
+        echo -e "\033[1;32m       CHECKUSER(PLUS) ACTIVADO CON EXITO\033[1;33m"
+        echo ""
+        echo -e "     URL: \033[1;97mhttp://$(meu_ip):$porta/checkUser"
+        echo ""
+        msg -bar
+        read -t 60 -n 1 -rsp $'\033[1;39m       << Presiona enter para Continuar >>\n'
+        herramientas_fun
+      fi
+    elif [[ "$resposta" = '0' ]]; then
+      msg -bar
+      read -t 60 -n 1 -rsp $'\033[1;39m       << Presiona enter para Continuar >>\n'
+      herramientas_fun
+    else
+      echo ""
+      echo -e "\033[1;31mOpcao invalida !\033[0m"
+      sleep 1
+      fun_initcheck
+    fi
+  }
+
+  inst_depedencias() {
+    # ehck installed pip3
+    if ! [ -x "$(command -v pip3)" ]; then
+      echo 'Error: pip3 no esta instalado.' >&2
+      echo 'Instale pip3 .' >&2
+
+      if ! apt-get install -y python3-pip; then
+        echo 'Erro ao instalar pip3' >&2
+        exit 1
+      else
+        echo 'Instalado pip3 con exito'
+      fi
+    fi
+
+    # install flask
+    pip3 install flask >/dev/null 2>&1
+
+    # download check.py
+    [[ -e "/etc/SCRIPT-LATAM/filespy/check.py" ]] && {
+      sleep 0.1
+    } || {
+      cd $HOME
+      wget https://raw.githubusercontent.com/NetVPS/LATAM_Oficial/main/Ejecutables/check.py -o /dev/null
+      mv -f $HOME/check.py /etc/SCRIPT-LATAM/filespy/check.py
+    }
+
+    [[ -e "/etc/SCRIPT-LATAM/filespy/4gcheck.py" ]] && {
+      sleep 0.1
+    } || {
+      cd $HOME
+      wget https://raw.githubusercontent.com/NetVPS/LATAM_Oficial/main/Ejecutables/4gcheck.py -o /dev/null
+      mv -f $HOME/4gcheck.py /etc/SCRIPT-LATAM/filespy/4gcheck.py
+    }
+
+    [[ -e "/bin/check" ]] && {
+      sleep 0.1
+    } || {
+      cd $HOME
+      wget https://raw.githubusercontent.com/NetVPS/LATAM_Oficial/main/Ejecutables/check -o /dev/null
+      mv -f $HOME/check /bin/check
+      chmod 777 /bin/check
+    }
+  }
+
+  [[ -e "/etc/SCRIPT-LATAM/filespy/check.py" ]] && [[ -e "/etc/SCRIPT-LATAM/filespy/4gcheck.py" ]] && [[ -e "/bin/check" ]] && {
+    fun_initcheck
+  } || {
+
+    echo -e "\n\033[1;97m     SE INSTALARA EL WEBHOOK  DE APK PERSONALES \033[0m"
+    echo ""
+    echo -ne "\033[1;32m     Proceder con la Instalacion ? \033[1;33m[\033[1;97ms \033[1;37m/ n\033[1;33m]:\033[1;32m "
+    read resposta
+    [[ "$resposta" = 's' ]] && {
+      echo -e "\n\033[1;32m                 Instalando CHECKUSER"
+      echo ""
+      fun_bar 'inst_depedencias'
+      fun_initcheck
+    } || {
+      msg -bar
+      read -t 60 -n 1 -rsp $'\033[1;39m       << Presiona enter para Continuar >>\n'
+      herramientas_fun
+    }
+  }
+
+  msg -bar
+  read -t 60 -n 1 -rsp $'\033[1;39m       << Presiona enter para Continuar >>\n'
+  herramientas_fun
+
+}
+
 #---FUNCION HERRAMIENTAS
 herramientas_fun() {
   clear && clear
@@ -2231,13 +2509,17 @@ herramientas_fun() {
   msg -bar2
   msg -ama "                MENU DE HERRAMIENTAS"
   msg -bar2
+  var_sks1=$(ps x | grep "checkuser" | grep -v grep >/dev/null && echo -e "\033[1;32m ON BASICO" || echo -e "\033[1;31mOFF BASICO")
+  var_sks2=$(ps x | grep "4gcheck" | grep -v grep >/dev/null && echo -e "\033[1;32mON PLUS" || echo -e "\033[1;31mOFF PLUS ")
   local Numb=1
-
   echo -e " \e[1;93m[\e[1;32m$Numb\e[1;93m]\033[1;31m >\033[1;97m GESTOR DE CUENTAS VIA BOT TELEGRAM "
   script[$Numb]="LATAMbot.sh"
   let Numb++
   echo -e " \e[1;93m[\e[1;32m$Numb\e[1;93m]\033[1;31m >\033[1;97m FIX BASE DE USER      "
   script[$Numb]="fixbaseuser"
+  let Numb++
+  echo -e " \e[1;93m[\e[1;32m$Numb\e[1;93m]\033[1;31m >\033[1;97m CHECK USER APK [ $var_sks1 \033[1;97m| $var_sks2\033[1;97m]     "
+  script[$Numb]="chekcusers"
   #echo -e "\033[1;93m--------------------OPTIMIZADORES-------------------"
   echo -e "\033[1;93m--------------------- EXTRAS -----------------------"
   let Numb++
@@ -2264,13 +2546,13 @@ herramientas_fun() {
   echo -ne " \e[1;93m[\e[1;32m$Numb\e[1;93m]\033[1;31m >\033[1;97m AJUSTES INTERNOS      "
   script[$Numb]="ajustein"
   let Numb++
-  echo -e " \e[1;93m[\e[1;32m$Numb\e[1;93m]\033[1;31m >\033[1;97m HORARIO LOCAL      "
+  echo -e "\e[1;93m[\e[1;32m$Numb\e[1;93m]\033[1;31m >\033[1;97m HORARIO LOCAL      "
   script[$Numb]="horalocal"
   let Numb++
-  echo -ne "\e[1;93m[\e[1;32m$Numb\e[1;93m]\033[1;31m >\033[1;97m AGREGAR DNS UNLOCK'S  "
+  echo -ne " \e[1;93m[\e[1;32m$Numb\e[1;93m]\033[1;31m >\033[1;97m AGREGAR DNS UNLOCK'S  "
   script[$Numb]="dnsunlock"
   let Numb++
-  echo -e "\e[1;93m [\e[1;32m$Numb\e[1;93m]\033[1;31m >\033[1;97m SPEED TEST VPS      "
+  echo -e "\e[1;93m[\e[1;32m$Numb\e[1;93m]\033[1;31m >\033[1;97m SPEED TEST VPS      "
   script[$Numb]="speed"
   echo -e "\033[1;93m----------------------------------------------------"
   let Numb++
@@ -2299,6 +2581,7 @@ herramientas_fun() {
     "notibot") noti_bot ;;
     "tokengeneral") token_ge ;;
     "fixbaseuser") recuperar_base ;;
+    "chekcusers") chekc_users ;;
     *) menu ;;
     esac
   }
@@ -12344,4 +12627,3 @@ case ${selection} in
 esac
 msg -ne "Enter Para Continuar" && read enter
 ${SCPdir}/menu.sh
-
