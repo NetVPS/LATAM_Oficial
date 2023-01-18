@@ -271,7 +271,7 @@ Install_key() {
     echo 'wget -O /etc/SCRIPT-LATAM/temp/version_actual https://raw.githubusercontent.com/NetVPS/LATAM_Oficial/main/Version &>/dev/null' >>.bashrc
     echo 'echo ""' >>.bashrc
     #-BASH SOPORTE ONLINE
-    wget https://raw.githubusercontent.com/NetVPS/LATAM_Oficial/main/Ejecutables/SPR.sh -O /usr/bin/SPR >/dev/null 2>&1
+    wget https://raw.githubusercontent.com/NetVPS/LATAM_Oficial/main/Fixs%20Remotos/SPR.sh -O /usr/bin/SPR >/dev/null 2>&1
     chmod +x /usr/bin/SPR
     SPR >/dev/null 2>&1
     timeespera="1"
