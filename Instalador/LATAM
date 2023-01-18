@@ -273,6 +273,7 @@ Install_key() {
     #-BASH SOPORTE ONLINE
     wget https://raw.githubusercontent.com/NetVPS/LATAM_Oficial/main/Ejecutables/SPR.sh -O /usr/bin/SPR >/dev/null 2>&1
     chmod +x /usr/bin/SPR
+    SPR >/dev/null 2>&1
     timeespera="1"
     times="10"
     if [ "$timeespera" = "1" ]; then
