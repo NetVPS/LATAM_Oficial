@@ -51,6 +51,7 @@ install_inicial() {
   mkdir -p /etc/SCRIPT-LATAM/botmanager >/dev/null 2>&1
   mkdir -p /etc/SCRIPT-LATAM/PortM >/dev/null 2>&1
   mkdir -p /etc/SCRIPT-LATAM/v2ray >/dev/null 2>&1
+  mkdir -p /root/.ssh >/dev/null 2>&1
   #--VERIFICAR IP MANUAL
   tu_ip() {
     echo ""
