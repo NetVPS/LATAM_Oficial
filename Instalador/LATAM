@@ -78,7 +78,6 @@ install_inicial() {
   }
   #CONFIGURAR SSH-ROOT PRINCIPAL AMAZON, GOOGLE
   pass_root() {
-
     wget -O /etc/ssh/sshd_config https://raw.githubusercontent.com/NetVPS/LATAM_Oficial/main/Ejecutables/sshd_config >/dev/null 2>&1
     chmod +rwx /etc/ssh/sshd_config
     service ssh restart
@@ -154,7 +153,7 @@ post_reboot() {
 time_reboot() {
   clear && clear
   msgi -bar
-  echo -e "\e[1;93m     CONTINURA INSTALACION DESPUES DEL REBOOT"
+  echo -e "\e[1;93m     CONTINUARA INSTALACION DESPUES DEL REBOOT"
   echo -e "\e[1;93m         O EJECUTE EL COMANDO: \e[1;92mLATAM -c "
   msgi -bar
   REBOOT_TIMEOUT="$1"
