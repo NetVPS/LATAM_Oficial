@@ -137,13 +137,14 @@ install_inicial() {
 
 post_reboot() {
   /bin/cp /etc/skel/.bashrc ~/
-  echo 'LATAM -c' >>.bashrc
+  echo 'LATAM -c' >> .bashrc
 }
 
 time_reboot() {
   clear && clear
   msgi -bar
   echo -e "\e[1;93m     CONTINURA INSTALACION DESPUES DEL REBOOT"
+  echo -e "\e[1;93m         O EJECUTE EL COMANDO: \e[1;92mLATAM -c "
   msgi -bar
   REBOOT_TIMEOUT="$1"
   while [ $REBOOT_TIMEOUT -gt 0 ]; do
