@@ -1,4 +1,3 @@
-
 #!/bin/bash
 # INSTALADO --- ACTULIZADO EL 12-01-2023 --By @Kalix1
 clear && clear
@@ -39,12 +38,8 @@ repo() {
 ## PRIMER PASO DE INSTALACION
 install_inicial() {
   clear && clear
-  #CONFIGURAR SSH PRINCIPAL
-  #wget -O /etc/ssh/sshd_config https://raw.githubusercontent.com/NetVPS/LATAM_Oficial/main/Ejecutables/sshd_config >/dev/null 2>&1
-  #chmod +rwx /etc/ssh/sshd_config
   #grep -v "^PasswordAuthentication" /etc/ssh/sshd_config >/tmp/passlogin && mv /tmp/passlogin /etc/ssh/sshd_config
   #echo "PasswordAuthentication yes" >>/etc/ssh/sshd_config
-  #service ssh restart
   #CARPETAS PRINCIPALES
   [[ -d /etc/SCRIPT-LATAM ]] && rm -rf /etc/SCRIPT-LATAM >/dev/null 2>&1
   mkdir -p /etc/SCRIPT-LATAM >/dev/null 2>&1
@@ -81,17 +76,22 @@ install_inicial() {
       fun_ip
     fi
   }
+  #CONFIGURAR SSH-ROOT PRINCIPAL AMAZON, GOOGLE
+  pass_root() {
 
-  pass_root(){
-  echo -ne "\033[1;97m DIGITE NUEVA CONTRASEÑA:  \033[1;31m" && read pass
-  (
-    echo $pass
-    echo $pass
-  ) | passwd root 2>/dev/null
-  sleep 1s
-  msgi -bar
-  echo -e "\033[1;94m     CONTRASEÑA AGREGADA O EDITADA CORECTAMENTE"
-  echo -e "\033[1;97m TU CONTRASEÑA ROOT AHORA ES: \e[41m $pass \033[0;37m"
+    wget -O /etc/ssh/sshd_config https://raw.githubusercontent.com/NetVPS/LATAM_Oficial/main/Ejecutables/sshd_config >/dev/null 2>&1
+    chmod +rwx /etc/ssh/sshd_config
+    service ssh restart
+    msgi -bar
+    echo -ne "\033[1;97m DIGITE NUEVA CONTRASEÑA:  \033[1;31m" && read pass
+    (
+      echo $pass
+      echo $pass
+    ) | passwd root 2>/dev/null
+    sleep 1s
+    msgi -bar
+    echo -e "\033[1;94m     CONTRASEÑA AGREGADA O EDITADA CORECTAMENTE"
+    echo -e "\033[1;97m TU CONTRASEÑA ROOT AHORA ES: \e[41m $pass \033[0;37m"
 
   }
   #-- VERIFICAR VERSION
@@ -130,17 +130,17 @@ install_inicial() {
   msgi -bar2
   echo -e "\033[1;93m             AGREGAR Y EDITAR PASS ROOT\033[1;97m"
   msgi -bar
-    echo -e "\033[1;97m CAMBIAR PASS ROOT? \033[32m"
-    msgi -bar2
-    echo -ne "\033[1;97m Seleccione  \033[1;31m[\033[1;93m S \033[1;31m/\033[1;93m N \033[1;31m]\033[1;97m: \033[1;93m" && read pass_root
-    #read -p " Seleccione [ S / N ]: " tu_ip
-     [[ "$pass_root" = "s" || "$pass_root" = "S" ]] && pass_root
+  echo -e "\033[1;97m CAMBIAR PASS ROOT? \033[32m"
+  msgi -bar2
+  echo -ne "\033[1;97m Seleccione  \033[1;31m[\033[1;93m S \033[1;31m/\033[1;93m N \033[1;31m]\033[1;97m: \033[1;93m" && read pass_root
+  #read -p " Seleccione [ S / N ]: " tu_ip
+  [[ "$pass_root" = "s" || "$pass_root" = "S" ]] && pass_root
   msgi -bar2
   echo -e "\033[1;93m\a\a\a      SE PROCEDERA A INSTALAR LAS ACTULIZACIONES\n PERTINENTES DEL SISTEMA, ESTE PROCESO PUEDE TARDAR\n VARIOS MINUTOS Y PUEDE PEDIR ALGUNAS CONFIRMACIONES \033[0;37m"
   msgi -bar
   read -t 120 -n 1 -rsp $'\033[1;97m           Preciona Enter Para continuar\n'
   clear && clear
-  apt update 
+  apt update
   apt upgrade -y
   wget /root/LATAM https://raw.githubusercontent.com/NetVPS/LATAM_Oficial/main/Instalador/LATAM -O /usr/bin/LATAM &>/dev/null
   chmod +x /usr/bin/LATAM
@@ -148,7 +148,7 @@ install_inicial() {
 
 post_reboot() {
   /bin/cp /etc/skel/.bashrc ~/
-  echo 'LATAM -c' >> .bashrc
+  echo 'LATAM -c' >>.bashrc
 }
 
 time_reboot() {
