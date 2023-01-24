@@ -390,7 +390,8 @@ Install_key() {
   }
 
   incertar_key() {
-    rm -rf /etc/SCRIPT-LATAM/errorkey >/dev/null 2>&1
+
+    [[ -d /etc/SCRIPT-LATAM/errorkey  ]] && rm -rf /etc/SCRIPT-LATAM/errorkey >/dev/null 2>&1
     echo "By Kalix1" >/etc/SCRIPT-LATAM/errorkey
     msgi -bar2
     echo -ne "\033[1;96m          >>> INTRODUZCA LA KEY ABAJO <<<\n\033[1;31m   " && read Key
