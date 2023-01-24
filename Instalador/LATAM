@@ -38,10 +38,7 @@ repo() {
 ## PRIMER PASO DE INSTALACION
 install_inicial() {
   clear && clear
-  #grep -v "^PasswordAuthentication" /etc/ssh/sshd_config >/tmp/passlogin && mv /tmp/passlogin /etc/ssh/sshd_config
-  #echo "PasswordAuthentication yes" >>/etc/ssh/sshd_config
   #CARPETAS PRINCIPALES
-  [[ -d /etc/SCRIPT-LATAM ]] && rm -rf /etc/SCRIPT-LATAM >/dev/null 2>&1
   mkdir -p /etc/SCRIPT-LATAM >/dev/null 2>&1
   mkdir -p /etc/SCRIPT-LATAM/temp >/dev/null 2>&1
   mkdir -p /etc/SCRIPT-LATAM/filespy >/dev/null 2>&1
@@ -236,7 +233,7 @@ Install_key() {
     [[ $(echo $permited | grep "${IP}") = "" ]] && {
       clear && clear
       echo -e "\n\n\n\033[1;91m————————————————————————————————————————————————————\n      ¡ESTA KEY NO CONCUERDA CON EL INSTALADOR! \n                 CONATACTE A @Kalix1\n————————————————————————————————————————————————————\n\n\n"
-      [[ -d /etc/SCRIPT-LATAM ]] && rm -rf /etc/SCRIPT-LATAM
+     # [[ -d /etc/SCRIPT-LATAM ]] && rm -rf /etc/SCRIPT-LATAM
       exit 1
     } || {
       ### INSTALAR VERSION DE SCRIPT
@@ -396,7 +393,7 @@ Install_key() {
   incertar_key() {
 
     [[ -d /etc/SCRIPT-LATAM/errorkey ]] && rm -rf /etc/SCRIPT-LATAM/errorkey >/dev/null 2>&1
-    echo "By Kalix1" >/etc/SCRIPT-LATAM/errorkey
+    echo "By Kalix1" > /etc/SCRIPT-LATAM/errorkey
     msgi -bar2
     echo -ne "\033[1;96m          >>> INTRODUZCA LA KEY ABAJO <<<\n\033[1;31m   " && read Key
     [[ -z "$Key" ]] && Key="NULL"
