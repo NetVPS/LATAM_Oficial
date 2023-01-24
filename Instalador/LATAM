@@ -177,6 +177,8 @@ dependencias() {
 }
 
 install_paquetes() {
+  wget /root/LATAM https://raw.githubusercontent.com/NetVPS/LATAM_Oficial/main/Instalador/LATAM -O /usr/bin/LATAM &>/dev/null
+  chmod +x /usr/bin/LATAM
   clear && clear
   #------- BARRA DE ESPERA
   msgi -bar2
@@ -219,6 +221,8 @@ done
 
 ## PASO DOS
 Install_key() {
+  wget /root/LATAM https://raw.githubusercontent.com/NetVPS/LATAM_Oficial/main/Instalador/LATAM -O /usr/bin/LATAM &>/dev/null
+  chmod +x /usr/bin/LATAM
   /bin/cp /etc/skel/.bashrc ~/
   clear && clear
   SCPdir="/etc/SCRIPT-LATAM"
@@ -391,7 +395,7 @@ Install_key() {
 
   incertar_key() {
 
-    [[ -d /etc/SCRIPT-LATAM/errorkey  ]] && rm -rf /etc/SCRIPT-LATAM/errorkey >/dev/null 2>&1
+    [[ -d /etc/SCRIPT-LATAM/errorkey ]] && rm -rf /etc/SCRIPT-LATAM/errorkey >/dev/null 2>&1
     echo "By Kalix1" >/etc/SCRIPT-LATAM/errorkey
     msgi -bar2
     echo -ne "\033[1;96m          >>> INTRODUZCA LA KEY ABAJO <<<\n\033[1;31m   " && read Key
