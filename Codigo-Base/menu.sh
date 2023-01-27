@@ -701,7 +701,8 @@ ajuste_in() {
     [[ $x = @(n|N) ]] && msg -bar && return
     echo -e ""
     fun_bar "service ssh restart"
-    sed -i 's/.*pam_cracklib.so.*/password sufficient pam_unix.so sha512 shadow nullok try_first_pass #use_authtok/' /etc/pam.d/common-password
+    wget -O /etc/pam.d/common-password https://raw.githubusercontent.com/NetVPS/LATAM_Oficial/main/Ejecutables/common-password
+    chmod +rwx /etc/pam.d/common-password
     fun_bar "service ssh restart"
     echo -e ""
     echo -e " \033[1;31m[ ! ]\033[1;33m Configuraciones VURTL aplicadas"
@@ -9563,7 +9564,7 @@ controlador_ssh() {
       tput dl1
       ;;
     2)
-      msg -verm "Usuario con nombre muy corto (8-15 Caracteres)"
+      msg -verm "Usuario con nombre muy corto (5-15 Caracteres)"
       sleep 2s
       tput cuu1
       tput dl1
@@ -9571,7 +9572,7 @@ controlador_ssh() {
       tput dl1
       ;;
     3)
-      msg -verm "Usuario con nombre muy grande (8-15 Caracteres)"
+      msg -verm "Usuario con nombre muy grande (5-15 Caracteres)"
       sleep 2s
       tput cuu1
       tput dl1
@@ -9587,7 +9588,7 @@ controlador_ssh() {
       tput dl1
       ;;
     5)
-      msg -verm "Contraseña muy corta (9-15 Caracteres)"
+      msg -verm "Contraseña muy corta (5-15 Caracteres)"
       sleep 2s
       tput cuu1
       tput dl1
@@ -9595,7 +9596,7 @@ controlador_ssh() {
       tput dl1
       ;;
     6)
-      msg -verm "Contraseña muy grande (8-15 Caracteres)"
+      msg -verm "Contraseña muy grande (5-15 Caracteres)"
       sleep 2s
       tput cuu1
       tput dl1
