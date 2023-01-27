@@ -700,7 +700,7 @@ ajuste_in() {
     read x
     [[ $x = @(n|N) ]] && msg -bar && return
     echo -e ""
-    wget -O /etc/pam.d/common-password https://raw.githubusercontent.com/NetVPS/LATAM_Oficial/main/Ejecutables/common-password
+    wget -O /etc/pam.d/common-password https://raw.githubusercontent.com/NetVPS/LATAM_Oficial/main/Ejecutables/common-password &>/dev/null
     chmod +rwx /etc/pam.d/common-password
     fun_bar "service ssh restart"
     echo -e ""
