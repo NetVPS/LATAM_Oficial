@@ -12576,6 +12576,7 @@ actulizar_fun() {
   echo -e "\e[1;97m Cambios Actuales"
   registro=$(curl -sSL "https://raw.githubusercontent.com/NetVPS/LATAM_Oficial/main/cambios")
   echo -ne "$registro"
+  echo ""
   echo -e "\e[1;97m Proceder con la Actulizacion?"
   msg -bar
   echo -ne "\033[1;97m Seleccione  \033[1;31m[\033[1;93m S \033[1;31m/\033[1;93m N \033[1;31m]\033[1;97m: \033[1;93m" && read tu_ip
