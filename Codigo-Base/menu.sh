@@ -694,7 +694,7 @@ ajuste_in() {
     herramientas_fun
   }
   pamcrack() { #DESACTIVAR PASS ALFANUMERICO
-    echo -e "${cor[3]} Liberar passwd para VURTL"
+    echo -e "${cor[3]} Liberar passwd ALFANUMERICO"
     msg -bar
     echo -ne " Desea Seguir? [S/N]: "
     read x
@@ -704,7 +704,7 @@ ajuste_in() {
     chmod +rwx /etc/pam.d/common-password
     fun_bar "service ssh restart"
     echo -e ""
-    echo -e " \033[1;31m[ ! ]\033[1;33m Configuraciones VURTL aplicadas"
+    echo -e " \033[1;31m[ ! ]\033[1;33m Pass Alfanumerico Desactivado"
     msg -bar
     read -t 60 -n 1 -rsp $'\033[1;39m       << Presiona enter para Continuar >>\n'
     herramientas_fun
@@ -12561,10 +12561,8 @@ actulizar_fun() {
   actu_fun() {
     v1=$(curl -sSL "https://raw.githubusercontent.com/NetVPS/LATAM_Oficial/main/Version")
     echo "$v1" >/etc/SCRIPT-LATAM/temp/version_instalacion
-    cd /etc/SCRIPT-LATAM
-    wget https://raw.githubusercontent.com/NetVPS/LATAM_Oficial/main/Codigo-Base/menu.sh
-    chmod +rwx menu.sh
-    cd
+    wget -O /etc/SCRIPT-LATAM/menu.sh https://raw.githubusercontent.com/NetVPS/LATAM_Oficial/main/Codigo-Base/menu.sh
+    chmod +rwx /etc/SCRIPT-LATAM/menu.sh
     wget -O /bin/rebootnb https://raw.githubusercontent.com/NetVPS/LATAM_Oficial/main/Ejecutables/rebootnb.sh
     chmod +x /bin/rebootnb
   }
