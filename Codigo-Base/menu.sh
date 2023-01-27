@@ -12561,9 +12561,9 @@ actulizar_fun() {
   actu_fun() {
     v1=$(curl -sSL "https://raw.githubusercontent.com/NetVPS/LATAM_Oficial/main/Version")
     echo "$v1" >/etc/SCRIPT-LATAM/temp/version_instalacion
-    wget -O /etc/SCRIPT-LATAM/menu.sh https://raw.githubusercontent.com/NetVPS/LATAM_Oficial/main/Codigo-Base/menu.sh
+    wget -O /etc/SCRIPT-LATAM/menu.sh https://raw.githubusercontent.com/NetVPS/LATAM_Oficial/main/Codigo-Base/menu.sh &>/dev/null
     chmod +rwx /etc/SCRIPT-LATAM/menu.sh
-    wget -O /bin/rebootnb https://raw.githubusercontent.com/NetVPS/LATAM_Oficial/main/Ejecutables/rebootnb.sh
+    wget -O /bin/rebootnb https://raw.githubusercontent.com/NetVPS/LATAM_Oficial/main/Ejecutables/rebootnb.sh &>/dev/null
     chmod +x /bin/rebootnb
   }
   msg -bar
