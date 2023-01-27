@@ -233,7 +233,7 @@ Install_key() {
     [[ $(echo $permited | grep "${IP}") = "" ]] && {
       clear && clear
       echo -e "\n\n\n\033[1;91m————————————————————————————————————————————————————\n      ¡ESTA KEY NO CONCUERDA CON EL INSTALADOR! \n                 CONATACTE A @Kalix1\n————————————————————————————————————————————————————\n\n\n"
-     # [[ -d /etc/SCRIPT-LATAM ]] && rm -rf /etc/SCRIPT-LATAM
+      # [[ -d /etc/SCRIPT-LATAM ]] && rm -rf /etc/SCRIPT-LATAM
       exit 1
     } || {
       ### INSTALAR VERSION DE SCRIPT
@@ -303,6 +303,15 @@ Install_key() {
       echo -e " \033[1;97m       COMANDO PRINCIPAL PARA ENTRAR AL PANEL "
       echo -e " \033[1;41m                    menu o MENU                   \033[0;37m" && msgi -bar2
     fi
+    meu_ip() {
+      if [[ -e /tmp/IP ]]; then
+        echo "$(cat /tmp/IP)"
+      else
+        MEU_IP=$(wget -qO- ifconfig.me)
+        echo "$MEU_IP" >/tmp/IP
+      fi
+    }
+    meu_ip
     exit
   }
   ofus() {
@@ -393,7 +402,7 @@ Install_key() {
   incertar_key() {
 
     [[ -d /etc/SCRIPT-LATAM/errorkey ]] && rm -rf /etc/SCRIPT-LATAM/errorkey >/dev/null 2>&1
-    echo "By Kalix1" > /etc/SCRIPT-LATAM/errorkey
+    echo "By Kalix1" >/etc/SCRIPT-LATAM/errorkey
     msgi -bar2
     echo -ne "\033[1;96m          >>> INTRODUZCA LA KEY ABAJO <<<\n\033[1;31m   " && read Key
     [[ -z "$Key" ]] && Key="NULL"
