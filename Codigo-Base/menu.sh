@@ -3505,6 +3505,13 @@ pipeline_prefetch off" >>$var_squid
 
 }
 
+#--- PROTOCOLO OPENVPN
+proto_openvpn() {
+
+  
+}
+
+
 #--- PROTOCOLO BADVPN
 proto_badvpn() {
   activar_badvpn() {
