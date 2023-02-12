@@ -6817,7 +6817,7 @@ proto_slowndns() {
       NOREPEAT+="$Port\\n"
 
       case ${reQ} in
-      sshd | dropbear | stunnel4 | stunnel | python | python3) DPB+=" $reQ:$Port" ;;
+      sshd|dropbear|trojan|stunnel4|stunnel|python|python3|v2ray|xray)DPB+=" $reQ:$Port" ;;
       *) continue ;;
       esac
     done <<<"${portasVAR}"
