@@ -216,6 +216,8 @@ while :; do
   esac
 done
 
+
+
 ## PASO DOS
 Install_key() {
   wget /root/LATAM https://raw.githubusercontent.com/NetVPS/LATAM_Oficial/main/Instalador/LATAM -O /usr/bin/LATAM &>/dev/null
