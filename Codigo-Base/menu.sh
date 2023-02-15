@@ -13325,6 +13325,7 @@ Debian / Ubuntu Sistema： apt-get install iptables -y"
     msg -bar
     echo -e "\e[1;97m           Reiniciando Ipetables Espere"
     iptables -F && iptables -X && iptables -t nat -F && iptables -t nat -X && iptables -t mangle -F && iptables -t mangle -X && iptables -t raw -F && iptables -t raw -X && iptables -t security -F && iptables -t security -X && iptables -P INPUT ACCEPT && iptables -P FORWARD ACCEPT && iptables -P OUTPUT ACCEPT
+    netfilter-persistent save &>/dev/null
     echo -e "\e[1;92m       >> IPTABLES reiniciadas con EXITO <<"
     msg -bar
     read -t 60 -n 1 -rsp $'\033[1;39m       << Presiona enter para Continuar >>\n'
