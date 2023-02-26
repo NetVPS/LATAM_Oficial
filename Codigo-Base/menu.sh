@@ -635,8 +635,6 @@ ajuste_in() {
     read -t 60 -n 1 -rsp $'\033[1;39m       << Presiona enter para Continuar >>\n'
     herramientas_fun
   }
-
-
   editports() {
     port() {
       local portas
@@ -658,8 +656,8 @@ ajuste_in() {
     }
     edit_squid() {
       tput cuu1 >&2 && tput dl1 >&2
-       tput cuu1 >&2 && tput dl1 >&2
-        tput cuu1 >&2 && tput dl1 >&2
+      tput cuu1 >&2 && tput dl1 >&2
+      tput cuu1 >&2 && tput dl1 >&2
       msg -bar2
       msg -ama "REDEFINIR PUERTOS SQUID"
       msg -bar2
@@ -691,13 +689,13 @@ ajuste_in() {
       service squid3 restart &>/dev/null
       sleep 1s
       msg -bar2
-       echo -e "\e[92m              PUERTOS REDEFINIDOS"
+      echo -e "\e[92m              PUERTOS REDEFINIDOS"
       msg -bar2
     }
     edit_apache() {
-            tput cuu1 >&2 && tput dl1 >&2
-       tput cuu1 >&2 && tput dl1 >&2
-        tput cuu1 >&2 && tput dl1 >&2
+      tput cuu1 >&2 && tput dl1 >&2
+      tput cuu1 >&2 && tput dl1 >&2
+      tput cuu1 >&2 && tput dl1 >&2
       msg -bar2
       msg -azu "REDEFINIR PUERTOS APACHE"
       msg -bar2
@@ -728,13 +726,13 @@ ajuste_in() {
       service apache2 restart &>/dev/null
       sleep 1s
       msg -bar2
-       echo -e "\e[92m              PUERTOS REDEFINIDOS"
+      echo -e "\e[92m              PUERTOS REDEFINIDOS"
       msg -bar2
     }
     edit_openvpn() {
-            tput cuu1 >&2 && tput dl1 >&2
-       tput cuu1 >&2 && tput dl1 >&2
-        tput cuu1 >&2 && tput dl1 >&2
+      tput cuu1 >&2 && tput dl1 >&2
+      tput cuu1 >&2 && tput dl1 >&2
+      tput cuu1 >&2 && tput dl1 >&2
       msg -bar2
       msg -azu "REDEFINIR PUERTOS OPENVPN"
       msg -bar2
@@ -775,8 +773,8 @@ ajuste_in() {
     }
     edit_dropbear() {
       tput cuu1 >&2 && tput dl1 >&2
-       tput cuu1 >&2 && tput dl1 >&2
-        tput cuu1 >&2 && tput dl1 >&2
+      tput cuu1 >&2 && tput dl1 >&2
+      tput cuu1 >&2 && tput dl1 >&2
       msg -bar2
       msg -azu "REDEFINIR PUERTOS DROPBEAR"
       msg -bar2
@@ -805,7 +803,7 @@ ajuste_in() {
       SOPORTE rd &>/dev/null
       sleep 1s
       msg -bar2
-       echo -e "\e[92m              PUERTOS REDEFINIDOS"
+      echo -e "\e[92m              PUERTOS REDEFINIDOS"
       msg -bar2
     }
     edit_openssh() {
@@ -833,12 +831,12 @@ ajuste_in() {
       service sshd restart &>/dev/null
       sleep 1s
       msg -bar2
-       echo -e "\e[92m              PUERTOS REDEFINIDOS"
+      echo -e "\e[92m              PUERTOS REDEFINIDOS"
       msg -bar2
     }
 
     main_fun() {
-      clear&&clear
+      clear && clear
       msg -bar2
       msg -tit ""
       msg -bar2
@@ -3350,12 +3348,208 @@ proto_ssl() {
     cd /etc/stunnel/
     unzip -o certificado.zip &>/dev/null
     cat private.key certificate.crt ca_bundle.crt >stunnel.pem
-    service stunnel restart &>/dev/null
-    service stunnel4 restart &>/dev/null
+    sed -i 's/ENABLED=0/ENABLED=1/g' /etc/default/stunnel4
+    echo "ENABLED=1" >>/etc/default/stunnel4
+    systemctl start stunnel4 &>/dev/null
+    systemctl start stunnel &>/dev/null
+    systemctl restart stunnel4 &>/dev/null
+    systemctl restart stunnel &>/dev/null
     cd
     msg -bar
     echo -e "\e[1;32m         >> CERTIFICADO INSTALADO CON EXITO <<"
     msg -bar
+
+  }
+
+  certificadom() {
+
+    if [ -f /etc/stunnel/stunnel.conf ]; then
+      insapa2() {
+        for pid in $(pgrep python); do
+          kill $pid
+        done
+        for pid in $(pgrep apache2); do
+          kill $pid
+        done
+        service dropbear stop
+        apt install apache2 -y
+        echo "Listen 80
+
+<IfModule ssl_module>
+        Listen 443
+</IfModule>
+
+<IfModule mod_gnutls.c>
+        Listen 443
+</IfModule> " >/etc/apache2/ports.conf
+        service apache2 restart
+      }
+      clear && clear
+      msg -bar
+      msg -tit
+      msg -bar
+      echo -e "\033[1;93m             AGREGAR CERTIFICADO ZEROSSL"
+      msg -bar
+      echo -e "\e[1;37m Verificar dominio.......... \e[0m\n"
+      echo -e "\e[1;37m TIENES QUE MODIFICAR EL ARCHIVO DESCARGADO\n EJEMPLO: 530DDCDC3 comodoca.com 7bac5e210\e[0m"
+      msg -bar
+      read -p " LLAVE > Nombre Del Archivo: " keyy
+      msg -bar
+      read -p " DATOS > De La LLAVE: " dat2w
+      [[ ! -d /var/www/html/.well-known ]] && mkdir /var/www/html/.well-known
+      [[ ! -d /var/www/html/.well-known/pki-validation ]] && mkdir /var/www/html/.well-known/pki-validation
+      datfr1=$(echo "$dat2w" | awk '{print $1}')
+      datfr2=$(echo "$dat2w" | awk '{print $2}')
+      datfr3=$(echo "$dat2w" | awk '{print $3}')
+      echo -ne "${datfr1}\n${datfr2}\n${datfr3}" >/var/www/html/.well-known/pki-validation/$keyy.txt
+      msg -bar
+      echo -e "\e[1;37m VERIFIQUE EN LA PÁGINA ZEROSSL \e[0m"
+      msg -bar
+      read -p " ENTER PARA CONTINUAR"
+      clear
+      msg -bar
+      echo -e "\e[1;33m👇 LINK DEL CERTIFICADO 👇       \n     \e[0m"
+      echo -e "\e[1;36m LINK\e[37m: \e[34m"
+      read link
+      incertis() {
+        wget $link -O /etc/stunnel/certificado.zip
+        cd /etc/stunnel/
+        unzip certificado.zip
+        cat private.key certificate.crt ca_bundle.crt >stunnel.pem
+        #
+        sed -i 's/ENABLED=0/ENABLED=1/g' /etc/default/stunnel4
+        echo "ENABLED=1" >>/etc/default/stunnel4
+        systemctl start stunnel4 &>/dev/null
+        systemctl start stunnel &>/dev/null
+        systemctl restart stunnel4 &>/dev/null
+        systemctl restart stunnel &>/dev/null
+      }
+      incertis &>/dev/null && echo -e " \e[1;33mEXTRAYENDO CERTIFICADO " | pv -qL 10
+      msg -bar
+      echo -e "${cor[4]} CERTIFICADO INSTALADO \e[0m"
+      msg -bar
+
+      for pid in $(pgrep apache2); do
+        kill $pid
+      done
+      apt install apache2 -y &>/dev/null
+      echo "Listen 81
+
+<IfModule ssl_module>
+        Listen 443
+</IfModule>
+
+<IfModule mod_gnutls.c>
+        Listen 443
+</IfModule> " >/etc/apache2/ports.conf
+      service apache2 restart &>/dev/null
+      service dropbear start &>/dev/null
+      service dropbear restart &>/dev/null
+      for port in $(cat /etc/SCRIPT-LATAM/PortM/PDirect.log | grep -v "nobody" | cut -d' ' -f1); do
+        PIDVRF3="$(ps aux | grep pid-"$port" | grep -v grep | awk '{print $2}')"
+        Portd="$(cat /etc/SCRIPT-LATAM/PortM/PDirect.log | grep -v "nobody" | cut -d' ' -f1)"
+        if [[ -z ${Portd} ]]; then
+          # systemctl start python.PD &>/dev/null
+          screen -dmS pydic-"$port" python /etc/SCRIPT-LATAM/filespy/PDirect-8081.py
+        else
+          # systemctl start python.PD &>/dev/null
+          screen -dmS pydic-"$port" python /etc/SCRIPT-LATAM/filespy/PDirect-8081.py
+        fi
+      done
+    else
+      msg -bar
+      echo -e "${cor[3]} SSL/TLS NO INSTALADO \e[0m"
+      msg -bar
+    fi
+  }
+
+  gerar_cert() {
+    clear
+    case $1 in
+    1)
+      msg -bar
+      msg -ama "Generador De Certificado Let's Encrypt"
+      msg -bar
+      ;;
+    2)
+      msg -bar
+      msg -ama "Generador De Certificado Zerossl"
+      msg -bar
+      ;;
+    esac
+    msg -ama "Requiere ingresar un dominio."
+    msg -ama "el mismo solo deve resolver DNS, y apuntar"
+    msg -ama "a la direccion ip de este servidor."
+    msg -bar
+    msg -ama "Temporalmente requiere tener"
+    msg -ama "los puertos 80 y 443 libres."
+    if [[ $1 = 2 ]]; then
+      msg -bar
+      msg -ama "Requiere tener una cuenta Zerossl."
+    fi
+    msg -bar
+    msg -ne " Continuar [S/N]: "
+    read opcion
+    [[ $opcion != @(s|S|y|Y) ]] && return 1
+
+    if [[ $1 = 2 ]]; then
+      while [[ -z $mail ]]; do
+        clear
+        msg -bar
+        msg -ama "ingresa tu correo usado en Zerossl"
+        msg -bar3
+        msg -ne " >>> "
+        read mail
+      done
+    fi
+
+    if [[ -e ${tmp_crt}/dominio.txt ]]; then
+      domain=$(cat ${tmp_crt}/dominio.txt)
+      [[ $domain = "multi-domain" ]] && unset domain
+      if [[ ! -z $domain ]]; then
+        clear
+        msg -bar
+        msg -bar
+        echo -e "$(msg -verm2 " >>> ") $(msg -ama "$domain")"
+        msg -ne "Continuar, usando este dominio? [S/N]: "
+        read opcion
+        tput cuu1 && tput dl1
+        [[ $opcion != @(S|s|Y|y) ]] && unset domain
+      fi
+    fi
+
+    while [[ -z $domain ]]; do
+      clear
+      msg -bar
+      msg -ama "ingresa tu dominio"
+      msg -bar
+      msg -ne " >>> "
+      read domain
+    done
+    msg -bar
+    msg -ama " Comprovando direccion IP ..."
+    local_ip=$(wget -qO- ipv4.icanhazip.com)
+    domain_ip=$(ping "${domain}" -c 1 | sed '1{s/[^(]*(//;s/).*//;q}')
+    sleep 1
+    [[ -z "${domain_ip}" ]] && domain_ip="ip no encontrada"
+    if [[ $(echo "${local_ip}" | tr '.' '+' | bc) -ne $(echo "${domain_ip}" | tr '.' '+' | bc) ]]; then
+      clear
+      msg -bar
+      msg -verm2 "ERROR DE DIRECCION IP"
+      msg -bar
+      msg -ama " La direccion ip de su dominio\n no coincide con la de su servidor."
+      msg -bar
+      echo -e " $(msg -azu "IP dominio:  ")$(msg -verm2 "${domain_ip}")"
+      echo -e " $(msg -azu "IP servidor: ")$(msg -verm2 "${local_ip}")"
+      msg -bar
+      msg -ama " Verifique su dominio, e intente de nuevo."
+      msg -bar
+
+    fi
+
+    stop_port
+    acme_install
+    echo "$domain" >${tmp_crt}/dominio.txt
 
   }
 
@@ -3368,7 +3562,10 @@ proto_ssl() {
   msg -bar
   echo -ne " \e[1;93m [\e[1;32m1\e[1;93m]\033[1;31m > \e[1;97m INSTALAR | PARAR SSL \e[97m \n"
   echo -ne " \e[1;93m [\e[1;32m2\e[1;93m]\033[1;31m > \033[1;97m AGREGAR PUERTOS SSL EXTRA \e[97m \n"
-  echo -ne " \e[1;93m [\e[1;32m3\e[1;93m]\033[1;31m > \033[1;97m AGREGAR CERTIFICADO MANUAL \e[97m \n"
+  echo -ne " \e[1;93m [\e[1;32m3\e[1;93m]\033[1;31m > \033[1;97m AGREGAR CERTIFICADO MANUAL (zip) \e[97m \n"
+  echo -ne " \e[1;93m [\e[1;32m4\e[1;93m]\033[1;31m > \033[1;97m AGREGAR CERTIFICADO ZEROSSL \e[97m \n"
+  echo -ne " \e[1;93m [\e[1;32m5\e[1;93m]\033[1;31m > \033[1;97m AGREGAR CERTIFICADO SSL (Let's Encript) \e[97m \n"
+  echo -ne " \e[1;93m [\e[1;32m5\e[1;93m]\033[1;31m > \033[1;97m AGREGAR CERTIFICADO SSL (Zerossl Directo) \e[97m \n"
   msg -bar
   echo -ne " \e[1;93m [\e[1;32m0\e[1;93m]\033[1;31m > \033[1;97m" && msg -bra "  \e[97m\033[1;41m VOLVER \033[1;37m"
   msg -bar
@@ -3390,7 +3587,24 @@ proto_ssl() {
   3)
     msg -bar
     cert_ssl
-
+    read -t 60 -n 1 -rsp $'\033[1;39m       << Presiona enter para Continuar >>\n'
+    proto_ssl
+    ;;
+  4)
+    msg -bar
+    certificadom
+    read -t 60 -n 1 -rsp $'\033[1;39m       << Presiona enter para Continuar >>\n'
+    proto_ssl
+    ;;
+  5)
+    msg -bar
+    gerar_cert 1
+    read -t 60 -n 1 -rsp $'\033[1;39m       << Presiona enter para Continuar >>\n'
+    proto_ssl
+    ;;
+  6)
+    msg -bar
+    gerar_cert 2
     read -t 60 -n 1 -rsp $'\033[1;39m       << Presiona enter para Continuar >>\n'
     proto_ssl
     ;;
