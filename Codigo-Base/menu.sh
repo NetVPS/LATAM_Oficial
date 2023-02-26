@@ -3509,6 +3509,7 @@ proto_ssl() {
       if [[ ! -z $domain ]]; then
         clear
         msg -bar
+        msg -azu "Dominio asociado a esta ip"
         msg -bar
         echo -e "$(msg -verm2 " >>> ") $(msg -ama "$domain")"
         msg -ne "Continuar, usando este dominio? [S/N]: "
