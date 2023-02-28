@@ -237,7 +237,7 @@ reset_ssh() {
         tar -zcvpf /root/backup-latam/home.tar.gz /home >/dev/null 2>&1
         cd /root
         tar -czvf Backup-Latam.tar.gz backup-latam >/dev/null 2>&1
-
+ [[ -e /etc/SCRIPT-LATAM/temp/idtelegram ]] && {
         NOM=$(less /etc/SCRIPT-LATAM/temp/idtelegram) >/dev/null 2>&1
         ID=$(echo $NOM) >/dev/null 2>&1
         NOMG=$(less /etc/SCRIPT-LATAM/temp/idgrupo) >/dev/null 2>&1
@@ -255,6 +255,7 @@ reset_ssh() {
         FILE="/root/backup-latam/Backup-Latam.tar.gz"
         curl --fail -F chat_id="$ID" -F caption="$VPS | Fecha: $Fecha" -F document=@"$FILE" $URL2 --connect-timeout 0
         echo "" &>/dev/null
+ }
         echo "Backup Diario Activo | $Fecha " >/etc/SCRIPT-LATAM/temp/BackTotal
     } &>/dev/null
 
