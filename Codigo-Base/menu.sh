@@ -13114,6 +13114,10 @@ desbloqueo_auto() {
   }
   rm_user() {
     userdel --force "$1" &>/dev/null
+    sed -i '/^username:/d' /etc/passwd
+    sed -i '/^username:/d' /etc/shadow
+    sed -i '/^username:/d' /etc/group
+    sed -i '/^username:/d' /etc/gshadow
   }
   rm_vencidos() {
 
