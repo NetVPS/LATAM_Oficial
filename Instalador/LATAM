@@ -189,8 +189,6 @@ dependencias() {
 }
 
 install_paquetes() {
-  wget /root/LATAM https://raw.githubusercontent.com/NetVPS/LATAM_Oficial/main/Instalador/LATAM -O /usr/bin/LATAM &>/dev/null
-  chmod +x /usr/bin/LATAM
   clear && clear
   #------- BARRA DE ESPERA
   msgi -bar2
