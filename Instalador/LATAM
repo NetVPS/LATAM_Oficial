@@ -181,33 +181,13 @@ dependencias() {
   dpkg --configure -a >/dev/null 2>&1
   apt -f install -y >/dev/null 2>&1
   packages="bsdmainutils zip unzip ufw curl python python3 python3-pip openssl cron iptables lsof pv boxes at mlocate gawk bc jq curl npm nodejs socat netcat netcat-traditional net-tools cowsay figlet lolcat apache2"
-  installed_packages=()
-  not_installed_packages=()
-
-  for package in $packages; do
-    if [ $(command -v $package) ]; then
-      installed_packages+=($package)
-    else
-      not_installed_packages+=($package)
-    fi
-  done
-
-  for package in ${installed_packages[@]}; do
-    echo "$package está instalado." >>/root/packinstall.log
-  done
-
-  for package in ${not_installed_packages[@]}; do
-    echo "$package" >>/root/paknoinstall.log
-  done
-  soft=$(cat /root/paknoinstall.log)
 
   for i in $package; do
     paquete="$i"
     echo -e "\033[1;97m        INSTALANDO PAQUETE \e[93m >>> \e[36m $i"
     barra_intall "apt-get install $i -y"
   done
-  rm -rf /root/paknoinstall.log >/dev/null 2>&1
-  rm -rf /root/packinstall.log >/dev/null 2>&1
+
 }
 
 install_paquetes() {
