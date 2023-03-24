@@ -321,9 +321,9 @@ mine_port() {
   [[ ! -z $APC ]] && echo -e $APC
   [[ ! -z $OVPN ]] && echo -e $OVPN
   [[ ! -z $BAD ]] && echo -e $BAD
-  port=$(cat /etc/systemd/system/UDPserver.service | grep 'exclude')
-  port=$(echo $port | awk '{print $4}' | cut -d '=' -f2 | sed 's/,/ /g')
-  [[ ! -z $UDPSER ]] && echo -e $UDPSER\<--\> $port
+port=$(cat /etc/systemd/system/UDPserver.service 2>/dev/null | grep 'exclude' 2>/dev/null)
+port2=$(echo $port | awk '{print $4}' | cut -d '=' -f2 2>/dev/null | sed 's/,/ /g' 2>/dev/null)
+  [[ ! -z $UDPSER ]] && echo -e "$UDPSER<--> $port2 "
   msg -bar2
 }
 
@@ -7629,7 +7629,7 @@ After=network.target
 Type=simple
 User=root
 WorkingDirectory=/root
-ExecStart=/usr/bin/udpServer -ip=$ip_publica -net=$interfas${totalporta[$i]} -mode=system
+ExecStart=/usr/bin/udpServer -ip=$ip_publica -net=$interfas -exclude=${totalporta[$i]} -mode=system
 Restart=always
 RestartSec=3s
 
