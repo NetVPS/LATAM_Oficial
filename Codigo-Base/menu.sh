@@ -321,8 +321,8 @@ mine_port() {
   [[ ! -z $APC ]] && echo -e $APC
   [[ ! -z $OVPN ]] && echo -e $OVPN
   [[ ! -z $BAD ]] && echo -e $BAD
-port=$(cat /etc/systemd/system/UDPserver.service 2>/dev/null | grep 'exclude' 2>/dev/null)
-port2=$(echo $port | awk '{print $4}' | cut -d '=' -f2 2>/dev/null | sed 's/,/ /g' 2>/dev/null)
+  port=$(cat /etc/systemd/system/UDPserver.service 2>/dev/null | grep 'exclude' 2>/dev/null)
+  port2=$(echo $port | awk '{print $4}' | cut -d '=' -f2 2>/dev/null | sed 's/,/ /g' 2>/dev/null)
   [[ ! -z $UDPSER ]] && echo -e "$UDPSER<--> $port2 "
   msg -bar2
 }
@@ -11380,14 +11380,22 @@ controlador_ssh() {
       echo -ne "\e[38;5;202mDias de Duracion: \e[1;97m" && echo -e "$diasuser"
       echo -ne "\e[38;5;202mFecha de Expiracion: \e[1;97m" && echo -e "$(date "+%F" -d " + $diasuser days")"
       msg -bar
-      [[ $(cat /etc/passwd | grep $nomeuser: | grep -vi [a-z]$nomeuser | grep -v [0-9]$nomeuser >/dev/null) ]] && msg -verm "         Error, Usuario no creado" && return 1
+      [[ $(cat /etc/passwd | grep $nomeuser: | grep -vi [a-z]$nomeuser | grep -v [0-9]$nomeuser >/dev/null) ]] && {
+        msg -verm "         Error, Usuario no creado"
+        return 0
+      }
       valid=$(date '+%C%y-%m-%d' -d " +$diasuser days") && datexp=$(date "+%F" -d " + $diasuser days")
-      useradd -m -s /bin/false $nomeuser -e ${valid} >/dev/null 2>&1 || msg -verm "         Error, Usuario no creado" && return 1
+      userdel $nomeuser >/dev/null 2>&1
+      useradd -m -s /bin/false $nomeuser -e ${valid} >/dev/null 2>&1 || {
+        msg -verm "         Error, Usuario no creado"
+        return 0
+      }
       (
         echo $nomeuser
         echo $nomeuser
       ) | passwd $nomeuser 2>/dev/null || {
         userdel --force $nomeuser
+
         return 1
       }
       echo "$nomeuser||${datexp}||${nickhwid}" >>/etc/SCRIPT-LATAM/cuentahwid
@@ -11461,9 +11469,15 @@ controlador_ssh() {
       msg -bar
       passtoken=$(cat /etc/SCRIPT-LATAM/temp/.passw | tr -d " \t\n\r")
 
-      [[ $(cat /etc/passwd | grep $nomeuser: | grep -vi [a-z]$nomeuser | grep -v [0-9]$nomeuser >/dev/null) ]] && msg -verm "         Error, Usuario no creado" && return 1
+      [[ $(cat /etc/passwd | grep $nomeuser: | grep -vi [a-z]$nomeuser | grep -v [0-9]$nomeuser >/dev/null) ]] && {
+        msg -verm "         Error, Usuario no creado"
+        return 0
+      }
       valid=$(date '+%C%y-%m-%d' -d " +$diasuser days") && datexp=$(date "+%F" -d " + $diasuser days")
-      useradd -m -s /bin/false $nomeuser -e ${valid} >/dev/null 2>&1 || msg -verm "         Error, Usuario no creado" && return 1
+      useradd -m -s /bin/false $nomeuser -e ${valid} >/dev/null 2>&1 || {
+        msg -verm "         Error, Usuario no creado"
+        return 0
+      }
       (
         echo $passtoken
         echo $passtoken
