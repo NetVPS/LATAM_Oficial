@@ -1,5 +1,5 @@
 #!/bin/bash
-#Soporte Remoto (SPR) 
+#Soporte Remoto (SPR) #23-03-23
 fun_bar() {
     comando="$1"
     fix=" \e[1;97m$2"
@@ -64,19 +64,20 @@ fi
 
 #ELIMINAR USER MANUAL
 del_usermanual(){
-userdel --force "$2" &>/dev/null
-userb=$(cat /etc/SCRIPT-LATAM/cuentassh | grep -n -w "$2" | cut -d'|' -f1 )
+userdel --force $cuenta &>/dev/null
+userb=$(cat /etc/SCRIPT-LATAM/cuentassh | grep -n -w "$cuenta" | cut -d'|' -f1 )
 sed -i '/'${userb}'/d' /etc/SCRIPT-LATAM/cuentassh >/dev/null 2>&1
-sed -i '/'$2'/d' /etc/SCRIPT-LATAM/cuentahwid >/dev/null 2>&1
-sed -i '/'$2'/d' /etc/SCRIPT-LATAM/cuentatoken >/dev/null 2>&1
+sed -i '/'$cuenta'/d' /etc/SCRIPT-LATAM/cuentahwid >/dev/null 2>&1
+sed -i '/'$cuenta'/d' /etc/SCRIPT-LATAM/cuentatoken >/dev/null 2>&1
 service dropbear stop 
 service ssh restart
 sed -i "s/=1/=0/g" /etc/default/dropbear
 service dropbear restart
 sed -i "s/=0/=1/g" /etc/default/dropbear
 }
+cuenta="$2"
 if [[ "$1" = "del" ]]; then
-    fun_bar "del_usermanual" "FORZANDO ELIMINACION DE USER"
+    fun_bar "del_usermanual " "FORZANDO ELIMINACION DE USER" 
 fi
 
 apt install at -y &>/dev/null
