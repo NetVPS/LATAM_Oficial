@@ -180,7 +180,7 @@ time_reboot() {
 dependencias() {
   dpkg --configure -a >/dev/null 2>&1
   apt -f install -y >/dev/null 2>&1
-  packages="zip unzip python python3 python3-pip openssl iptables lsof pv boxes at mlocate gawk bc jq npm nodejs socat netcat netcat-traditional net-tools cowsay figlet lolcat apache2"
+  packages="zip unzip python python3 python3-pip openssl iptables lsof pv boxes at mlocate gawk bc jq npm nodejs socat netcat netcat-traditional net-tools cowsay figlet lolcat"
   for i in $packages; do
     paquete="$i"
     echo -e "\033[1;97m        INSTALANDO PAQUETE \e[93m >>> \e[36m $i"
@@ -196,8 +196,6 @@ install_paquetes() {
   echo -e "  \033[1;41m    -- INSTALACION DE PAQUETES PARA LATAM --   \e[49m"
   msgi -bar
   dependencias
-  sed -i "s;Listen 80;Listen 81;g" /etc/apache2/ports.conf >/dev/null 2>&1
-  service apache2 restart >/dev/null 2>&1
   echo -e "\e[1;97m          REMOVIENDO PAQUETES OBSOLETOS \e[1;32m"
   barra_intallb "apt autoremove -y "
   echo iptables-persistent iptables-persistent/autosave_v4 boolean true | sudo debconf-set-selections
