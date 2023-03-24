@@ -3249,7 +3249,7 @@ proto_ssl() {
     echo -e "\033[1;97m Puede ser un SSH/DROPBEAR/SQUID/OPENVPN/WEBSOCKET"
     msg -bar
     while true; do
-      echo -ne "\033[1;97m Puerto-Local:\033[1;32m" && read -p " " -e -i "444" portx
+      echo -ne "\033[1;97m Puerto-Local:\033[1;32m" && read -p " " -e -i "22" portx
       if [[ ! -z $portx ]]; then
         if [[ $(echo $portx | grep "[0-9]") ]]; then
           [[ $(mportas | grep $portx | awk '{print $2}' | head -1) ]] && break || echo -e "\033[1;31m Puerto Invalido - Reintente con otro Activo"
@@ -3285,9 +3285,10 @@ proto_ssl() {
 
     cat stunnel.crt stunnel.key >stunnel.pem
 
-    mv stunnel.pem /etc/stunnel/
-    ######-------
-    sed -i 's/ENABLED=0/ENABLED=1/g' /etc/default/stunnel4
+    mv stunnel.pem /var/lib/stunnel4/
+    ##-->> AutoInicio
+    sed -i '/ENABLED=[01]/d' /etc/default/stunnel4
+    echo "ENABLED=1" >>/etc/default/stunnel4
     service stunnel4 restart >/dev/null 2>&1
     msg -bar
     echo -e "\033[1;32m          >> SSL INSTALADO CON EXITO <<"
@@ -3329,8 +3330,9 @@ proto_ssl() {
     done
     msg -bar
     echo -e "client = no\n[SSL+]\ncert = /etc/stunnel/stunnel.pem\naccept = ${SSLPORT}\nconnect = 127.0.0.1:${portx}" >>/etc/stunnel/stunnel.conf
-    ######-------
-    sed -i 's/ENABLED=0/ENABLED=1/g' /etc/default/stunnel4
+    ##-->> AutoInicio
+    sed -i '/ENABLED=[01]/d' /etc/default/stunnel4
+    echo "ENABLED=1" >>/etc/default/stunnel4
     service stunnel4 restart >/dev/null 2>&1
     echo -e "\033[1;32m            PUERTO AGREGADO CON EXITO"
     msg -bar
@@ -3355,7 +3357,8 @@ proto_ssl() {
     cd /etc/stunnel/
     unzip -o certificado.zip &>/dev/null
     cat private.key certificate.crt ca_bundle.crt >stunnel.pem
-    sed -i 's/ENABLED=0/ENABLED=1/g' /etc/default/stunnel4
+    ##-->> AutoInicio
+    sed -i '/ENABLED=[01]/d' /etc/default/stunnel4
     echo "ENABLED=1" >>/etc/default/stunnel4
     systemctl start stunnel4 &>/dev/null
     systemctl start stunnel &>/dev/null
@@ -3423,8 +3426,8 @@ proto_ssl() {
         cd /etc/stunnel/
         unzip certificado.zip
         cat private.key certificate.crt ca_bundle.crt >stunnel.pem
-        #
-        sed -i 's/ENABLED=0/ENABLED=1/g' /etc/default/stunnel4
+        ##-->> AutoInicio
+        sed -i '/ENABLED=[01]/d' /etc/default/stunnel4
         echo "ENABLED=1" >>/etc/default/stunnel4
         systemctl start stunnel4 &>/dev/null
         systemctl start stunnel &>/dev/null
@@ -14039,7 +14042,7 @@ actulizar_fun() {
     wget -O /etc/SCRIPT-LATAM/menu.sh https://raw.githubusercontent.com/NetVPS/LATAM_Oficial/main/Codigo-Base/menu.sh &>/dev/null
     chmod +rwx /etc/SCRIPT-LATAM/menu.sh
     wget -O /bin/rebootnb https://raw.githubusercontent.com/NetVPS/LATAM_Oficial/main/Ejecutables/rebootnb.sh &>/dev/null
-    chmod +x /bin/rebootnb
+    chmod +rwx /bin/rebootnb
   }
   msg -bar
   msg -tit
