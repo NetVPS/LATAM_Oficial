@@ -1,0 +1,10 @@
+[Unit]
+Description=Mi script de inicio
+
+[Service]
+Type=oneshot
+ExecStart=/bin/autoinicios
+StandardOutput=null
+
+[Install]
+WantedBy=multi-user.target
