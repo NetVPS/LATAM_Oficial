@@ -304,6 +304,10 @@ mine_port() {
       [[ -z $OVPN ]] && local OVPN="\033[0;36m OPENVPN-UDP: \033[1;32m"
       OVPN+="$Port "
       ;;
+    udpServer)
+      [[ -z $UDPSER ]] && local UDPSER="\033[0;36m UDP-SERVER \033[1;32m"
+      UDPSER+="$Port "
+      ;;
     esac
   done <<<"${portasVAR}"
   [[ ! -z $SSH ]] && echo -e $SSH
@@ -317,6 +321,9 @@ mine_port() {
   [[ ! -z $APC ]] && echo -e $APC
   [[ ! -z $OVPN ]] && echo -e $OVPN
   [[ ! -z $BAD ]] && echo -e $BAD
+  port=$(cat /etc/systemd/system/UDPserver.service | grep 'exclude')
+  port=$(echo $port | awk '{print $4}' | cut -d '=' -f2 | sed 's/,/ /g')
+  [[ ! -z $UDPSER ]] && echo -e $UDPSER\<--\> $port
   msg -bar2
 }
 
@@ -4892,7 +4899,6 @@ proto_badvpn() {
     read -t 60 -n 1 -rsp $'\033[1;39m       << Presiona enter para Continuar >>\n'
     menu_inst
   }
-
   clear && clear
   msg -bar
   msg -tit
@@ -7583,6 +7589,128 @@ sshl_install() {
   menu_inst
 }
 
+udp_serverr() {
+
+  activar_badvpn() {
+    mportas() {
+      unset portas
+      portas_var=$(lsof -V -i tcp -P -n | grep -v "ESTABLISHED" | grep -v "COMMAND" | grep "LISTEN")
+      while read port; do
+        var1=$(echo $port | awk '{print $1}') && var2=$(echo $port | awk '{print $9}' | awk -F ":" '{print $2}')
+        [[ "$(echo -e $portas | grep "$var1 $var2")" ]] || portas+="$var1 $var2\n"
+      done <<<"$portas_var"
+      i=1
+      echo -e "$portas"
+    }
+    clear && clear
+    msg -bar
+    msg -tit
+    msg -bar
+    msg -ama "            INSTALADOR DE UDP-REQUEST"
+    msg -bar
+    echo -e "\033[1;97mDigite los puertos a activar de forma secuencial\nEjemplo:\033[1;32m 7300 7200 7100 \033[1;97m| \033[1;93mPuerto recomendado \033[1;32m 5300\n"
+    echo -ne "\033[1;97mDigite los Puertos:\033[1;32m " && read -p " " -e -i "53 5300" portasx
+    echo "$portasx" >/etc/SCRIPT-LATAM/PortM/UDP-server.log
+    msg -bar
+    totalporta=($portasx)
+    unset PORT
+    for ((i = 0; i < ${#totalporta[@]}; i++)); do
+      [[ $(mportas | grep "${totalporta[$i]}") = "" ]] && {
+        PORT+="${totalporta[$i]}\n"
+        ip_nat=$(ip -4 addr | grep inet | grep -vE '127(\.[0-9]{1,3}){3}' | cut -d '/' -f 1 | grep -oE '[0-9]{1,3}(\.[0-9]{1,3}){3}' | sed -n 1p)
+        interfas=$(ip -4 addr | grep inet | grep -vE '127(\.[0-9]{1,3}){3}' | grep "$ip_nat" | awk {'print $NF'})
+        ip_publica=$(grep -m 1 -oE '^[0-9]{1,3}(\.[0-9]{1,3}){3}$' <<<"$(wget -T 10 -t 1 -4qO- "http://ip1.dynupdate.no-ip.com/" || curl -m 10 -4Ls "http://ip1.dynupdate.no-ip.com/")")
+        cat <<EOF >/etc/systemd/system/UDPserver.service
+[Unit]
+Description=UDPserver Service by LATAM
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/root
+ExecStart=/usr/bin/udpServer -ip=$ip_publica -net=$interfas${totalporta[$i]} -mode=system
+Restart=always
+RestartSec=3s
+
+[Install]
+WantedBy=multi-user.target6
+EOF
+
+        systemctl start UDPserver &>/dev/null
+        echo -e "\033[1;33m Puerto Escojido:\033[1;32m ${totalporta[$i]} OK"
+      } || {
+        echo -e "\033[1;33m Puerto Escojido:\033[1;31m ${totalporta[$i]} FAIL"
+      }
+    done
+    [[ -z $PORT ]] && {
+      echo -e "\033[1;31m  No se ha elegido ninguna puerto valido, reintente\033[0m"
+      return 1
+    }
+    sleep 3s
+    msg -bar
+
+    [[ "$(ps x | grep /usr/bin/udpServer | grep -v grep | awk '{print $1}')" ]] && msg -verd "        >> UDP-SERVER INSTALADO CON EXITO <<" || msg -ama "               ERROR VERIFIQUE"
+    msg -bar
+    read -t 60 -n 1 -rsp $'\033[1;39m       << Presiona enter para Continuar >>\n'
+    menu_inst
+  }
+
+  desactivar_badvpn() {
+    clear && clear
+    msg -bar
+    echo -e "\033[1;31m            DESISNTALANDO PUERTOS UDP-SERVER "
+    msg -bar
+    systemctl stop UDPserver &>/dev/null
+    systemctl disable UDPserver &>/dev/null
+    rm -rf /etc/systemd/system/UDPserver.service &>/dev/null
+    rm -rf /usr/bin/udpServer
+    rm -rf /etc/SCRIPT-LATAM/PortM/UDP-server.log
+    [[ ! "$(ps x | grep "/usr/bin/udpServer" | grep -v grep | awk '{print $1}')" ]] && echo -e "\033[1;32m        >> UDP-SERVER DESINSTALADO CON EXICO << "
+    msg -bar
+    read -t 60 -n 1 -rsp $'\033[1;39m       << Presiona enter para Continuar >>\n'
+    menu_inst
+  }
+
+  clear && clear
+  msg -bar
+  msg -tit
+  msg -bar
+  msg -ama "            INSTALADOR DE UDP-REQUEST"
+  msg -bar
+  if [[ ! -e /usr/bin/udpServer ]]; then
+    wget -O /usr/bin/udpServer 'https://bitbucket.org/iopmx/udprequestserver/downloads/udpServer' &>/dev/null
+    chmod +x /usr/bin/udpServer
+  fi
+  echo -ne " \e[1;93m [\e[1;32m1\e[1;93m]\033[1;31m > \e[1;97m INSTALAR UDP-SERVER  \e[97m \n"
+  echo -ne " \e[1;93m [\e[1;32m2\e[1;93m]\033[1;31m > \033[1;97m DETENER TODOS LOS UDP-SERVER\e[97m \n"
+  msg -bar
+  echo -ne " \e[1;93m [\e[1;32m0\e[1;93m]\033[1;31m > \033[1;97m" && msg -bra "  \e[97m\033[1;41m VOLVER \033[1;37m"
+  msg -bar
+  echo -ne "\033[1;97mDigite solo el numero segun su respuesta:\e[32m "
+  read opcao
+  case $opcao in
+  1)
+    msg -bar
+    activar_badvpn
+    ;;
+  2)
+    msg -bar
+    desactivar_badvpn
+    ;;
+  0)
+    menu
+    ;;
+  *)
+    echo -e "$ Porfavor use numeros del [0-14]"
+    msg -bar
+    menu
+    ;;
+  esac
+
+  #exit 0
+}
+
 #--- MENU DE PROTOCOLOS
 menu_inst() {
   clear && clear
@@ -7621,6 +7749,8 @@ menu_inst() {
   [[ -z ${SLOWDNS} ]] && SLOWDNS="\033[1;97m[\033[1;31m OFF \033[1;97m]" || SLOWDNS="\033[1;97m[\033[1;32m ACTIVO \033[1;97m]"
   SSLH=$(ps -ef | grep "/var/run/sslh/sslh.pid" | grep -v grep | awk -F "pts" '{print $1}')
   [[ -z ${SSLH} ]] && SSLH="\033[1;97m[\033[1;31m OFF \033[1;97m]" || SSLH="\033[1;97m[\033[1;32m ACTIVO \033[1;97m]"
+  UDPREQ=$(ps x | grep "/usr/bin/udpServer" | grep -v "grep" | awk -F "pts" '{print $1}')
+  [[ -z ${UDPREQ} ]] && UDPREQ="\033[1;97m[\033[1;31m OFF \033[1;97m]" || UDPREQ="\033[1;97m[\033[1;32m ACTIVO \033[1;97m]"
 
   local Numb=1
   echo -ne "\e[1;93m  [\e[1;32m$Numb\e[1;93m]\033[1;31m > \033[1;97m" && echo -e "\033[1;97mBADVPN ----------------------  $BADVPN"
@@ -7655,6 +7785,9 @@ menu_inst() {
   let Numb++
   echo -ne "\e[1;93m [\e[1;32m$Numb\e[1;93m]\033[1;31m > \033[1;97m" && echo -e "\033[1;97mSSLH ------------------------  $SSLH"
   script[$Numb]="sslh"
+  let Numb++
+  echo -ne "\e[1;93m [\e[1;32m$Numb\e[1;93m]\033[1;31m > \033[1;97m" && echo -e "\033[1;97mUDP-REQUEST -----------------  $UDPREQ"
+  script[$Numb]="udpserverr"
   echo -ne "\e[0;0m\e[1;90m═════════════════════ \e[0;0m\e[1;93mPROXY´S \e[0;0m\e[1;90m══════════════════════\n"
   let Numb++
   echo -ne "\e[1;93m [\e[1;32m$Numb\e[1;93m]\033[1;31m > \033[1;97m" && echo -e "\033[1;97mWEBSOKET STATUS EDITABLE ----  $WEBSOKETE"
@@ -7693,6 +7826,7 @@ menu_inst() {
     "ptcpover") proto_ptcpover ;;
     "slowdns") proto_slowndns ;;
     "sslh") sshl_install ;;
+    "udpserverr") udp_serverr ;;
     *) return 0 ;;
     esac
   }
@@ -11203,7 +11337,7 @@ controlador_ssh() {
         nomeuser="$(echo $nomeuser | sed -e 's/[^a-z0-9 -]//ig')"
         if [[ -z $nomeuser ]]; then
           err_fun 15 && continue
-        elif [[ "${#nomeuser}" -lt "32" ]]; then
+        elif [[ "${#nomeuser}" -lt "5" ]]; then
           err_fun 15 && continue
         elif [[ "${#nomeuser}" -gt "32" ]]; then
           err_fun 15 && continue
@@ -11246,9 +11380,9 @@ controlador_ssh() {
       echo -ne "\e[38;5;202mDias de Duracion: \e[1;97m" && echo -e "$diasuser"
       echo -ne "\e[38;5;202mFecha de Expiracion: \e[1;97m" && echo -e "$(date "+%F" -d " + $diasuser days")"
       msg -bar
-      [[ $(cat /etc/passwd | grep $nomeuser: | grep -vi [a-z]$nomeuser | grep -v [0-9]$nomeuser >/dev/null) ]] && return 1
+      [[ $(cat /etc/passwd | grep $nomeuser: | grep -vi [a-z]$nomeuser | grep -v [0-9]$nomeuser >/dev/null) ]] && msg -verm "         Error, Usuario no creado" && return 1
       valid=$(date '+%C%y-%m-%d' -d " +$diasuser days") && datexp=$(date "+%F" -d " + $diasuser days")
-      useradd -m -s /bin/false $nomeuser -e ${valid} >/dev/null 2>&1 || return 1
+      useradd -m -s /bin/false $nomeuser -e ${valid} >/dev/null 2>&1 || msg -verm "         Error, Usuario no creado" && return 1
       (
         echo $nomeuser
         echo $nomeuser
@@ -11258,7 +11392,7 @@ controlador_ssh() {
       }
       echo "$nomeuser||${datexp}||${nickhwid}" >>/etc/SCRIPT-LATAM/cuentahwid
       echo "$nomeuser||${datexp}||${nickhwid}" >>/etc/SCRIPT-LATAM/regtotal
-      msg -ama "\e[1;32m            Usuario Creado con Exito" || msg -verm "         Error, Usuario no creado"
+      msg -ama "\e[1;32m            Usuario Creado con Exito"
       msg -bar
       rebootnb "backbaseu" 2>/dev/null
 
@@ -11283,7 +11417,7 @@ controlador_ssh() {
           err_fun 17 && continue
         elif [[ "${#nomeuser}" -lt "4" ]]; then
           err_fun 17 && continue
-        elif [[ "${#nomeuser}" -gt "33" ]]; then
+        elif [[ "${#nomeuser}" -gt "32" ]]; then
           err_fun 17 && continue
         elif [[ "$(echo ${usuarios_ativos3[@]} | grep -w "$nomeuser")" ]]; then
           err_fun 18 && continue
@@ -11327,9 +11461,9 @@ controlador_ssh() {
       msg -bar
       passtoken=$(cat /etc/SCRIPT-LATAM/temp/.passw | tr -d " \t\n\r")
 
-      [[ $(cat /etc/passwd | grep $nomeuser: | grep -vi [a-z]$nomeuser | grep -v [0-9]$nomeuser >/dev/null) ]] && return 1
+      [[ $(cat /etc/passwd | grep $nomeuser: | grep -vi [a-z]$nomeuser | grep -v [0-9]$nomeuser >/dev/null) ]] && msg -verm "         Error, Usuario no creado" && return 1
       valid=$(date '+%C%y-%m-%d' -d " +$diasuser days") && datexp=$(date "+%F" -d " + $diasuser days")
-      useradd -m -s /bin/false $nomeuser -e ${valid} >/dev/null 2>&1 || return 1
+      useradd -m -s /bin/false $nomeuser -e ${valid} >/dev/null 2>&1 || msg -verm "         Error, Usuario no creado" && return 1
       (
         echo $passtoken
         echo $passtoken
@@ -11339,7 +11473,7 @@ controlador_ssh() {
       }
       echo "$nomeuser||${datexp}||${nickhwid}" >>/etc/SCRIPT-LATAM/cuentatoken
       echo "$nomeuser||${datexp}||${nickhwid}" >>/etc/SCRIPT-LATAM/regtotal
-      msg -ama "\e[1;32m            Usuario Creado con Exito" || msg -verm "         Error, Usuario no creado"
+      msg -ama "\e[1;32m            Usuario Creado con Exito"
       rebootnb "backbaseu" 2>/dev/null
 
       msg -bar
@@ -11902,10 +12036,10 @@ controlador_ssh() {
         echo -e "\033[38;5;239m════════════════\e[100m\e[97m  CUENTAS NORMALES  \e[0m\e[38;5;239m════════════════"
         while read user; do
           data_user=$(chage -l "$user" | grep -i co | awk -F ":" '{print $2}')
-          txtvar=$(printf '%-20s' "\e[1;97m$user")
+          txtvar=$(printf '%-25s' "\e[1;97m$user")
           if [[ -e "/etc/SCRIPT-LATAM/cuentassh" ]]; then
             if [[ $(cat /etc/SCRIPT-LATAM/cuentassh | grep -w "${user}") ]]; then
-              txtvar+="$(printf '%-27s' "${yellow}$(cat /etc/SCRIPT-LATAM/cuentassh | grep -w "${user}" | cut -d'|' -f2)")"
+              txtvar+="$(printf '%-22s' "${yellow}$(cat /etc/SCRIPT-LATAM/cuentassh | grep -w "${user}" | cut -d'|' -f2)")"
               DateExp="$(cat /etc/SCRIPT-LATAM/cuentassh | grep -w "${user}" | cut -d'|' -f3)"
               DataSec=$(date +%s --date="$DateExp")
               if [[ "$VPSsec" -gt "$DataSec" ]]; then
