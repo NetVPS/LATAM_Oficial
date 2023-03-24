@@ -126,8 +126,10 @@ fi
 # REINICIO DE SERVICE
 reset_service() {
     service dropbear stop &>/dev/null
-    service ssh restart &>/dev/null
+    sed -i "s/=1/=0/g" /etc/default/dropbear &>/dev/null
     service dropbear restart &>/dev/null
+    sed -i "s/=0/=1/g" /etc/default/dropbear &>/dev/null
+    service ssh restart &>/dev/null
 }
 if [[ "$1" = "service" ]]; then
     reset_service >/dev/null 2>&1

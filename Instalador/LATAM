@@ -257,6 +257,7 @@ instalador_final() {
   echo '#!/bin/sh -e' >/etc/rc.local
   sudo chmod +x /etc/rc.local
   echo "sudo rebootnb reboot" >>/etc/rc.local
+  echo "sudo rebootnb service" >>/etc/rc.local
   echo "sleep 2s" >>/etc/rc.local
   echo "exit 0" >>/etc/rc.local
   echo 'clear && clear' >>.bashrc
