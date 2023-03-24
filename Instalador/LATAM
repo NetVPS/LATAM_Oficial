@@ -249,17 +249,12 @@ instalador_final() {
   echo "$v1" >/etc/SCRIPT-LATAM/temp/version_instalacion
   FIns=$(printf '%(%D-%H:%M:%S)T')
   echo "$FIns" >/etc/SCRIPT-LATAM/F-Instalacion
-
   wget -O /bin/rebootnb https://raw.githubusercontent.com/NetVPS/LATAM_Oficial/main/Ejecutables/rebootnb.sh &>/dev/null
   chmod +x /bin/rebootnb
+
+  
   wget -O /etc/SCRIPT-LATAM/temp/version_actual https://raw.githubusercontent.com/NetVPS/LATAM_Oficial/main/Version &>/dev/null
   msgi -bar2
-  echo '#!/bin/sh -e' >/etc/rc.local
-  sudo chmod +x /etc/rc.local
-  echo "sudo rebootnb reboot" >>/etc/rc.local
-  echo "sudo rebootnb service" >>/etc/rc.local
-  echo "sleep 2s" >>/etc/rc.local
-  echo "exit 0" >>/etc/rc.local
   echo 'clear && clear' >>.bashrc
   echo 'rebootnb login >/dev/null 2>&1' >>.bashrc
   echo 'echo -e "\033[1;31m————————————————————————————————————————————————————" ' >>.bashrc

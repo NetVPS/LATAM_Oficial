@@ -135,7 +135,6 @@ if [[ "$1" = "service" ]]; then
     reset_service >/dev/null 2>&1
     exit
 fi
-
 #---------------------------AUTO INICIO---------------------------#
 # REINICIO DE BADVPN
 reset_badvpn() {

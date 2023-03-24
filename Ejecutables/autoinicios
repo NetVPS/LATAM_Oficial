@@ -1,0 +1,7 @@
+#!/bin/bash
+##-->>HINABILITAR UFW
+ufw disable
+##-->>REINICIAR DROPBEAR
+sed -i "s/=1/=0/g" /etc/default/dropbear &>/dev/null
+service dropbear restart &>/dev/null
+sed -i "s/=0/=1/g" /etc/default/dropbear &>/dev/null
