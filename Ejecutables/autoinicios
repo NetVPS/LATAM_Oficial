@@ -1,7 +1,12 @@
 #!/bin/bash
 ##-->>HINABILITAR UFW
 ufw disable
+##-->>CHECK IP
+MEU_IP=$(wget -qO- ifconfig.me)
+echo "$MEU_IP" >/tmp/IP
 ##-->>REINICIAR DROPBEAR
+service dropbear stop &>/dev/null
+service ssh restart &>/dev/null
 sed -i "s/=1/=0/g" /etc/default/dropbear &>/dev/null
 service dropbear restart &>/dev/null
 sed -i "s/=0/=1/g" /etc/default/dropbear &>/dev/null

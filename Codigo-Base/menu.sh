@@ -2892,7 +2892,6 @@ monservi_fun() {
   autowebsoket() {
     echo "sudo rebootnb resetwebsocket" >>/etc/rc.local
   }
-
   autolimitador() {
     echo "sudo rebootnb resetlimitador" >>/etc/rc.local
   }
@@ -3278,14 +3277,10 @@ proto_ssl() {
     echo -e "client = no\n[SSL]\ncert = /etc/stunnel/stunnel.pem\naccept = ${SSLPORT}\nconnect = 127.0.0.1:${portx}" >/etc/stunnel/stunnel.conf
     ####Coreccion2.0#####
     openssl genrsa -out stunnel.key 2048 >/dev/null 2>&1
-
     # (echo "mx" ; echo "mx" ; echo "mx" ; echo "mx" ; echo "mx" ; echo "mx" ; echo "@vpsmx" )|openssl req -new -key stunnel.key -x509 -days 1000 -out stunnel.crt > /dev/null 2>&1
-
     openssl req -new -key stunnel.key -x509 -days 1000 -out stunnel.crt
-
     cat stunnel.crt stunnel.key >stunnel.pem
-
-    mv stunnel.pem /var/lib/stunnel4/
+    mv stunnel.pem /etc/stunnel/
     ##-->> AutoInicio
     sed -i '/ENABLED=[01]/d' /etc/default/stunnel4
     echo "ENABLED=1" >>/etc/default/stunnel4
@@ -7713,7 +7708,99 @@ EOF
 
   #exit 0
 }
+s_psiphone() {
 
+  install() {
+    echo -e "\033[1;33m Se instalará el servidor de Psiphon\033[0m"
+    echo -e "\033[1;33m Si ya tenías una instalacion Previa, esta se eliminara\033[0m"
+    echo -e "\033[1;33m Debes tener instalado previamente GO Lang\033[0m"
+    echo -e "\033[1;33m Continuar?\033[0m"
+    while [[ ${yesno} != @(s|S|y|Y|n|N) ]]; do
+      read -p "[S/N]: " yesno
+      tput cuu1 && tput dl1
+    done
+    if [[ ${yesno} = @(s|S|y|Y) ]]; then
+      rm -rf /root/psi
+      kill $(ps aux | grep 'psiphond' | awk '{print $2}') 1>/dev/null 2>/dev/null
+      killall psiphond 1>/dev/null 2>/dev/null
+      cd /root
+      mkdir psi
+      cd psi
+      psi=$(cat /root/psi.txt)
+      ship=$(wget -qO- ipv4.icanhazip.com)
+      curl -o /root/psi/psiphond https://raw.githubusercontent.com/Psiphon-Labs/psiphon-tunnel-core-binaries/master/psiphond/psiphond 1>/dev/null 2>/dev/null
+      chmod 777 psiphond
+      echo -e "\033[1;33m Escribe el puerto para Psiphon SSH:\033[0m"
+      read -p ": " sh
+      echo -e "\033[1;33m Escribe el puerto para Psiphon OSSH:\033[0m"
+      read -p ": " osh
+      echo -e "\033[1;33m Escribe el puerto para Psiphon FRONTED-MEEK:\033[0m"
+      read -p ": " fm
+      echo -e "\033[1;33m Escribe el puerto para Psiphon UNFRONTED-MEEK:\033[0m"
+      read -p ": " umo
+      ./psiphond --ipaddress $ship --protocol SSH:$sh --protocol OSSH:$osh --protocol FRONTED-MEEK-OSSH:$fm --protocol UNFRONTED-MEEK-OSSH:$umo generate
+      chmod 666 psiphond.config
+      chmod 666 psiphond-traffic-rules.config
+      chmod 666 psiphond-osl.config
+      chmod 666 psiphond-tactics.config
+      chmod 666 server-entry.dat
+      cat server-entry.dat >>/root/psi.txt
+      screen -dmS psiserver ./psiphond run
+      cd /root
+      echo -e "\033[1;33m LA CONFIGURACION DE TU SERVIDOR ES:\033[0m"
+      echo -e "[\033[1;31m-\033[1;33m]\033[1;31m ───────────────────────────────────────\033[1;33m"
+      echo -e "\033[1;32m $psi \033[0m"
+      echo -e "[\033[1;31m-\033[1;33m]\033[1;31m ───────────────────────────────────────\033[1;33m"
+      echo -e "\033[1;33m PROTOCOLOS HABILITADOS:\033[0m"
+      echo -e "\033[1;33m → SSH:\033[1;32m $sh \033[0m"
+      echo -e "\033[1;33m → OSSH:\033[1;32m $osh \033[0m"
+      echo -e "\033[1;33m → FRONTED-MEEK-OSSH:\033[1;32m $fm \033[0m"
+      echo -e "\033[1;33m → UNFRONTED-MEEK-OSSH:\033[1;32m $umo \033[0m"
+      echo -e "[\033[1;31m-\033[1;33m]\033[1;31m ───────────────────────────────────────\033[1;33m"
+      echo -e " "
+      echo -e "\033[1;33m DIRECTORIO DE ARCHIVOS:\033[1;32m /root/psi \033[0m"
+    fi
+  }
+
+  clear && clear
+  msg -bar
+  msg -tit
+  msg -bar
+  msg -ama "            INSTALADOR DE PSIPHONE-SERVER"
+  msg -bar
+  if [[ ! -e /bin/psiphond ]]; then
+    curl -o /bin/psiphond https://raw.githubusercontent.com/Psiphon-Labs/psiphon-tunnel-core-binaries/master/psiphond/psiphond &>/dev/null
+    chmod 777 /bin/psiphond
+  fi
+  echo -ne " \e[1;93m [\e[1;32m1\e[1;93m]\033[1;31m > \e[1;97m INSTALAR SERVER-PSIPHONE  \e[97m \n"
+  echo -ne " \e[1;93m [\e[1;32m2\e[1;93m]\033[1;31m > \033[1;97m DETENER SERVER-PSIPHONE \e[97m \n"
+  msg -bar
+  echo -ne " \e[1;93m [\e[1;32m0\e[1;93m]\033[1;31m > \033[1;97m" && msg -bra "  \e[97m\033[1;41m VOLVER \033[1;37m"
+  msg -bar
+  echo -ne "\033[1;97mDigite solo el numero segun su respuesta:\e[32m "
+  read opcao
+  case $opcao in
+  1)
+    msg -bar
+    activar_badvpn
+    ;;
+  2)
+    msg -bar
+    desactivar_badvpn
+    ;;
+  0)
+    menu
+    ;;
+  *)
+    echo -e "$ Porfavor use numeros del [0-14]"
+    msg -bar
+    menu
+    ;;
+  esac
+
+  #exit 0
+
+}
 #--- MENU DE PROTOCOLOS
 menu_inst() {
   clear && clear
@@ -7791,6 +7878,9 @@ menu_inst() {
   let Numb++
   echo -ne "\e[1;93m [\e[1;32m$Numb\e[1;93m]\033[1;31m > \033[1;97m" && echo -e "\033[1;97mUDP-REQUEST -----------------  $UDPREQ"
   script[$Numb]="udpserverr"
+  let Numb++
+  echo -ne "\e[1;93m [\e[1;32m$Numb\e[1;93m]\033[1;31m > \033[1;97m" && echo -e "\033[1;97mSERVIDOR PSIPHONE -----------  $UDPREQ"
+  script[$Numb]="spsiphone"
   echo -ne "\e[0;0m\e[1;90m═════════════════════ \e[0;0m\e[1;93mPROXY´S \e[0;0m\e[1;90m══════════════════════\n"
   let Numb++
   echo -ne "\e[1;93m [\e[1;32m$Numb\e[1;93m]\033[1;31m > \033[1;97m" && echo -e "\033[1;97mWEBSOKET STATUS EDITABLE ----  $WEBSOKETE"
@@ -7830,6 +7920,7 @@ menu_inst() {
     "slowdns") proto_slowndns ;;
     "sslh") sshl_install ;;
     "udpserverr") udp_serverr ;;
+    "spsiphone") s_psiphone ;;
     *) return 0 ;;
     esac
   }
