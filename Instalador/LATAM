@@ -7,10 +7,10 @@ wget -O ${colores} "https://raw.githubusercontent.com/NetVPS/LATAM_Oficial/main/
 [[ ! -e ${colores} ]] && exit
 chmod +x ${colores} &>/dev/null
 ##-->> CARGAR SC EXTERNO
-source /root/colores
+source $(pwd)/colores
 CTRL_C() {
   rm -rf ${colores}
-  rm -rf /root/LATAM
+  rm -rf $(pwd)/LATAM
   exit
 }
 ##-->> DETECTAR CANCELAR Y ELIMINAR ARCHIVO
