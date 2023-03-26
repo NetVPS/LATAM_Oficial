@@ -101,12 +101,30 @@ install_inicial() {
     echo -e "\033[1;97m TU CONTRASEÑA ROOT AHORA ES: \e[41m $pass \033[0;37m"
 
   }
-    ##-->>AGREGAR NOTIFICADOR ROOT
-  pass_root() {
-    echo -e "\033[1;97m   NOTIFICADOR PUSH DE LOGINS ROOT"
-    echo -ne "\033[1;97m DIGITE SU KEY  \033[1;31m" && read pass
-    
-
+  ##-->>AGREGAR NOTIFICADOR ROOT
+  avi_login() {
+    for i in {1..4}; do tput cuu 1 && tput el; done
+    wget -O /etc/profile.d/notify-lroot.sh https://raw.githubusercontent.com/NetVPS/LATAM_Oficial/main/Ejecutables/notify-lroot.sh >/dev/null 2>&1
+    chmod +x /etc/profile.d/notify-lroot.sh
+    msgi -bar
+    echo -e "\033[1;97m         NOTIFICADOR VIA PUSH DE LOGINS ROOT"
+    msgi -bar
+    echo -e "\033[1;97mEsta es una herramianta que te Notificara mediante\nuna apk cuando alguien ingrese ssh root en la VPS"
+    echo -e "\033[1;97m   Descarge la Aplicasion directo de Play Store"
+    echo -e "\033[1;96m https://play.google.com/store/apps/details?id=net.xdroid.pn"
+    msgi -bar
+    echo -ne "\033[1;97m DIGITE SU KEY: \033[1;32m" && read keyapk
+    echo "$keyapk" >/etc/SCRIPT-LATAM/temp/keyapk
+    echo -ne "\033[1;97m INGRESE ALGUN NOMBRE PARA SU VPS: \033[1;32m" && read nomvpsapk
+    echo "$nomvpsapk" >/etc/SCRIPT-LATAM/temp/nomvpsapk
+    KEY=$(cat /etc/SCRIPT-LATAM/temp/keyapk)
+    IP=$(cat /root/.ssh/authrized_key.reg)
+    NOMBREVPS=$(cat /etc/SCRIPT-LATAM/temp/nomvpsapk | tr '[:space:]' '+' | tr -d 'ñ' | sed '/^$/d')
+    curl -s "http://xdroid.net/api/message?k=$KEY&t=%F0%9F%98%8E+Mensaje+de+Prueba%E2%9C%8C%EF%B8%8F&c=%F0%9F%96%A5%EF%B8%8F+VPS%3A+$NOMBREVPS%0A%F0%9F%8C%90+IP%3A+$IP&u=" >/dev/null 2>&1
+    msgi -bar
+    echo -e "\033[1;97mSe envio un mensaje de prueba si no le llevo contacte @Kalix1"
+    sleep 10s
+    for i in {1..8}; do tput cuu 1 && tput el; done
   }
   #-- VERIFICAR VERSION
   v1=$(curl -sSL "https://raw.githubusercontent.com/NetVPS/LATAM_Oficial/main/Version")
@@ -145,6 +163,7 @@ password required pam_permit.so' >/etc/pam.d/common-password && chmod +x /etc/pa
     [[ "$tu_ip" = "n" || "$tu_ip" = "N" ]] && tu_ip
   }
   fun_ip
+  for i in {1..4}; do tput cuu 1 && tput el; done
   msgi -bar2
   echo -e "\033[1;93m             AGREGAR Y EDITAR PASS ROOT\033[1;97m"
   msgi -bar
@@ -153,6 +172,16 @@ password required pam_permit.so' >/etc/pam.d/common-password && chmod +x /etc/pa
   echo -ne "\033[1;97m Seleccione  \033[1;31m[\033[1;93m S \033[1;31m/\033[1;93m N \033[1;31m]\033[1;97m: \033[1;93m" && read pass_root
   #read -p " Seleccione [ S / N ]: " tu_ip
   [[ "$pass_root" = "s" || "$pass_root" = "S" ]] && pass_root
+  for i in {1..6}; do tput cuu 1 && tput el; done
+  msgi -bar2
+  echo -e "\033[1;93m                   AGREGAR NOTIFY \033[1;97m"
+  msgi -bar
+  echo -e "\033[1;97m AGREGAR REGISTRO DE NOTYFY? \033[32m"
+  msgi -bar2
+  echo -ne "\033[1;97m Seleccione  \033[1;31m[\033[1;93m S \033[1;31m/\033[1;93m N \033[1;31m]\033[1;97m: \033[1;93m" && read avi_login
+  #read -p " Seleccione [ S / N ]: " tu_ip
+  [[ "$avi_login" = "s" || "$avi_login" = "S" ]] && avi_login
+  for i in {1..6}; do tput cuu 1 && tput el; done
   msgi -bar2
   echo -e "\033[1;93m\a\a\a      SE PROCEDERA A INSTALAR LAS ACTULIZACIONES\n PERTINENTES DEL SISTEMA, ESTE PROCESO PUEDE TARDAR\n VARIOS MINUTOS Y PUEDE PEDIR ALGUNAS CONFIRMACIONES \033[0;37m"
   msgi -bar
@@ -160,7 +189,7 @@ password required pam_permit.so' >/etc/pam.d/common-password && chmod +x /etc/pa
   clear && clear
   apt update
   apt upgrade -y
-  wget -O /usr/bin/LATAM https://raw.githubusercontent.com/NetVPS/LATAM_Oficial/main/Instalador/LATAM  &>/dev/null
+  wget -O /usr/bin/LATAM https://raw.githubusercontent.com/NetVPS/LATAM_Oficial/main/Instalador/LATAM &>/dev/null
   chmod +x /usr/bin/LATAM
 }
 
