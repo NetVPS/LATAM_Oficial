@@ -101,6 +101,13 @@ install_inicial() {
     echo -e "\033[1;97m TU CONTRASEÑA ROOT AHORA ES: \e[41m $pass \033[0;37m"
 
   }
+    ##-->>AGREGAR NOTIFICADOR ROOT
+  pass_root() {
+    echo -e "\033[1;97m   NOTIFICADOR PUSH DE LOGINS ROOT"
+    echo -ne "\033[1;97m DIGITE SU KEY  \033[1;31m" && read pass
+    
+
+  }
   #-- VERIFICAR VERSION
   v1=$(curl -sSL "https://raw.githubusercontent.com/NetVPS/LATAM_Oficial/main/Version")
   echo "$v1" >/etc/SCRIPT-LATAM/temp/version_instalacion
