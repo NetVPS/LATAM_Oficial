@@ -180,7 +180,7 @@ time_reboot() {
 dependencias() {
   dpkg --configure -a >/dev/null 2>&1
   apt -f install -y >/dev/null 2>&1
-  packages="zip unzip python python3 python3-pip openssl iptables lsof pv boxes at mlocate gawk bc jq npm nodejs socat netcat netcat-traditional net-tools cowsay figlet lolcat"
+  packages="zip unzip python python3 python3-pip openssl iptables lsof pv boxes at mlocate gawk bc jq npm nodejs socat net-tools cowsay figlet lolcat"
   for i in $packages; do
     paquete="$i"
     echo -e "\033[1;97m        INSTALANDO PAQUETE \e[93m >>> \e[36m $i"
@@ -313,16 +313,13 @@ error_fun() {
   tput cuu 2
   tput el
   tput el
-
   echo -e "\033[1;31m               ¡# ERROR INESPERADO #¡"
   echo -e "\033[1;31m          ESTA KEY YA FUE USADA O EXPIRO "
   msgi -bar2
   echo -ne "\033[1;97m  DESEAS REINTENTAR CON OTRA KEY  \033[1;31m[\033[1;93m S \033[1;31m/\033[1;93m N \033[1;31m]\033[1;97m: \033[1;93m" && read incertar_key
-  service apache2 restart >/dev/null 2>&1
   [[ "$incertar_key" = "s" || "$incertar_key" = "S" ]] && check_key
   clear && clear
   msgi -bar2
-  rm -rf lista-arq
   echo -e "\033[1;97m          ---- INSTALACION CANCELADA  -----"
   msgi -bar2
   exit
