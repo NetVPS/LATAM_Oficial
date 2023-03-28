@@ -285,12 +285,16 @@ instalador_final() {
   echo "$v1" >/etc/SCRIPT-LATAM/temp/version_instalacion
   FIns=$(printf '%(%D-%H:%M:%S)T')
   echo "$FIns" >/etc/SCRIPT-LATAM/F-Instalacion
+  last_check_file="/etc/SCRIPT-LATAM/temp/last_check"
+  date "+%Y-%m-%d %H:%M:%S" >"$last_check_file"
   wget -O /bin/rebootnb https://raw.githubusercontent.com/NetVPS/LATAM_Oficial/main/Ejecutables/rebootnb.sh &>/dev/null
   chmod +x /bin/rebootnb
   wget -O /bin/autoinicios https://raw.githubusercontent.com/NetVPS/LATAM_Oficial/main/Ejecutables/autoinicios &>/dev/null
   chmod +rwx /bin/autoinicios
   wget -O /etc/systemd/system/iniciolatam.service https://raw.githubusercontent.com/NetVPS/LATAM_Oficial/main/Ejecutables/iniciolatam.service &>/dev/null
   sudo systemctl enable iniciolatam.service
+  wget -O /bin/check-update https://raw.githubusercontent.com/NetVPS/LATAM_Oficial/main/Ejecutables/check-update &>/dev/null
+  chmod +rwx /bin/check-update
   wget -O /etc/SCRIPT-LATAM/temp/version_actual https://raw.githubusercontent.com/NetVPS/LATAM_Oficial/main/Version &>/dev/null
   msgi -bar2
   echo 'clear && clear' >>.bashrc
