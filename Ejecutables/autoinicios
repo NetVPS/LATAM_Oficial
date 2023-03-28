@@ -1,21 +1,20 @@
 #!/bin/bash
-##-->>HINABILITAR UFW
+##-->> DESACTIVAR UFW TEMPORAL
 ufw disable
-##-->>CHECK IP
+##-->> CHECK IP
 MEU_IP=$(wget -qO- ifconfig.me)
 echo "$MEU_IP" >/tmp/IP
-##-->>REINICIAR DROPBEAR
+##-->> REINICIAR DROPBEAR
 service dropbear stop &>/dev/null
 service ssh restart &>/dev/null
 sed -i "s/=1/=0/g" /etc/default/dropbear &>/dev/null
 service dropbear restart &>/dev/null
 sed -i "s/=0/=1/g" /etc/default/dropbear &>/dev/null
-##-->> AUTO BADVPN
+##-->> AUTOINICIO BADVPN
 if [[ -e "/etc/SCRIPT-LATAM/PortM/Badvpn.log" ]]; then
     portasx=$(cat /etc/SCRIPT-LATAM/PortM/Badvpn.log)
     totalporta=($portasx)
-    for ((i = 0; i < ${#totalporta[@]}; i++)); do
-        screen -d -m -S badvpn /bin/badvpn-udpgw --listen-addr 127.0.0.1:${totalporta[$i]} --max-clients 1000 --max-connections-for-client 10
-
+    for port in "${totalporta[@]}"; do
+        screen -dmS "badvpn-$port" /bin/badvpn-udpgw --listen-addr "127.0.0.1:$port" --max-clients 1000 --max-connections-for-client 10
     done
 fi
