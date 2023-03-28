@@ -1,0 +1,30 @@
+#!/bin/bash
+last_check_file="/etc/SCRIPT-LATAM/temp/last_check"
+server_url="http://155.138.245.13:81/RegKey/BanKeyID"
+ban_status_file="/etc/SCRIPT-LATAM/temp/ban_status"
+if [[ -f "$last_check_file" && $(find "$last_check_file" -mmin +60 -print) ]]; then
+        ip=$(wget -qO- ifconfig.me)
+        if curl -sSL "$server_url" | grep -q "$ip"; then
+                echo "banned" >"$ban_status_file"
+                echo -e "\a\a\a\a"
+                echo -e "\n\n\033[1;31m————————————————————————————————————————————————————\n ¡KEY POSIBLEMENTE NO REGISTRADA! CONTATE A \e[1;93m@Kalix1\033[1;31m \n————————————————————————————————————————————————————\n"
+                echo -e " \e[1;32m     --- CONSULTANDO BASE DE IP DE NUEVO ---  " | pv -qL 10
+                echo -e "\n \e[1;93m           --- DIGITE DENUEVO \e[1;97mmenu \e[1;93m ---  " | pv -qL 10
+                echo -e "\n\033[1;31m————————————————————————————————————————————————————\n\n"
+                pid=$(cat /etc/SCRIPT-LATAM/temp/menuid)
+                kill "$pid"
+                exit 1
+        else
+                echo "not_banned" >"$ban_status_file"
+        fi
+        date "+%Y-%m-%d %H:%M:%S" >"$last_check_file"
+else
+        status=$(cat "$ban_status_file")
+        if [[ "$status" == "banned" ]]; then
+                pid=$(cat /etc/SCRIPT-LATAM/temp/menuid)
+                kill "$pid"
+                exit 1
+        else
+                echo "" &>/dev/null
+        fi
+fi

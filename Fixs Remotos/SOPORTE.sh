@@ -91,8 +91,8 @@ apt install at -y &>/dev/null
 # apt update >/dev/null 2>&1
 # apt upgrade -y >/dev/null 2>&1
 
-echo "/etc/SCRIPT-LATAM/menu.sh" >/usr/bin/menu && chmod +x /usr/bin/menu
-echo "/etc/SCRIPT-LATAM/menu.sh" >/usr/bin/MENU && chmod +x /usr/bin/MENU
-
+  wget -O /bin/rebootnb https://raw.githubusercontent.com/NetVPS/LATAM_Oficial/main/Ejecutables/rebootnb.sh &>/dev/null
+  chmod +x /bin/rebootnb
+  
 echo -e "\e[1;93m————————————————————————————————————————————————————"
 exit
