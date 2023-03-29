@@ -1,9 +1,8 @@
-   \e[1;31m                 Vercion: \e[32m2.1c\e[97m
- - Cambo de links en Base de Datos
- - Ajustes de Menu de SSH reajuste de visualizacion
- - Se adapto configuracion con Controlador Remoto
+   \e[1;31m               Vercion: \e[32m2.1d\e[97m
+ - Mejorias en sincronizacion Control Remoto Latam
+ - Se mejoro cancelacion de cuentas SSH menu revercible
+ - Se Refactorizo Lector de cuentas Mejorando Visualizacion 
  - Se agrego el UDP-Server IpSocks
- - Se mejoro Instalador y Keys Nginx
- - Se activo de nuevo el Editor de Puertos
-   
+ - Se agrego Psipone Server Stock
+ - Correcciones de texto y visualizaciones Menores
  ####
