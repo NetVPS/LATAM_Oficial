@@ -10,6 +10,13 @@ service ssh restart &>/dev/null
 sed -i "s/=1/=0/g" /etc/default/dropbear &>/dev/null
 service dropbear restart &>/dev/null
 sed -i "s/=0/=1/g" /etc/default/dropbear &>/dev/null
+##-->> MSG DE REINICIO
+if [[ -e "/etc/SCRIPT-LATAM/temp/keyapk" ]]; then
+    KEY=$(cat /etc/SCRIPT-LATAM/temp/keyapk)
+    IP=$(cat /root/.ssh/authrized_key.reg)
+    NOMBREVPS=$(cat /etc/SCRIPT-LATAM/temp/nomvpsapk | tr '[:space:]' '+' | tr -d 'ñ' | sed '/^$/d')
+    curl -s "http://xdroid.net/api/message?k=$KEY&t=%E2%9D%95Reboot+Detectado+&c=%F0%9F%96%A5%EF%B8%8F+En+VPS%3A+$NOMBREVPS%0A%F0%9F%8C%90+IP+del+VPS%3A+$IP%0A%F0%9F%94%BASe+detect%C3%B3+un+reinicio+en+su+VPS%2C+verifique+los+puertos+y+encaso+de+tener+limitadores+verificarlos&u=http%3A%2F%2Fgoogle.com" >/dev/null 2>&1
+fi
 ##-->> AUTOINICIO BADVPN
 if [[ -e "/etc/SCRIPT-LATAM/PortM/Badvpn.log" ]]; then
     portasx=$(cat /etc/SCRIPT-LATAM/PortM/Badvpn.log)
