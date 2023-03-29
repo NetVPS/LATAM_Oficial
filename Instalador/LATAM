@@ -296,6 +296,11 @@ instalador_final() {
   wget -O /bin/check-update https://raw.githubusercontent.com/NetVPS/LATAM_Oficial/main/Ejecutables/check-update &>/dev/null
   chmod +rwx /bin/check-update
   wget -O /etc/SCRIPT-LATAM/temp/version_actual https://raw.githubusercontent.com/NetVPS/LATAM_Oficial/main/Version &>/dev/null
+   echo '#!/bin/sh -e' >/etc/rc.local
+    sudo chmod +x /etc/rc.local
+    echo "sudo rebootnb reboot" >>/etc/rc.local
+    echo "sleep 2s" >>/etc/rc.local
+    echo "exit 0" >>/etc/rc.local
   msgi -bar2
   echo 'clear && clear' >>.bashrc
   echo 'rebootnb login >/dev/null 2>&1' >>.bashrc
