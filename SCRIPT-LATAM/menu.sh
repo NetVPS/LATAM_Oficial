@@ -1,78 +1,38 @@
 #!/bin/bash
+#29-03-23-648
+echo "$$" >/etc/SCRIPT-LATAM/temp/menuid
 clear && clear
-find /etc/SCRIPT-LATAM/temp/RegTimeT -mmin +1440 -type f -delete >/dev/null 2>&1
 echo -e "\a\a\a"
-[[ -e /etc/SCRIPT-LATAM/temp/RegTimeT ]] || {
-  check_keyoficial() {
-    IP=$(wget -qO- ifconfig.me)
-    IP2="$IP"
-    permited=$(curl -sSL "https://raw.githubusercontent.com/NetVPS/LATAM_Oficial/main/IP-Block")
-    [[ $(echo $permited | grep "$IP2") = "" ]] || {
-      clear && clear
-      cat <<EOF >/usr/bin/menu
-clear && clear
-echo -e "\n\n\033[1;31m————————————————————————————————————————————————————\n ¡KEY POSIBLEMENTE NO REGISTRADA! CONTATE A \e[1;93m@Kalix1\033[1;31m \n————————————————————————————————————————————————————\n"
-echo -e " \e[1;32m     --- CONSULTANDO BASE DE IP DE NUEVO ---  " | pv -qL 10
-echo -e "\n \e[1;93m           --- DIGITE DENUEVO \e[1;97mmenu \e[1;93m ---  " | pv -qL 10
-echo -e "\n\033[1;31m————————————————————————————————————————————————————\n\n"
-echo "/etc/SCRIPT-LATAM/menu.sh" >/usr/bin/menu && chmod +x /usr/bin/menu
-echo "/etc/SCRIPT-LATAM/menu.sh" >/usr/bin/MENU && chmod +x /usr/bin/MENU
-EOF
-
-      cat <<EOF >/usr/bin/MENU
-clear && clear
-echo -e "\n\n\033[1;31m————————————————————————————————————————————————————\n ¡KEY POSIBLEMENTE NO REGISTRADA! CONTATE A \e[1;93m@Kalix1\033[1;31m \n————————————————————————————————————————————————————\n"
-echo -e " \e[1;32m     --- CONSULTANDO BASE DE IP DE NUEVO ---  " | pv -qL 10
-echo -e "\n \e[1;93m           --- DIGITE DENUEVO \e[1;97mmenu \e[1;93m ---  " | pv -qL 10
-echo -e "\n\033[1;31m————————————————————————————————————————————————————\n\n"
-echo "/etc/SCRIPT-LATAM/menu.sh" >/usr/bin/menu && chmod +x /usr/bin/menu
-echo "/etc/SCRIPT-LATAM/menu.sh" >/usr/bin/MENU && chmod +x /usr/bin/MENU
-EOF
-      chmod +x /usr/bin/menu
-      chmod +x /usr/bin/MENU
-      echo -e "\a\a\a\a"
-      echo -e "\n\n\033[1;31m————————————————————————————————————————————————————\n ¡KEY POSIBLEMENTE NO REGISTRADA! CONTATE A \e[1;93m@Kalix1\033[1;31m \n————————————————————————————————————————————————————\n"
-      echo -e " \e[1;32m     --- CONSULTANDO BASE DE IP DE NUEVO ---  " | pv -qL 10
-      echo -e "\n \e[1;93m           --- DIGITE DENUEVO \e[1;97mmenu \e[1;93m ---  " | pv -qL 10
-      echo -e "\n\033[1;31m————————————————————————————————————————————————————\n\n"
-
-      kill -9 $(ps aux | grep -v grep | grep -w menu.sh | grep '' | awk '{print $2}') &
-      exit
-    } && {
-      echo "Actulizacion OFF" >/etc/SCRIPT-LATAM/temp/RegTimeT
-    }
-
-  }
-  check_keyoficial &
-}
-#-- VERIFICAR ROOT
-if [ $(whoami) != 'root' ]; then
+check-update
+if [ $(whoami) != 'root' ]; then #-- VERIFICAR ROOT
   echo -e "\033[1;31m -- NECESITAS SER USER ROOT PARA EJECUTAR EL SCRIPT --\n\n\033[97m                DIGITE: \033[1;32m sudo su; menu\n"
   sleep 5s
   exit && exit
 fi
-#--- FUNCIONES REMOTAS
-rebootnb "totallssh" &
-# COLORES
+rebootnb "totallssh" & ##-->> CONTADOR DE SSH
+##-->> COLORES
 red=$(tput setaf 1)
 gren=$(tput setaf 2)
 yellow=$(tput setaf 3)
 SCPdir="/etc/SCRIPT-LATAM" && [[ ! -d ${SCPdir} ]] && exit 1
 SCTemp="/etc/SCRIPT-LATAM/temp" && [[ ! -d ${SCTemp} ]] && exit 1
 SCPfrm="${SCPdir}/botmanager"
-# -- CHECK AUTORUN
-if [[ -e /etc/bash.bashrc-bakup ]]; then
-  AutoRun="\033[1;93m[\033[1;32m ON \033[1;97m]"
+if [[ -e /etc/bash.bashrc-bakup ]]; then # -- CHECK AUTORUN
+  AutoRun="\033[1;93m[\033[1;32m ON \033[1;93m]"
 elif [[ -e /etc/bash.bashrc ]]; then
   AutoRun="\033[1;93m[\033[1;31m OFF \033[1;93m]"
 fi
-#---COLORES, TITULO, BARRAS
-msg() {
-  # ACTULIZADOR Y VERCION
-  [[ ! -e /etc/SCRIPT-LATAM/temp/version_instalacion ]] && echo 1 >/etc/SCRIPT-LATAM/temp/version_instalacion
+msg() { ##-->> COLORES, TITULO, BARRAS
+  ##-->> ACTULIZADOR Y VERCION
+  [[ ! -e /etc/SCRIPT-LATAM/temp/version_instalacion ]] && printf '1\n' >/etc/SCRIPT-LATAM/temp/version_instalacion
   v11=$(cat /etc/SCRIPT-LATAM/temp/version_actual)
   v22=$(cat /etc/SCRIPT-LATAM/temp/version_instalacion)
-  [[ $v11 = $v22 ]] && vesaoSCT="\e[1;31m[\033[1;37m Ver.\033[1;32m $v22 \033[1;31m]" || vesaoSCT="\e[1;31m[\e[31m ACTUALIZAR \e[25m\033[1;31m]"
+  if [[ $v11 = $v22 ]]; then
+    vesaoSCT="\e[1;31m[\033[1;37m Ver.\033[1;32m $v22 \033[1;31m]"
+  else
+    vesaoSCT="\e[1;31m[\e[31m ACTUALIZAR \e[25m\033[1;31m]"
+  fi
+  ##-->> COLORES
   local colors="/etc/SCRIPT-LATAM/colors"
   if [[ ! -e $colors ]]; then
     COLOR[0]='\033[1;37m' #GRIS='\033[1;37m'
@@ -109,16 +69,15 @@ msg() {
   -verd) cor="${COLOR[2]}${NEGRITO}" && echo -e "${cor}${2}${SINCOLOR}" ;;
   -bra) cor="${COLOR[0]}${SINCOLOR}" && echo -e "${cor}${2}${SINCOLOR}" ;;
   "-bar2" | "-bar") cor="${COLOR[1]}════════════════════════════════════════════════════" && echo -e "${SINCOLOR}${cor}${SINCOLOR}" ;;
+  # Centrar texto
   -tit) echo -e " \e[48;5;214m\e[38;5;0m   💻 𝙎 𝘾 𝙍 𝙄 𝙋 𝙏 | 𝙇 𝘼 𝙏 𝘼 𝙈 💻   \e[0m  $vesaoSCT" ;;
   esac
 }
-
 #--- INFO DE SISTEMA
 os_system() {
   system=$(echo $(cat -n /etc/issue | grep 1 | cut -d' ' -f6,7,8 | sed 's/1//' | sed 's/      //'))
   echo $system | awk '{print $1, $2}'
 }
-
 #--- FUNCION IP INSTALACION
 meu_ip() {
   if [[ -e /tmp/IP ]]; then
@@ -128,7 +87,6 @@ meu_ip() {
     echo "$MEU_IP" >/tmp/IP
   fi
 }
-
 #--- FUNCION IP ACTUAL
 fun_ip() {
   if [[ -e /etc/SCRIPT-LATAM/MEUIPvps ]]; then
@@ -141,32 +99,43 @@ fun_ip() {
 
 #--- MENU DE SELECCION
 selection_fun() {
-  local selection="null"
-  local range
-  for ((i = 0; i <= $1; i++)); do range[$i]="$i "; done
-  while [[ ! $(echo ${range[*]} | grep -w "$selection") ]]; do
-    echo -ne "\033[1;97m  ╚⊳ Selecione una Opcion:\033[1;32m " >&2 && read selection
-    tput cuu1 >&2 && tput dl1 >&2
-  done
-  echo $selection
+  local selection
+  local options="$(seq 0 $1 | paste -sd "," -)"
+  read -p $'\033[1;97m  └⊳ Seleccione una opción:\033[1;32m ' selection
+  if [[ $options =~ (^|[^\d])$selection($|[^\d]) ]]; then
+    echo $selection
+  else
+    echo "Selección no válida: $selection" >&2
+    exit 1
+  fi
 }
 export -f msg
 export -f selection_fun
 export -f meu_ip
 export -f fun_ip
 clear && clear
-msg -bar
-msg -tit
+msg -bar && msg -tit
 title=$(echo -e "\033[1;4;92m$(cat ${SCPdir}/message.txt)\033[0;37m")
 printf "%*s\n" $((($(echo -e "$title" | wc -c) + 68) / 2)) "$title"
 msg -bar
 echo -e "    \033[1;37mIP: \033[93m$(meu_ip)     \033[1;37mS.O: \033[96m$(os_system)"
-[[ $(find /etc/SCRIPT-LATAM/temp/ | grep -w "sshtotal" | head -1) ]] || SSH4="0"
-[[ $(find /etc/SCRIPT-LATAM/temp/ | grep -w "sshtotal" | head -1) ]] && SSH4=$(cat /etc/SCRIPT-LATAM/temp/sshtotal)
-[[ $(find /usr/local/ | grep -w "shadowsocksr" | head -1) ]] || user_total="0"
-[[ $(find /usr/local/ | grep -w "shadowsocksr" | head -1) ]] && user_info=$(cd /usr/local/shadowsocksr &>/dev/null && python mujson_mgr.py -l) && user_total=$(echo "${user_info}" | wc -l)
-[[ $(find /etc/SCRIPT-LATAM/ | grep -w "RegV2ray" | head -1) ]] || v2ray="0"
-[[ $(find /etc/SCRIPT-LATAM/ | grep -w "RegV2ray" | head -1) ]] && v2ray="$(cat /etc/SCRIPT-LATAM/RegV2ray | wc -l)"
+##-->> CONTADOR DE CUENTAS
+if [[ $(find /etc/SCRIPT-LATAM/temp/ -name "sshtotal" -execdir test -f {} \; -print -quit) ]]; then
+  SSH4=$(</etc/SCRIPT-LATAM/temp/sshtotal)
+else
+  SSH4="0"
+fi
+if [[ $(find /usr/local/ -name "shadowsocksr" -type d -execdir test -f {}/mujson_mgr.py \; -print -quit) ]]; then
+  user_info=$(cd /usr/local/shadowsocksr && python mujson_mgr.py -l)
+  user_total=$(echo "${user_info}" | wc -l)
+else
+  user_total="0"
+fi
+if [[ $(find /etc/SCRIPT-LATAM/ -name "RegV2ray" -execdir test -f {} \; -print -quit) ]]; then
+  v2ray=$(wc -l </etc/SCRIPT-LATAM/RegV2ray)
+else
+  v2ray="0"
+fi
 on="\033[93m[\033[1;32m ON \033[93m]" && off="\033[93m[ \033[1;31mOFF \033[93m]"
 [[ $(ps x | grep badvpn | grep -v grep | awk '{print $1}') ]] && badvpn=$on || badvpn=$off
 VERY="$(ps aux | grep "/etc/SCRIPT-LATAM/menu.sh verificar" | grep -v grep)"
@@ -224,8 +193,7 @@ canbio_color() {
   echo "$cores" >/etc/SCRIPT-LATAM/colors
   msg -bar2
 }
-
-#--- FUNCION PUERTOS ACTIVOS
+##-->> FUNCION PUERTOS ACTIVOS
 mine_port() {
   clear && clear
   msg -bar
@@ -287,6 +255,10 @@ mine_port() {
       [[ -z $BAD ]] && local BAD="\033[1;31m BADVPN: \033[1;32m"
       BAD+="$Port "
       ;;
+    psiphond)
+      [[ -z $PSI ]] && local PSI="\033[1;31m PSIPHOND: \033[1;32m"
+      PSI+="$Port "
+      ;;
     esac
   done <<<"${portasVAR}"
   #UDP
@@ -321,10 +293,12 @@ mine_port() {
   [[ ! -z $APC ]] && echo -e $APC
   [[ ! -z $OVPN ]] && echo -e $OVPN
   [[ ! -z $BAD ]] && echo -e $BAD
+  [[ ! -z $PSI ]] && echo -e $PSI
   port=$(cat /etc/systemd/system/UDPserver.service 2>/dev/null | grep 'exclude' 2>/dev/null)
   port2=$(echo $port | awk '{print $4}' | cut -d '=' -f2 2>/dev/null | sed 's/,/ /g' 2>/dev/null)
   [[ ! -z $UDPSER ]] && echo -e "$UDPSER<--> $port2 "
   msg -bar2
+  read -t 120 -n 1 -rsp $'\033[1;39m       << Presiona enter para Continuar >>\n'
 }
 
 #--- FUNCION AUTO INICIO
@@ -407,13 +381,11 @@ remove_script() {
   echo -e "\e[1;97m        Esto borrara todos los archivos LATAM"
   msg -bar
   while [[ ${yesno} != @(s|S|y|Y|n|N) ]]; do
-    read -p " [ Si/No ]: " yesno
+    read -p " [ S / N ]: " yesno
     tput cuu1 && tput dl1
   done
   if [[ ${yesno} = @(s|S|y|Y) ]]; then
     rm -rf ${SCPdir} &>/dev/null
-    rm -rf ${SCPusr} &>/dev/null
-    rm -rf ${SCPinst} &>/dev/null
     [[ -e /bin/MENU ]] && rm /bin/MENU
     [[ -e /usr/bin/MENU ]] && rm /usr/bin/MENU
     [[ -e /bin/menu ]] && rm /bin/menu
@@ -567,9 +539,9 @@ hora_local() {
   echo -e "\e[1;93m  [\e[1;32m4\e[1;93m]\033[1;31m > \e[1;97mCAMBIAR HORA LOCAL PE"
   echo -e "\e[1;93m  [\e[1;32m5\e[1;93m]\033[1;31m > \e[1;97mCAMBIAR HORA LOCAL GT"
   msg -bar
-  echo -ne " \e[1;93m [\e[1;32m0\e[1;93m]\033[1;31m > " && echo -e "\e[97m\033[1;41m VOLVER \033[0;37m"
+  echo -e "    \e[97m\033[1;41m ENTER SIN RESPUESTA REGRESA A MENU ANTERIOR \033[0;97m"
   msg -bar
-  echo -ne " Seleccione una Opcion: \033[1;37m" && read opx
+  echo -ne "    └⊳ Seleccione una Opcion: \033[1;32m" && read opx
   tput cuu1 && tput dl1
 
   case $opx in
@@ -973,9 +945,9 @@ ajuste_in() {
   echo -e "\e[1;93m  [\e[1;32m4\e[1;93m]\033[1;31m > \e[1;97mDESACTIVAR PASS ALFANUMERICO"
   echo -e "\e[1;93m  [\e[1;32m5\e[1;93m]\033[1;31m > \e[1;97mEDITOR DE PUERTOS"
   msg -bar
-  echo -ne " \e[1;93m [\e[1;32m0\e[1;93m]\033[1;31m > " && echo -e "\e[97m\033[1;41m VOLVER \033[0;37m"
+  echo -e "    \e[97m\033[1;41m ENTER SIN RESPUESTA REGRESA A MENU ANTERIOR \033[0;97m"
   msg -bar
-  echo -ne " Seleccione una Opcion: \033[1;37m" && read opx
+  echo -ne "\033[0;97m  └⊳ Seleccione una Opcion: \033[1;32m" && read opx
   tput cuu1 && tput dl1
 
   case $opx in
@@ -1578,7 +1550,7 @@ net.ipv4.ip_forward = 1" >>/etc/sysctl.conf
   msg -bar
   echo -ne " \e[1;93m [\e[1;32m0\e[1;93m]\033[1;31m > " && echo -e "\e[97m\033[1;41m VOLVER \033[0;37m"
   msg -bar
-  echo -ne "\033[1;97m Porfavor seleccione una opcion [0-8]: \033[1;32m" && read num
+  echo -ne "\033[1;97m   └⊳ Seleccione una opcion [0-8]: \033[1;32m" && read num
   case "$num" in
   1)
     check_sys_bbr
@@ -1792,7 +1764,7 @@ fai2ban_fun() {
     msg -bar
     echo -ne " \e[1;93m [\e[1;32m0\e[1;93m]\033[1;31m > " && echo -e "\e[97m\033[1;41m VOLVER \033[0;37m"
     msg -bar
-    echo -ne "\033[1;97m Porfavor seleccione una opcion [0-2]: \033[1;32m" && read num
+    echo -ne "\033[1;97m   └⊳ Seleccione una opcion [0-2]: \033[1;32m" && read num
     tput cuu1 && tput dl1
     case "$num" in
     1)
@@ -2812,10 +2784,10 @@ herramientas_fun() {
   script[$Numb]="speed"
   echo -e "\033[1;93m----------------------------------------------------"
   let Numb++
-  echo -e "\e[1;93m[\e[1;32m$Numb\e[1;93m]\033[1;31m >\033[1;96m  - - - - >> DETALLES DE SISTEMA << - - - - - "
+  echo -e " \e[1;93m[\e[1;32m$Numb\e[1;93m]\033[1;31m >\033[1;96m  - - - >> DETALLES DE SISTEMA << - - - - - "
   script[$Numb]="systeminf"
   msg -bar
-  echo -ne " \e[1;93m[\e[1;32m0\e[1;93m]\033[1;31m >\033[1;96m " && msg -bra "\e[97m\033[1;41m VOLVER \033[1;37m"
+  echo -e "    \e[97m\033[1;41m ENTER SIN RESPUESTA REGRESA A MENU ANTERIOR \033[0;97m"
   script[0]="voltar"
   msg -bar2
   selection=$(selection_fun $Numb)
@@ -3037,6 +3009,7 @@ autolimpieza_fun() {
   [[ -z ${VERY4} ]] && autolim="\033[1;32m ACTIVADO " || autolim="\033[1;31m DESACTIVADO "
   echo -e "            $autolim  --  CON EXITO"
   msg -bar
+  read -t 120 -n 1 -rsp $'\033[1;39m       << Presiona enter para Continuar >>\n'
 }
 
 #--- EJECUTOR AUTOLIMPIEZA
@@ -3084,11 +3057,12 @@ creditoss() {
   echo -ne "$registro"
   msg -bar
   echo -e "  \e[48;5;1m\e[38;5;15m          ❗️ ⚠️  LATAM SE DESLINDA ⚠️ ❗️            \e[0;97m\n"
-  echo -e "\033[1;33m >> Del mal del Usuario a la herramienta "
+  echo -e "\033[1;33m >> Del mal uso a este panel VPN"
   echo -e "\033[1;33m >> El uso indebido a redes de Terceros "
-  echo -e "\033[1;33m >> Del mal uso al Hosting y bloqueo del mismo  "
-  echo -e "\033[1;33m >> Abuso en usar las VPN con redes de Terceros \n"
+  echo -e "\033[1;33m >> Del mal uso al Hosting y Bloqueo del mismo  "
+  echo -e "\033[1;33m >> Abusar de las VPN con redes de Terceros \n"
   msg -bar
+  read -t 120 -n 1 -rsp $'\033[1;39m       << Presiona enter para Continuar >>\n'
 }
 
 #--- INSTALAR DROPBEAR
@@ -3244,7 +3218,7 @@ proto_ssl() {
     msg -bar
     echo -e "\033[1;93m             INSTALADOR SSL SCRIPT LATAM"
     msg -bar
-    echo -e "\033[1;97m Seleccione una puerto de anclaje."
+    echo -e "\033[1;97m Seleccione un puerto de anclaje."
     echo -e "\033[1;97m Puede ser un SSH/DROPBEAR/SQUID/OPENVPN/WEBSOCKET"
     msg -bar
     while true; do
@@ -3302,7 +3276,7 @@ proto_ssl() {
     msg -bar
     echo -e "\033[1;93m              AGREGAR MAS PUESRTOS SSL"
     msg -bar
-    echo -e "\033[1;97m Seleccione una puerto de anclaje."
+    echo -e "\033[1;97m Seleccione un puerto de anclaje."
     echo -e "\033[1;97m Puede ser un SSH/DROPBEAR/SQUID/OPENVPN/SSL/PY"
     msg -bar
     while true; do
@@ -7918,7 +7892,7 @@ menu_inst() {
   script[$Numb]="pprivado"
   let Numb++
   msg -bar2
-  echo -ne "\e[1;93m  [\e[1;32m0\e[1;93m]\033[1;31m > " && msg -bra "\e[97m\033[1;41m VOLVER \033[1;37m"
+  echo -e "    \e[97m\033[1;41m ENTER SIN RESPUESTA REGRESA A MENU ANTERIOR \033[0;97m"
   script[0]="voltar"
   msg -bar2
   selection=$(selection_fun $Numb)
@@ -10497,7 +10471,7 @@ $(msg -bar)
     msg -bar
     echo -ne " \e[1;93m [\e[1;32m0\e[1;93m]\033[1;31m > " && echo -e "\e[97m\033[1;41m VOLVER \033[0;37m"
     msg -bar
-    echo -ne "\033[1;97m Porfavor seleccione una opcion [0-14]: \033[1;32m" && read num
+    echo -ne "\033[1;97m   └⊳ Seleccione una opcion [0-14]: \033[1;32m" && read num
     msg -bar
     case "$num" in
     1)
@@ -10800,43 +10774,24 @@ controlador_ssh() {
     local USRloked="/etc/SCRIPT-LATAM/temp/userlock"
     [[ ! -e ${USRloked} ]] && touch ${USRloked}
 
-    #---  LECTOR DE CUENTAS
-    mostrar_usuariossh() {
-      for u in $(cat /etc/SCRIPT-LATAM/cuentassh | cut -d'|' -f1); do
-        echo "$u"
-      done
-    }
-    mostrar_usuariohwid() {
-      for u in $(cat /etc/SCRIPT-LATAM/cuentahwid | cut -d'|' -f1); do
-        echo "$u"
-      done
-    }
-    mostrar_usuariotoken() {
-      for u in $(cat /etc/SCRIPT-LATAM/cuentatoken | cut -d'|' -f1); do
-        echo "$u"
-      done
-    }
-    [[ -e "/etc/SCRIPT-LATAM/cuentassh" ]] && usuarios_ativos1=($(mostrar_usuariossh))
-    [[ -e "/etc/SCRIPT-LATAM/cuentahwid" ]] && usuarios_ativos2=($(mostrar_usuariohwid))
-    [[ -e "/etc/SCRIPT-LATAM/cuentatoken" ]] && usuarios_ativos3=($(mostrar_usuariotoken))
+    ##-->>LECTOR DE CUENTAS
+    if [[ -e "/etc/SCRIPT-LATAM/cuentassh" ]]; then
+      readarray -t usuarios_ativos1 < <(cut -d '|' -f1 /etc/SCRIPT-LATAM/cuentassh)
+      readarray -t usuarios_ativosf2 < <(cut -d '|' -f2 /etc/SCRIPT-LATAM/cuentassh)
+    fi
+    if [[ -e "/etc/SCRIPT-LATAM/cuentahwid" ]]; then
+      readarray -t usuarios_ativos2 < <(cut -d '|' -f1 /etc/SCRIPT-LATAM/cuentahwid)
+    fi
+    if [[ -e "/etc/SCRIPT-LATAM/cuentatoken" ]]; then
+      readarray -t usuarios_ativos3 < <(cut -d '|' -f1 /etc/SCRIPT-LATAM/cuentatoken)
+    fi
+    ##-->>GENERAR USUARIOS TOTALES
+    cat /etc/SCRIPT-LATAM/cuentassh /etc/SCRIPT-LATAM/cuentahwid /etc/SCRIPT-LATAM/cuentatoken 2>/dev/null | cut -d '|' -f1 >/etc/SCRIPT-LATAM/cuentasactivast
+    if [[ -e "/etc/SCRIPT-LATAM/cuentasactivast" ]]; then
+      readarray -t mostrar_totales < <(cut -d '|' -f1 /etc/SCRIPT-LATAM/cuentasactivast)
+    fi
 
-    for us in $(echo ${usuarios_ativos1[@]}); do
-      echo "${us}"
-    done >/etc/SCRIPT-LATAM/cuentasactivast
-    for us in $(echo ${usuarios_ativos2[@]}); do
-      echo "${us}"
-    done >>/etc/SCRIPT-LATAM/cuentasactivast
-    for us in $(echo ${usuarios_ativos3[@]}); do
-      echo "${us}"
-    done >>/etc/SCRIPT-LATAM/cuentasactivast
-    mostrar_totales() {
-      for u in $(cat /etc/SCRIPT-LATAM/cuentasactivast | cut -d'|' -f1); do
-        echo "$u"
-      done
-    }
-    usuarios_totales=($(mostrar_totales))
-
-    if [[ -z ${usuarios_totales[@]} ]]; then
+    if [[ -z ${mostrar_totales[@]} ]]; then
       msg -tit
       msg -bar
       msg -verm "     BLOCK/UNBLOCK | Ningun Usuario Registrado"
@@ -10906,7 +10861,7 @@ controlador_ssh() {
       tput cuu1 && tput dl1
     done
     if [[ ! $(echo "${selection}" | egrep '[^0-9]') ]]; then
-      usuario_del="${usuarios_totales[$selection]}"
+      usuario_del="${mostrar_totales[$selection]}"
     else
       usuario_del="$selection"
     fi
@@ -10915,7 +10870,7 @@ controlador_ssh() {
       msg -bar
       return 1
     }
-    [[ ! $(echo ${usuarios_totales[@]} | grep -w "$usuario_del") ]] && {
+    [[ ! $(echo ${mostrar_totales[@]} | grep -w "$usuario_del") ]] && {
       msg -verm "Error, Usuario Invalido"
       msg -bar
       return 1
@@ -10950,42 +10905,22 @@ controlador_ssh() {
     datexp=$(date "+%F" -d " + $2 days") && valid=$(date '+%C%y-%m-%d' -d " + $2 days")
     chage -E $valid $1 2>/dev/null || return 1
     sed -i '/'$1'/d' /etc/SCRIPT-LATAM/temp/userexp 2>/dev/null
-    #---  LECTOR DE CUENTAS
-    mostrar_usuariossh() {
-      for u in $(cat /etc/SCRIPT-LATAM/cuentassh | cut -d'|' -f1); do
-        echo "$u"
-      done
-    }
-    mostrar_usuariohwid() {
-      for u in $(cat /etc/SCRIPT-LATAM/cuentahwid | cut -d'|' -f1); do
-        echo "$u"
-      done
-    }
-
-    mostrar_usuariotoken() {
-      for u in $(cat /etc/SCRIPT-LATAM/cuentatoken | cut -d'|' -f1); do
-        echo "$u"
-      done
-    }
-    [[ -e "/etc/SCRIPT-LATAM/cuentassh" ]] && usuarios_ativos1=($(mostrar_usuariossh))
-    [[ -e "/etc/SCRIPT-LATAM/cuentahwid" ]] && usuarios_ativos2=($(mostrar_usuariohwid))
-    [[ -e "/etc/SCRIPT-LATAM/cuentatoken" ]] && usuarios_ativos3=($(mostrar_usuariotoken))
-
-    for us in $(echo ${usuarios_ativos1[@]}); do
-      echo "${us}"
-    done >/etc/SCRIPT-LATAM/cuentasactivast
-    for us in $(echo ${usuarios_ativos2[@]}); do
-      echo "${us}"
-    done >>/etc/SCRIPT-LATAM/cuentasactivast
-    for us in $(echo ${usuarios_ativos3[@]}); do
-      echo "${us}"
-    done >>/etc/SCRIPT-LATAM/cuentasactivast
-    mostrar_totales() {
-      for u in $(cat /etc/SCRIPT-LATAM/cuentasactivast | cut -d'|' -f1); do
-        echo "$u"
-      done
-    }
-    usuarios_totales=($(mostrar_totales))
+    ##-->>LECTOR DE CUENTAS
+    if [[ -e "/etc/SCRIPT-LATAM/cuentassh" ]]; then
+      readarray -t usuarios_ativos1 < <(cut -d '|' -f1 /etc/SCRIPT-LATAM/cuentassh)
+      readarray -t usuarios_ativosf2 < <(cut -d '|' -f2 /etc/SCRIPT-LATAM/cuentassh)
+    fi
+    if [[ -e "/etc/SCRIPT-LATAM/cuentahwid" ]]; then
+      readarray -t usuarios_ativos2 < <(cut -d '|' -f1 /etc/SCRIPT-LATAM/cuentahwid)
+    fi
+    if [[ -e "/etc/SCRIPT-LATAM/cuentatoken" ]]; then
+      readarray -t usuarios_ativos3 < <(cut -d '|' -f1 /etc/SCRIPT-LATAM/cuentatoken)
+    fi
+    ##-->>GENERAR USUARIOS TOTALES
+    cat /etc/SCRIPT-LATAM/cuentassh /etc/SCRIPT-LATAM/cuentahwid /etc/SCRIPT-LATAM/cuentatoken 2>/dev/null | cut -d '|' -f1 >/etc/SCRIPT-LATAM/cuentasactivast
+    if [[ -e "/etc/SCRIPT-LATAM/cuentasactivast" ]]; then
+      readarray -t mostrar_totales < <(cut -d '|' -f1 /etc/SCRIPT-LATAM/cuentasactivast)
+    fi
 
     #SSH
     if [[ -z ${usuarios_ativos1[@]} ]]; then
@@ -11132,8 +11067,8 @@ controlador_ssh() {
   err_fun() {
     case $1 in
     1)
-      msg -verm "Usuario Nulo"
-      sleep 2s
+      msg -verm "Usuario Nulo - Regresando al Menu SSH"
+      sleep 3s
       tput cuu1
       tput dl1
       tput cuu1
@@ -11288,8 +11223,10 @@ controlador_ssh() {
   new_user() {
     clear && clear
     msg -bar
-    usuarios_ativos=($(mostrar_usuarios))
-    if [[ -z ${usuarios_ativos[@]} ]]; then
+    if [[ -e "/etc/SCRIPT-LATAM/cuentasactivast" ]]; then
+      readarray -t mostrar_totales < <(cut -d '|' -f1 /etc/SCRIPT-LATAM/cuentasactivast)
+    fi
+    if [[ -z ${mostrar_totales[@]} ]]; then
       msg -tit
       msg -ama "   AGREGAR USUARIO | Ningun Usuario Registrado"
       msg -bar
@@ -11297,41 +11234,22 @@ controlador_ssh() {
       msg -tit
       msg -bar
       msg -ama "  AGREGAR USUARIO | Usuarios  Activos en Servidor"
-      #---  LECTOR DE CUENTAS
-      mostrar_usuariossh() {
-        for u in $(cat /etc/SCRIPT-LATAM/cuentassh | cut -d'|' -f1); do
-          echo "$u"
-        done
-      }
-      mostrar_usuariosshf2() {
-        for u in $(cat /etc/SCRIPT-LATAM/cuentassh | cut -d'|' -f2); do
-          echo "$u"
-        done
-      }
-      mostrar_usuariohwid() {
-        for u in $(cat /etc/SCRIPT-LATAM/cuentahwid | cut -d'|' -f1); do
-          echo "$u"
-        done
-      }
-      mostrar_usuariotoken() {
-        for u in $(cat /etc/SCRIPT-LATAM/cuentatoken | cut -d'|' -f1); do
-          echo "$u"
-        done
-      }
-      [[ -e "/etc/SCRIPT-LATAM/cuentassh" ]] && usuarios_ativos1=($(mostrar_usuariossh))
-      [[ -e "/etc/SCRIPT-LATAM/cuentassh" ]] && usuarios_ativosf2=($(mostrar_usuariosshf2))
-      [[ -e "/etc/SCRIPT-LATAM/cuentahwid" ]] && usuarios_ativos2=($(mostrar_usuariohwid))
-      [[ -e "/etc/SCRIPT-LATAM/cuentatoken" ]] && usuarios_ativos3=($(mostrar_usuariotoken))
-
-      for us in $(echo ${usuarios_ativos1[@]}); do
-        echo "${us}"
-      done >/etc/SCRIPT-LATAM/cuentasactivast
-      for us in $(echo ${usuarios_ativos2[@]}); do
-        echo "${us}"
-      done >>/etc/SCRIPT-LATAM/cuentasactivast
-      for us in $(echo ${usuarios_ativos3[@]}); do
-        echo "${us}"
-      done >>/etc/SCRIPT-LATAM/cuentasactivast
+      ##-->>LECTOR DE CUENTAS
+      if [[ -e "/etc/SCRIPT-LATAM/cuentassh" ]]; then
+        readarray -t usuarios_ativos1 < <(cut -d '|' -f1 /etc/SCRIPT-LATAM/cuentassh)
+        readarray -t usuarios_ativosf2 < <(cut -d '|' -f2 /etc/SCRIPT-LATAM/cuentassh)
+      fi
+      if [[ -e "/etc/SCRIPT-LATAM/cuentahwid" ]]; then
+        readarray -t usuarios_ativos2 < <(cut -d '|' -f1 /etc/SCRIPT-LATAM/cuentahwid)
+      fi
+      if [[ -e "/etc/SCRIPT-LATAM/cuentatoken" ]]; then
+        readarray -t usuarios_ativos3 < <(cut -d '|' -f1 /etc/SCRIPT-LATAM/cuentatoken)
+      fi
+      ##-->>GENERAR USUARIOS TOTALES
+      cat /etc/SCRIPT-LATAM/cuentassh /etc/SCRIPT-LATAM/cuentahwid /etc/SCRIPT-LATAM/cuentatoken 2>/dev/null | cut -d '|' -f1 >/etc/SCRIPT-LATAM/cuentasactivast
+      if [[ -e "/etc/SCRIPT-LATAM/cuentasactivast" ]]; then
+        readarray -t mostrar_totales < <(cut -d '|' -f1 /etc/SCRIPT-LATAM/cuentasactivast)
+      fi
       #SSH
       if [[ -z ${usuarios_ativos1[@]} ]]; then
         echo "" >/dev/null 2>&1
@@ -11375,7 +11293,7 @@ controlador_ssh() {
         echo -ne "\e[1;93mDigite Nuevo Usuario: \e[1;32m" && read nomeuser
         nomeuser="$(echo $nomeuser | sed -e 's/[^a-z0-9 -]//ig')"
         if [[ -z $nomeuser ]]; then
-          err_fun 1 && continue
+          err_fun 1 && controlador_ssh
         elif [[ "${#nomeuser}" -lt "5" ]]; then
           err_fun 2 && continue
         elif [[ "${#nomeuser}" -gt "20" ]]; then
@@ -11452,7 +11370,7 @@ controlador_ssh() {
         echo -ne "\e[1;93mDigite HWID: \e[1;32m" && read nomeuser
         nomeuser="$(echo $nomeuser | sed -e 's/[^a-z0-9 -]//ig')"
         if [[ -z $nomeuser ]]; then
-          err_fun 15 && continue
+          err_fun 15 && controlador_ssh
         elif [[ "${#nomeuser}" -lt "5" ]]; then
           err_fun 15 && continue
         elif [[ "${#nomeuser}" -gt "32" ]]; then
@@ -11538,7 +11456,7 @@ controlador_ssh() {
         echo -ne "\e[1;93mDigite TOKEN: \e[1;32m" && read nomeuser
         nomeuser="$(echo $nomeuser | sed -e 's/[^a-z0-9 -]//ig')"
         if [[ -z $nomeuser ]]; then
-          err_fun 17 && continue
+          err_fun 17 && controlador_ssh
         elif [[ "${#nomeuser}" -lt "4" ]]; then
           err_fun 17 && continue
         elif [[ "${#nomeuser}" -gt "32" ]]; then
@@ -11616,9 +11534,9 @@ controlador_ssh() {
     echo -ne " \e[1;93m [\e[1;32m2\e[1;93m]\033[1;31m > \033[1;93m HWID\e[97m "
     echo -ne " \e[1;93m [\e[1;32m3\e[1;93m]\033[1;31m > \033[1;93m TOKEN\e[97m \n"
     msg -bar
-    echo -e "    \e[97m\033[1;41m ENTER SIN RESPUESTA REGRESA A MENU ANTERIOR \033[0;37m"
+    echo -e "    \e[97m\033[1;41m ENTER SIN RESPUESTA REGRESA A MENU ANTERIOR \033[0;97m"
     msg -bar
-    echo -ne "\033[1;97m Seleccione una Opcion [1-3]: \e[1;32m"
+    echo -ne "\033[1;97m    └⊳ Seleccione una Opcion [1-3]: \e[1;32m"
     read opcao
     case $opcao in
     1)
@@ -11634,7 +11552,6 @@ controlador_ssh() {
       controlador_ssh
       ;;
     *)
-      echo -e "$ Porfavor use numeros del [0-14]"
       msg -bar
       controlador_ssh
       ;;
@@ -11646,42 +11563,23 @@ controlador_ssh() {
   remove_user() {
     clear && clear
     msg -bar
-    mostrar_usuariossh() {
-      for u in $(cat /etc/SCRIPT-LATAM/cuentassh | cut -d'|' -f1); do
-        echo "$u"
-      done
-    }
-    mostrar_usuariohwid() {
-      for u in $(cat /etc/SCRIPT-LATAM/cuentahwid | cut -d'|' -f1); do
-        echo "$u"
-      done
-    }
-
-    mostrar_usuariotoken() {
-      for u in $(cat /etc/SCRIPT-LATAM/cuentatoken | cut -d'|' -f1); do
-        echo "$u"
-      done
-    }
-    [[ -e "/etc/SCRIPT-LATAM/cuentassh" ]] && usuarios_ativos1=($(mostrar_usuariossh))
-    [[ -e "/etc/SCRIPT-LATAM/cuentahwid" ]] && usuarios_ativos2=($(mostrar_usuariohwid))
-    [[ -e "/etc/SCRIPT-LATAM/cuentatoken" ]] && usuarios_ativos3=($(mostrar_usuariotoken))
-
-    for us in $(echo ${usuarios_ativos1[@]}); do
-      echo "${us}"
-    done >/etc/SCRIPT-LATAM/cuentasactivast
-    for us in $(echo ${usuarios_ativos2[@]}); do
-      echo "${us}"
-    done >>/etc/SCRIPT-LATAM/cuentasactivast
-    for us in $(echo ${usuarios_ativos3[@]}); do
-      echo "${us}"
-    done >>/etc/SCRIPT-LATAM/cuentasactivast
-    mostrar_totales() {
-      for u in $(cat /etc/SCRIPT-LATAM/cuentasactivast | cut -d'|' -f1); do
-        echo "$u"
-      done
-    }
-    usuarios_totales=($(mostrar_totales))
-    if [[ -z ${usuarios_totales[@]} ]]; then
+    ##-->>LECTOR DE CUENTAS
+    if [[ -e "/etc/SCRIPT-LATAM/cuentassh" ]]; then
+      readarray -t usuarios_ativos1 < <(cut -d '|' -f1 /etc/SCRIPT-LATAM/cuentassh)
+      readarray -t usuarios_ativosf2 < <(cut -d '|' -f2 /etc/SCRIPT-LATAM/cuentassh)
+    fi
+    if [[ -e "/etc/SCRIPT-LATAM/cuentahwid" ]]; then
+      readarray -t usuarios_ativos2 < <(cut -d '|' -f1 /etc/SCRIPT-LATAM/cuentahwid)
+    fi
+    if [[ -e "/etc/SCRIPT-LATAM/cuentatoken" ]]; then
+      readarray -t usuarios_ativos3 < <(cut -d '|' -f1 /etc/SCRIPT-LATAM/cuentatoken)
+    fi
+    ##-->>GENERAR USUARIOS TOTALES
+    cat /etc/SCRIPT-LATAM/cuentassh /etc/SCRIPT-LATAM/cuentahwid /etc/SCRIPT-LATAM/cuentatoken 2>/dev/null | cut -d '|' -f1 >/etc/SCRIPT-LATAM/cuentasactivast
+    if [[ -e "/etc/SCRIPT-LATAM/cuentasactivast" ]]; then
+      readarray -t mostrar_totales < <(cut -d '|' -f1 /etc/SCRIPT-LATAM/cuentasactivast)
+    fi
+    if [[ -z ${mostrar_totales[@]} ]]; then
       msg -tit
       msg -bar
       msg -verm " BORAR USUARIO  | Ningun usuario registrado "
@@ -11737,7 +11635,7 @@ controlador_ssh() {
     done
 
     if [[ ! $(echo "${selection}" | egrep '[^0-9]') ]]; then
-      usuario_del="${usuarios_totales[$selection]}"
+      usuario_del="${mostrar_totales[$selection]}"
     else
       usuario_del="$selection"
     fi
@@ -11747,7 +11645,7 @@ controlador_ssh() {
       msg -bar
       return 1
     }
-    [[ ! $(echo ${usuarios_totales[@]} | grep -w "$usuario_del") ]] && {
+    [[ ! $(echo ${mostrar_totales[@]} | grep -w "$usuario_del") ]] && {
       msg -verm "error, Usuario Invalido"
       msg -bar
       return 1
@@ -11795,43 +11693,23 @@ controlador_ssh() {
   renew_user() {
     clear && clear
     msg -bar
-    #---  LECTOR DE CUENTAS
-    mostrar_usuariossh() {
-      for u in $(cat /etc/SCRIPT-LATAM/cuentassh | cut -d'|' -f1); do
-        echo "$u"
-      done
-    }
-    mostrar_usuariohwid() {
-      for u in $(cat /etc/SCRIPT-LATAM/cuentahwid | cut -d'|' -f1); do
-        echo "$u"
-      done
-    }
-
-    mostrar_usuariotoken() {
-      for u in $(cat /etc/SCRIPT-LATAM/cuentatoken | cut -d'|' -f1); do
-        echo "$u"
-      done
-    }
-    [[ -e "/etc/SCRIPT-LATAM/cuentassh" ]] && usuarios_ativos1=($(mostrar_usuariossh))
-    [[ -e "/etc/SCRIPT-LATAM/cuentahwid" ]] && usuarios_ativos2=($(mostrar_usuariohwid))
-    [[ -e "/etc/SCRIPT-LATAM/cuentatoken" ]] && usuarios_ativos3=($(mostrar_usuariotoken))
-
-    for us in $(echo ${usuarios_ativos1[@]}); do
-      echo "${us}"
-    done >/etc/SCRIPT-LATAM/cuentasactivast
-    for us in $(echo ${usuarios_ativos2[@]}); do
-      echo "${us}"
-    done >>/etc/SCRIPT-LATAM/cuentasactivast
-    for us in $(echo ${usuarios_ativos3[@]}); do
-      echo "${us}"
-    done >>/etc/SCRIPT-LATAM/cuentasactivast
-    mostrar_totales() {
-      for u in $(cat /etc/SCRIPT-LATAM/cuentasactivast | cut -d'|' -f1); do
-        echo "$u"
-      done
-    }
-    usuarios_totales=($(mostrar_totales))
-    if [[ -z ${usuarios_totales[@]} ]]; then
+    ##-->>LECTOR DE CUENTAS
+    if [[ -e "/etc/SCRIPT-LATAM/cuentassh" ]]; then
+      readarray -t usuarios_ativos1 < <(cut -d '|' -f1 /etc/SCRIPT-LATAM/cuentassh)
+      readarray -t usuarios_ativosf2 < <(cut -d '|' -f2 /etc/SCRIPT-LATAM/cuentassh)
+    fi
+    if [[ -e "/etc/SCRIPT-LATAM/cuentahwid" ]]; then
+      readarray -t usuarios_ativos2 < <(cut -d '|' -f1 /etc/SCRIPT-LATAM/cuentahwid)
+    fi
+    if [[ -e "/etc/SCRIPT-LATAM/cuentatoken" ]]; then
+      readarray -t usuarios_ativos3 < <(cut -d '|' -f1 /etc/SCRIPT-LATAM/cuentatoken)
+    fi
+    ##-->>GENERAR USUARIOS TOTALES
+    cat /etc/SCRIPT-LATAM/cuentassh /etc/SCRIPT-LATAM/cuentahwid /etc/SCRIPT-LATAM/cuentatoken 2>/dev/null | cut -d '|' -f1 >/etc/SCRIPT-LATAM/cuentasactivast
+    if [[ -e "/etc/SCRIPT-LATAM/cuentasactivast" ]]; then
+      readarray -t mostrar_totales < <(cut -d '|' -f1 /etc/SCRIPT-LATAM/cuentasactivast)
+    fi
+    if [[ -z ${mostrar_totales[@]} ]]; then
       msg -tit
       msg -bar
       msg -verm " RENOVAR USUARIO | Ningun usuario registrado "
@@ -11913,7 +11791,7 @@ controlador_ssh() {
       tput dl1
     done
     if [[ ! $(echo "${selection}" | egrep '[^0-9]') ]]; then
-      useredit="${usuarios_totales[$selection]}"
+      useredit="${mostrar_totales[$selection]}"
     else
       useredit="$selection"
     fi
@@ -11922,7 +11800,7 @@ controlador_ssh() {
       msg -bar
       return 1
     }
-    [[ ! $(echo ${usuarios_totales[@]} | grep -w "$useredit") ]] && {
+    [[ ! $(echo ${mostrar_totales[@]} | grep -w "$useredit") ]] && {
       msg -verm "Error, Usuario Invalido"
       msg -bar
       return 1
@@ -11953,43 +11831,23 @@ controlador_ssh() {
   edit_user() {
     clear && clear
     msg -bar
-    #---  LECTOR DE CUENTAS
-    mostrar_usuariossh() {
-      for u in $(cat /etc/SCRIPT-LATAM/cuentassh | cut -d'|' -f1); do
-        echo "$u"
-      done
-    }
-    mostrar_usuariohwid() {
-      for u in $(cat /etc/SCRIPT-LATAM/cuentahwid | cut -d'|' -f1); do
-        echo "$u"
-      done
-    }
-
-    mostrar_usuariotoken() {
-      for u in $(cat /etc/SCRIPT-LATAM/cuentatoken | cut -d'|' -f1); do
-        echo "$u"
-      done
-    }
-    [[ -e "/etc/SCRIPT-LATAM/cuentassh" ]] && usuarios_ativos1=($(mostrar_usuariossh))
-    [[ -e "/etc/SCRIPT-LATAM/cuentahwid" ]] && usuarios_ativos2=($(mostrar_usuariohwid))
-    [[ -e "/etc/SCRIPT-LATAM/cuentatoken" ]] && usuarios_ativos3=($(mostrar_usuariotoken))
-
-    for us in $(echo ${usuarios_ativos1[@]}); do
-      echo "${us}"
-    done >/etc/SCRIPT-LATAM/cuentasactivast
-    for us in $(echo ${usuarios_ativos2[@]}); do
-      echo "${us}"
-    done >>/etc/SCRIPT-LATAM/cuentasactivast
-    for us in $(echo ${usuarios_ativos3[@]}); do
-      echo "${us}"
-    done >>/etc/SCRIPT-LATAM/cuentasactivast
-    mostrar_totales() {
-      for u in $(cat /etc/SCRIPT-LATAM/cuentasactivast | cut -d'|' -f1); do
-        echo "$u"
-      done
-    }
-    usuarios_totales=($(mostrar_totales))
-    if [[ -z ${usuarios_totales[@]} ]]; then
+    ##-->>LECTOR DE CUENTAS
+    if [[ -e "/etc/SCRIPT-LATAM/cuentassh" ]]; then
+      readarray -t usuarios_ativos1 < <(cut -d '|' -f1 /etc/SCRIPT-LATAM/cuentassh)
+      readarray -t usuarios_ativosf2 < <(cut -d '|' -f2 /etc/SCRIPT-LATAM/cuentassh)
+    fi
+    if [[ -e "/etc/SCRIPT-LATAM/cuentahwid" ]]; then
+      readarray -t usuarios_ativos2 < <(cut -d '|' -f1 /etc/SCRIPT-LATAM/cuentahwid)
+    fi
+    if [[ -e "/etc/SCRIPT-LATAM/cuentatoken" ]]; then
+      readarray -t usuarios_ativos3 < <(cut -d '|' -f1 /etc/SCRIPT-LATAM/cuentatoken)
+    fi
+    ##-->>GENERAR USUARIOS TOTALES
+    cat /etc/SCRIPT-LATAM/cuentassh /etc/SCRIPT-LATAM/cuentahwid /etc/SCRIPT-LATAM/cuentatoken 2>/dev/null | cut -d '|' -f1 >/etc/SCRIPT-LATAM/cuentasactivast
+    if [[ -e "/etc/SCRIPT-LATAM/cuentasactivast" ]]; then
+      readarray -t mostrar_totales < <(cut -d '|' -f1 /etc/SCRIPT-LATAM/cuentasactivast)
+    fi
+    if [[ -z ${mostrar_totales[@]} ]]; then
       msg -tit
       msg -bar
       msg -verm " EDITAR USUARIO | Ningun usuario registrado "
@@ -12024,7 +11882,7 @@ controlador_ssh() {
       tput dl1
     done
     if [[ ! $(echo "${selection}" | egrep '[^0-9]') ]]; then
-      useredit="${usuarios_totales[$selection]}"
+      useredit="${mostrar_totales[$selection]}"
     else
       useredit="$selection"
     fi
@@ -12033,7 +11891,7 @@ controlador_ssh() {
       msg -bar
       return 1
     }
-    [[ ! $(echo ${usuarios_totales[@]} | grep -w "$useredit") ]] && {
+    [[ ! $(echo ${mostrar_totales[@]} | grep -w "$useredit") ]] && {
       msg -verm "Error, Usuario Invalido"
       msg -bar
       return 1
@@ -12091,42 +11949,23 @@ controlador_ssh() {
 
   detail_user() {
     clear && clear
-    mostrar_usuariossh() {
-      for u in $(cat /etc/SCRIPT-LATAM/cuentassh | cut -d'|' -f1); do
-        echo "$u"
-      done
-    }
-    mostrar_usuariohwid() {
-      for u in $(cat /etc/SCRIPT-LATAM/cuentahwid | cut -d'|' -f1); do
-        echo "$u"
-      done
-    }
-
-    mostrar_usuariotoken() {
-      for u in $(cat /etc/SCRIPT-LATAM/cuentatoken | cut -d'|' -f1); do
-        echo "$u"
-      done
-    }
-    [[ -e "/etc/SCRIPT-LATAM/cuentassh" ]] && usuarios_ativos1=($(mostrar_usuariossh))
-    [[ -e "/etc/SCRIPT-LATAM/cuentahwid" ]] && usuarios_ativos2=($(mostrar_usuariohwid))
-    [[ -e "/etc/SCRIPT-LATAM/cuentatoken" ]] && usuarios_ativos3=($(mostrar_usuariotoken))
-
-    for us in $(echo ${usuarios_ativos1[@]}); do
-      echo "${us}"
-    done >/etc/SCRIPT-LATAM/cuentasactivast
-    for us in $(echo ${usuarios_ativos2[@]}); do
-      echo "${us}"
-    done >>/etc/SCRIPT-LATAM/cuentasactivast
-    for us in $(echo ${usuarios_ativos3[@]}); do
-      echo "${us}"
-    done >>/etc/SCRIPT-LATAM/cuentasactivast
-    mostrar_totales() {
-      for u in $(cat /etc/SCRIPT-LATAM/cuentasactivast | cut -d'|' -f1); do
-        echo "$u"
-      done
-    }
-    usuarios_totales=($(mostrar_totales))
-    if [[ -z ${usuarios_totales[@]} ]]; then
+    ##-->>LECTOR DE CUENTAS
+    if [[ -e "/etc/SCRIPT-LATAM/cuentassh" ]]; then
+      readarray -t usuarios_ativos1 < <(cut -d '|' -f1 /etc/SCRIPT-LATAM/cuentassh)
+      readarray -t usuarios_ativosf2 < <(cut -d '|' -f2 /etc/SCRIPT-LATAM/cuentassh)
+    fi
+    if [[ -e "/etc/SCRIPT-LATAM/cuentahwid" ]]; then
+      readarray -t usuarios_ativos2 < <(cut -d '|' -f1 /etc/SCRIPT-LATAM/cuentahwid)
+    fi
+    if [[ -e "/etc/SCRIPT-LATAM/cuentatoken" ]]; then
+      readarray -t usuarios_ativos3 < <(cut -d '|' -f1 /etc/SCRIPT-LATAM/cuentatoken)
+    fi
+    ##-->>GENERAR USUARIOS TOTALES
+    cat /etc/SCRIPT-LATAM/cuentassh /etc/SCRIPT-LATAM/cuentahwid /etc/SCRIPT-LATAM/cuentatoken 2>/dev/null | cut -d '|' -f1 >/etc/SCRIPT-LATAM/cuentasactivast
+    if [[ -e "/etc/SCRIPT-LATAM/cuentasactivast" ]]; then
+      readarray -t mostrar_totales < <(cut -d '|' -f1 /etc/SCRIPT-LATAM/cuentasactivast)
+    fi
+    if [[ -z ${mostrar_totales[@]} ]]; then
       msg -bar
       msg -tit
       msg -bar
@@ -12845,6 +12684,8 @@ controlador_ssh() {
     echo -e "\e[1;93m [\e[1;32m1\e[1;93m]\033[1;31m > \e[1;97m AGREGAR BANNER SSH/SSL/DROPBEAR "
     echo -e "\e[1;93m [\e[1;32m2\e[1;93m]\033[1;31m > \e[1;97m ELIMINAR Y DESACTIVAR BANNER   "
     msg -bar
+    echo -e "    \e[97m\033[1;41m ENTER SIN RESPUESTA REGRESA A MENU ANTERIOR \033[0;37m"
+    msg -bar
     echo -ne "\033[1;37mDigite solo el numero segun su respuesta: \033[1;32m"
     read opcao
     case $opcao in
@@ -12855,6 +12696,9 @@ controlador_ssh() {
     2)
       msg -bar
       banner_off
+      ;;
+    *)
+      msg -bar
       ;;
     esac
     read -t 60 -n 1 -rsp $'\033[1;39m       << Presiona enter para Continuar >>\n'
@@ -12983,9 +12827,9 @@ exit" >/tmp/$2
   echo -e "\e[1;93m [\e[1;32m17\e[1;93m]\033[1;31m > \e[1;97mLIMPIAR LOG DE LIMITADOR "
   [[ -e "/etc/SCRIPT-LATAM/temp/Limiter2.log" ]] && echo -e "\e[1;93m [\e[1;32m18\e[1;93m]\033[1;31m > \e[1;97mVER LOG DE LIMITADOR "
   msg -bar
-  echo -e "    \e[97m\033[1;41m ENTER SIN RESPUESTA REGRESA A MENU ANTERIOR \033[0;37m"
+  echo -e "    \e[97m\033[1;41m ENTER SIN RESPUESTA REGRESA A MENU ANTERIOR \033[0;97m"
   msg -bar
-  echo -ne "\033[1;97m Seleccione una Opcion [1-18]: \033[1;32m" && read num
+  echo -ne "\033[1;97m    └⊳ Seleccione una Opcion [1-18]: \033[1;32m" && read num
   msg -bar
   case "$num" in
   1) new_user ;;
@@ -14095,9 +13939,9 @@ Debian / Ubuntu Sistema： apt-get install iptables -y"
   echo -e "\033[38;5;239m════════════════════════════════════════════════════"
   echo -e "\e[1;93m [\e[1;32m13\e[1;93m]\033[1;31m > \e[1;93m VER LA LISTA ACTUAL DE PROHIBIDOS" #View_ALL
   msg -bar
-  echo -ne " \e[1;93m [\e[1;32m0\e[1;93m]\033[1;31m > " && echo -e "\e[97m\033[1;41m VOLVER \033[0;37m"
+  echo -e "    \e[97m\033[1;41m ENTER SIN RESPUESTA REGRESA A MENU ANTERIOR \033[0;97m"
   msg -bar
-  echo -ne "\033[1;97m Porfavor seleccione una opcion [0-18]: \033[1;32m" && read num
+  echo -ne "\033[1;97m   └⊳ Seleccione una opcion [0-18]: \033[1;32m" && read num
   case "$num" in
   1)
     Ban_BT
@@ -14215,5 +14059,5 @@ case ${selection} in
   exit 0
   ;;
 esac
-msg -ne "Enter Para Continuar" && read enter
+#msg -ne "Enter Para Continuar" && read enter
 ${SCPdir}/menu.sh
