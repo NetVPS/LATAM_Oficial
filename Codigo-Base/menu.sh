@@ -2679,25 +2679,21 @@ chekc_users() {
     [[ -e "/etc/SCRIPT-LATAM/filespy/check.py" ]] && {
       sleep 0.1
     } || {
-      cd $HOME
-      wget https://raw.githubusercontent.com/NetVPS/LATAM_Oficial/main/Ejecutables/check.py -o /dev/null
-      mv -f $HOME/check.py /etc/SCRIPT-LATAM/filespy/check.py
+      wget -O /etc/SCRIPT-LATAM/filespy/check.py https://raw.githubusercontent.com/NetVPS/LATAM_Oficial/main/Ejecutables/check.py &>/dev/null
+      chmod +rwx /etc/SCRIPT-LATAM/filespy/check.py
     }
 
     [[ -e "/etc/SCRIPT-LATAM/filespy/4gcheck.py" ]] && {
       sleep 0.1
     } || {
-      cd $HOME
-      wget https://raw.githubusercontent.com/NetVPS/LATAM_Oficial/main/Ejecutables/4gcheck.py -o /dev/null
-      mv -f $HOME/4gcheck.py /etc/SCRIPT-LATAM/filespy/4gcheck.py
+      wget -O /etc/SCRIPT-LATAM/filespy/4gcheck.py https://raw.githubusercontent.com/NetVPS/LATAM_Oficial/main/Ejecutables/4gcheck.py &>/dev/null
+      chmod +rwx /etc/SCRIPT-LATAM/filespy/4gcheck.py
     }
 
     [[ -e "/bin/check" ]] && {
       sleep 0.1
     } || {
-      cd $HOME
-      wget https://raw.githubusercontent.com/NetVPS/LATAM_Oficial/main/Ejecutables/check -o /dev/null
-      mv -f $HOME/check /bin/check
+      wget -O /bin/check https://raw.githubusercontent.com/NetVPS/LATAM_Oficial/main/Ejecutables/check &>/dev/null
       chmod 777 /bin/check
     }
   }
@@ -2727,6 +2723,72 @@ chekc_users() {
   herramientas_fun
 
 }
+chekc_online() {
+
+  ##-->> DESCARGAR ARHIVO
+
+  if [ -e "/etc/SCRIPT-LATAM/chekerapp/onlineapp.sh" ]; then
+    clear && clear
+    msg -bar2
+    msg -tit
+    msg -bar2
+    msg -ama "               CHEKER ONLINES APKS"
+    msg -bar2
+    echo -e "\033[1;97m            ELIMINANDO ONLINES APKS \033[0m"
+    rm -rf /etc/SCRIPT-LATAM/chekerapp/onlineapp.sh
+    service apache2 stop &>/dev/null
+    eliminar_tarea_crontab() {
+      tarea="$1"
+      crontab -l >archivo_crontab
+      sed -i "/$tarea/d" archivo_crontab
+      crontab archivo_crontab
+      rm archivo_crontab
+    }
+    eliminar_tarea_crontab "*/1 * * * * root /bin/bash /etc/SCRIPT-LATAM/chekerapp/onlineapp.sh"
+     service cron reload &>/dev/null
+  else
+    clear && clear
+    msg -bar2
+    msg -tit
+    msg -bar2
+    msg -ama "               CHEKER ONLINES APKS"
+    msg -bar2
+    echo -e "\033[1;97m     SE INSTALARAN LOS PAQUETES CORRESPONDIENTES \033[0m"
+    apt-get update &>/dev/null
+    apt-get install apache2 -y &>/dev/null
+    fun_bar "apt-get install apache2 -y &>/dev/null "
+    sed -i 's/Listen 80/Listen 8888/' /etc/apache2/ports.conf
+    sed -i 's/:80>/:8888>/' /etc/apache2/sites-available/000-default.conf
+    mkdir -p /var/www/html/server
+    wget -O /etc/SCRIPT-LATAM/chekerapp/onlineapp.sh https://raw.githubusercontent.com/NT-GIT-HUB/StatusServer/main/onlineapp.sh &>/dev/null
+    chmod +x /etc/SCRIPT-LATAM/chekerapp/onlineapp.sh
+    /etc/SCRIPT-LATAM/chekerapp/onlineapp.sh &>/dev/null
+    agregar_tarea_cron() {
+      local script="/etc/SCRIPT-LATAM/chekerapp/onlineapp.sh"
+      local tarea="*/1 * * * * root /bin/bash ${script}"
+      echo "${tarea}" >>/etc/crontab
+    }
+    agregar_tarea_cron
+    service cron reload &>/dev/null
+    ufw allow 8888/tcp &>/dev/null
+    service apache2 restart &>/dev/null
+    check_apache_port() {
+      if netstat -tln | grep -q :8888; then
+        echo ""
+        echo -e "\n\033[1;32m             CHECK ONLINES STATUS \033[1;32m ON \033[1;33m"
+      else
+        echo ""
+        echo -e "\n\033[1;32m             CHECK ONLINES STATUS \033[1;31mOFF \033[1;33m"
+      fi
+    }
+    check_apache_port
+    echo -e "  URL: \033[1;97mhttp://$(meu_ip):8888:/server/online"
+
+  fi
+  msg -bar
+  read -t 60 -n 1 -rsp $'\033[1;39m       << Presiona enter para Continuar >>\n'
+  herramientas_fun
+}
 
 #---FUNCION HERRAMIENTAS
 herramientas_fun() {
@@ -2739,6 +2801,8 @@ herramientas_fun() {
   msg -bar2
   var_sks1=$(ps x | grep "checkuser" | grep -v grep >/dev/null && echo -e "\033[1;32m ON BASICO" || echo -e "\033[1;31mOFF BASICO")
   var_sks2=$(ps x | grep "4gcheck" | grep -v grep >/dev/null && echo -e "\033[1;32mON PLUS" || echo -e "\033[1;31mOFF PLUS ")
+  chonlines=$(netstat -tln | grep -q :8888 >/dev/null && echo -e "\033[1;32m ON " || echo -e "\033[1;31mOFF")
+
   local Numb=1
   echo -e " \e[1;93m[\e[1;32m$Numb\e[1;93m]\033[1;31m >\033[1;97m GESTOR DE CUENTAS VIA BOT TELEGRAM "
   script[$Numb]="LATAMbot.sh"
@@ -2748,6 +2812,9 @@ herramientas_fun() {
   let Numb++
   echo -e " \e[1;93m[\e[1;32m$Numb\e[1;93m]\033[1;31m >\033[1;97m CHECK USER APK [ $var_sks1 \033[1;97m| $var_sks2\033[1;97m]     "
   script[$Numb]="chekcusers"
+  let Numb++
+  echo -e " \e[1;93m[\e[1;32m$Numb\e[1;93m]\033[1;31m >\033[1;97m CHECK ONLINES APK [ $chonlines \033[1;97m]     "
+  script[$Numb]="checkonlines"
   #echo -e "\033[1;93m--------------------OPTIMIZADORES-------------------"
   echo -e "\033[1;93m--------------------- EXTRAS -----------------------"
   let Numb++
@@ -2810,6 +2877,7 @@ herramientas_fun() {
     "tokengeneral") token_ge ;;
     "fixbaseuser") recuperar_base ;;
     "chekcusers") chekc_users ;;
+    "checkonlines") chekc_online ;;
     *) menu ;;
     esac
   }
