@@ -2502,12 +2502,12 @@ chekc_users() {
 
     var_sks1=$(ps x | grep "checkuser" | grep -v grep >/dev/null && echo -e "\033[1;32m ON " || echo -e "\033[1;31mOFF ")
     var_sks2=$(ps x | grep "4gcheck" | grep -v grep >/dev/null && echo -e "\033[1;32m   ON " || echo -e "\033[1;31m  OFF ")
-    echo ""
-    echo -e "     \033[1;31m[\033[1;36m 1 \033[1;31m] \033[1;37m• \033[1;33mACTIVAR CHECKUSER (BASICO) $var_sks1 \033[0m"
-    echo -e "     \033[1;31m[\033[1;36m 2 \033[1;31m] \033[1;37m• \033[1;33mACTIVAR CHECKUSER (PLUS) $var_sks2 \033[0m"
-    echo -e "     \033[1;31m[\033[1;36m 0 \033[1;31m] \033[1;37m• \033[1;31mCANCELAR\033[0m"
-    echo ""
-    echo -ne "\033[1;32mQUE DESEA REALIZAR \033[1;33m?\033[1;37m "
+    echo -e " \033[1;31m[\033[1;36m 1 \033[1;31m] \033[1;37m• \033[1;97mACTIVAR / DESACTIVAR (BASICO) $var_sks1 \033[0m"
+    echo -e " \033[1;31m[\033[1;36m 2 \033[1;31m] \033[1;37m• \033[1;97mACTIVAR / DESACTIVAR (PLUS) $var_sks2 \033[0m"
+    msg -bar2
+    echo -e "    \e[97m\033[1;41m ENTER SIN RESPUESTA REGRESA A MENU ANTERIOR \033[0;37m"
+    msg -bar2
+    echo -ne "\033[1;97m  └⊳ Seleccione una Opcion:\033[1;33m "
     read resposta
     if [[ "$resposta" = '1' ]]; then
       if ps x | grep -w checkuser | grep -v grep 1>/dev/null 2>/dev/null; then
@@ -2516,6 +2516,7 @@ chekc_users() {
         echo ""
         fun_stopbad() {
           screen -r -S "checkuser" -X quit
+          rm -rf /bin/check
           [[ $(grep -wc "check.py" /etc/autostart) != '0' ]] && {
             sed -i '/check.py/d' /etc/autostart
           }
@@ -2646,14 +2647,8 @@ chekc_users() {
         read -t 60 -n 1 -rsp $'\033[1;39m       << Presiona enter para Continuar >>\n'
         herramientas_fun
       fi
-    elif [[ "$resposta" = '0' ]]; then
-      msg -bar
-      read -t 60 -n 1 -rsp $'\033[1;39m       << Presiona enter para Continuar >>\n'
-      herramientas_fun
-    else
-      echo ""
-      echo -e "\033[1;31mOpcao invalida !\033[0m"
-      sleep 1
+read -t 120 -n 1 -rsp $'\033[1;39m       << Presiona enter para Continuar >>\n'
+
       fun_initcheck
     fi
   }
@@ -2673,6 +2668,7 @@ chekc_users() {
     fi
 
     # install flask
+    apt install python -y >/dev/null 2>&1
     pip3 install flask >/dev/null 2>&1
 
     # download check.py
@@ -2724,9 +2720,7 @@ chekc_users() {
 
 }
 chekc_online() {
-
   ##-->> DESCARGAR ARHIVO
-
   if [ -e "/etc/SCRIPT-LATAM/chekerapp/onlineapp.sh" ]; then
     clear && clear
     msg -bar2
@@ -2737,15 +2731,9 @@ chekc_online() {
     echo -e "\033[1;97m            ELIMINANDO ONLINES APKS \033[0m"
     rm -rf /etc/SCRIPT-LATAM/chekerapp/onlineapp.sh
     service apache2 stop &>/dev/null
-    eliminar_tarea_crontab() {
-      tarea="$1"
-      crontab -l >archivo_crontab
-      sed -i "/$tarea/d" archivo_crontab
-      crontab archivo_crontab
-      rm archivo_crontab
-    }
-    eliminar_tarea_crontab "*/1 * * * * root /bin/bash /etc/SCRIPT-LATAM/chekerapp/onlineapp.sh"
-     service cron reload &>/dev/null
+  sed -i '/\/etc\/SCRIPT-LATAM\/chekerapp\/onlineapp\.sh/d' /etc/crontab
+
+    service cron reload &>/dev/null
   else
     clear && clear
     msg -bar2
@@ -2759,9 +2747,10 @@ chekc_online() {
     fun_bar "apt-get install apache2 -y &>/dev/null "
     sed -i 's/Listen 80/Listen 8888/' /etc/apache2/ports.conf
     sed -i 's/:80>/:8888>/' /etc/apache2/sites-available/000-default.conf
+    service apache2 restart &>/dev/null
     mkdir -p /var/www/html/server
     wget -O /etc/SCRIPT-LATAM/chekerapp/onlineapp.sh https://raw.githubusercontent.com/NT-GIT-HUB/StatusServer/main/onlineapp.sh &>/dev/null
-    chmod +x /etc/SCRIPT-LATAM/chekerapp/onlineapp.sh
+    chmod +rwx /etc/SCRIPT-LATAM/chekerapp/onlineapp.sh
     /etc/SCRIPT-LATAM/chekerapp/onlineapp.sh &>/dev/null
     agregar_tarea_cron() {
       local script="/etc/SCRIPT-LATAM/chekerapp/onlineapp.sh"
@@ -2771,7 +2760,6 @@ chekc_online() {
     agregar_tarea_cron
     service cron reload &>/dev/null
     ufw allow 8888/tcp &>/dev/null
-    service apache2 restart &>/dev/null
     check_apache_port() {
       if netstat -tln | grep -q :8888; then
         echo ""
