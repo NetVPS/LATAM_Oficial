@@ -3,61 +3,72 @@ user=$1
 type=$2
 database="/root/usuarios.db"
 user_exist() {
-    if grep -q -w "$user" /etc/passwd; then
-        echo "$user"
-    else
-        echo "Not exist"
-    fi
+  [[ "$(grep -wc $user /etc/passwd)" != '0' ]] && {
+    echo $user
+  } || {
+    echo 'Not exist'
+  }
 }
+
 cont_online() {
-    limit=$(awk -v u="$user" '$1==u {print $2}' "$database")
-    conssh=$(ps -u "$user" | grep sshd | wc -l)
-    [[ -z $limit ]] && limit=1
-    (( conssh > limit )) && screen -dmS pkill pkill.sh "$user"
-    echo "$conssh"
+  limit="$(grep -w $user $database | cut -d' ' -f2)"
+  conssh="$(ps -u $user | grep sshd | wc -l)"
+  [[ -z $limit ]] && limit="1"
+  [[ $conssh -gt $limit ]] && screen -dmS pkill pkill.sh $user
+  echo $conssh
 }
+
 limiter_user() {
-    limit=$(awk -v u="$user" '$1==u {print $2}' "$database")
-    [[ -z $limit ]] && limit=1
-    echo "$limit"
+  limit="$(grep -w $user $database | cut -d' ' -f2)"
+  [[ -z $limit ]] && limit="1"
+  echo $limit
 }
+
 check_data() {
-    datauser=$(chage -l "$user" | awk -F: '/^Last password change/ {print $2}')
-    dat=$(date -d"$datauser" '+%d/%m/%Y')
-    echo "$dat"
+  datauser=$(chage -l $user | grep -i co | awk -F : '{print $2}')
+  dat="$(date -d"$datauser" '+%d/%m/%Y')"
+  echo $dat
 }
+
 check_dias() {
-    datauser=$(chage -l "$user" | awk -F: '/^Last password change/ {print $2}')
-    dat=$(date -d"$datauser" '+%s')
-    now=$(date +%s)
-    data=$(( (now - dat) / 86400 ))
-    echo "$data"
+  datauser=$(chage -l $user | grep -i co | awk -F : '{print $2}')
+  dat="$(date -d"$datauser" '+%Y-%m-%d')"
+  data=$(echo -e "$((($(date -ud $dat +%s) - $(date -ud $(date +%Y-%m-%d) +%s)) / 86400))")
+  echo $data
 }
+
 check_new_data() {
-    if grep -q -w "$user" /etc/passwd; then
-        datauser=$(chage -l "$user" | awk -F: '/^Last password change/ {print $2}')
-        dat=$(date -d"$datauser" '+%Y%m%d')
-        echo "$dat"
-    else
-        echo "Not exist"
-    fi
+  [[ "$(grep -wc $user /etc/passwd)" != '0' ]] && {
+    datauser=$(chage -l $user | grep -i co | awk -F : '{print $2}')
+    dat="$(date -d"$datauser" '+%Y%m%d')"
+    echo $dat
+  } || {
+    echo 'Not exist'
+  }
 }
+
 datacheck_new() {
-    if grep -q -w "$user" /etc/passwd; then
-        datauser=$(chage -l "$user" | awk -F: '/^Last password change/ {print $2}')
-        dat=$(date -d"$datauser" '+%d%m%Y')
-        echo "$dat"
-    else
-        echo "Not exist"
-    fi
+  [[ "$(grep -wc $user /etc/passwd)" != '0' ]] && {
+    datauser=$(chage -l $user | grep -i co | awk -F : '{print $2}')
+    dat="$(date -d"$datauser" '+%d%m%Y')"
+    echo $dat
+  } || {
+    echo 'Not exist'
+  }
 }
-case $type in
-    1) user_exist;;
-    2) cont_online;;
-    3) limiter_user;;
-    4) check_data;;
-    5) check_dias;;
-    6) check_new_data;;
-    7) datacheck_new;;
-    *) echo "Invalid option: $type";;
-esac
+
+if [ $type -eq 1 ]; then
+  user_exist
+elif [ $type -eq 2 ]; then
+  cont_online
+elif [ $type -eq 3 ]; then
+  limiter_user
+elif [ $type -eq 4 ]; then
+  check_data
+elif [ $type -eq 5 ]; then
+  check_dias
+elif [ $type -eq 6 ]; then
+  check_new_data
+elif [ $type -eq 7 ]; then
+  datacheck_new
+fi
