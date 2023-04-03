@@ -131,6 +131,7 @@ install_inicial() {
   echo "$v1" >/etc/SCRIPT-LATAM/temp/version_instalacion
   v22=$(cat /etc/SCRIPT-LATAM/temp/version_instalacion)
   vesaoSCT="\033[1;31m [ \033[1;32m($v22)\033[1;97m\033[1;31m ]"
+  echo "not_banned" >/etc/SCRIPT-LATAM/temp/ban_status
   #-- CONFIGURACION BASICA
   os_system
   repo "${vercion}"

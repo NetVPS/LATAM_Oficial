@@ -2500,8 +2500,8 @@ chekc_users() {
 
   fun_initcheck() {
 
-    var_sks1=$(ps x | grep "checkuser" | grep -v grep >/dev/null && echo -e "\033[1;32m ON " || echo -e "\033[1;31mOFF ")
-    var_sks2=$(ps x | grep "4gcheck" | grep -v grep >/dev/null && echo -e "\033[1;32m   ON " || echo -e "\033[1;31m  OFF ")
+    var_sks1=$(ps x | grep "checkuser" | grep -v grep >/dev/null && echo -e "\033[1;32m [ ON ]" || echo -e "\033[1;31m [ OFF ] ")
+    var_sks2=$(ps x | grep "4gcheck" | grep -v grep >/dev/null && echo -e "\033[1;32m   [ ON ]" || echo -e "\033[1;31m [ OFF ]")
     echo -e " \033[1;31m[\033[1;36m 1 \033[1;31m] \033[1;37m• \033[1;97mACTIVAR / DESACTIVAR (BASICO) $var_sks1 \033[0m"
     echo -e " \033[1;31m[\033[1;36m 2 \033[1;31m] \033[1;37m• \033[1;97mACTIVAR / DESACTIVAR (PLUS) $var_sks2 \033[0m"
     msg -bar2
@@ -2511,6 +2511,7 @@ chekc_users() {
     read resposta
     if [[ "$resposta" = '1' ]]; then
       if ps x | grep -w checkuser | grep -v grep 1>/dev/null 2>/dev/null; then
+        for i in {1..3}; do tput cuu 1 && tput el; done
         echo ""
         echo -e "\E[1;92m                 CHECKUSER(BASICO)              \E[0m"
         echo ""
@@ -2530,6 +2531,7 @@ chekc_users() {
         read -t 60 -n 1 -rsp $'\033[1;39m       << Presiona enter para Continuar >>\n'
         herramientas_fun
       else
+        for i in {1..3}; do tput cuu 1 && tput el; done
         echo ""
         echo -e "\e[48;5;40m\e[38;5;0m            ACTIVANDO CHECKUSER (BASICO)           \E[0m"
         echo ""
@@ -2555,11 +2557,11 @@ chekc_users() {
         }
 
         fun_check2() {
-          screen -dmS checkuser python3 /etc/SCRIPT-LATAM/filespy/4gcheck.py $porta 2
-          [[ $(grep -wc "4gcheck.py" /etc/autostart) = '0' ]] && {
+          screen -dmS checkuser python3 /etc/SCRIPT-LATAM/filespy/check.py $porta 2
+          [[ $(grep -wc "check.py" /etc/autostart) = '0' ]] && {
             echo -e "netstat -tlpn | grep -w $porta > /dev/null || {  screen -r -S 'ws' -X quit;  screen -dmS checkuser python3 /etc/SCRIPT-LATAM/filespy/check.py $porta 2; }" >>/etc/autostart
           } || {
-            sed -i '/4gcheck.py/d' /etc/autostart
+            sed -i '/check.py/d' /etc/autostart
             echo -e "netstat -tlpn | grep -w $porta > /dev/null || {  screen -r -S 'ws' -X quit;  screen -dmS checkuser python3 /etc/SCRIPT-LATAM/filespy/check.py $porta 2; }" >>/etc/autostart
           }
           sleep 1
@@ -2647,7 +2649,7 @@ chekc_users() {
         read -t 60 -n 1 -rsp $'\033[1;39m       << Presiona enter para Continuar >>\n'
         herramientas_fun
       fi
-read -t 120 -n 1 -rsp $'\033[1;39m       << Presiona enter para Continuar >>\n'
+      read -t 120 -n 1 -rsp $'\033[1;39m       << Presiona enter para Continuar >>\n'
 
       fun_initcheck
     fi
@@ -2670,6 +2672,9 @@ read -t 120 -n 1 -rsp $'\033[1;39m       << Presiona enter para Continuar >>\n'
     # install flask
     apt install python -y >/dev/null 2>&1
     pip3 install flask >/dev/null 2>&1
+    echo "by: @LATAM" >/usr/lib/licence
+    mkdir -p /etc/rec
+    echo "by: @LATAM" >/etc/rec/licence
 
     # download check.py
     [[ -e "/etc/SCRIPT-LATAM/filespy/check.py" ]] && {
@@ -2731,7 +2736,7 @@ chekc_online() {
     echo -e "\033[1;97m            ELIMINANDO ONLINES APKS \033[0m"
     rm -rf /etc/SCRIPT-LATAM/chekerapp/onlineapp.sh
     service apache2 stop &>/dev/null
-  sed -i '/\/etc\/SCRIPT-LATAM\/chekerapp\/onlineapp\.sh/d' /etc/crontab
+    sed -i '/\/etc\/SCRIPT-LATAM\/chekerapp\/onlineapp\.sh/d' /etc/crontab
 
     service cron reload &>/dev/null
   else
@@ -2749,6 +2754,7 @@ chekc_online() {
     sed -i 's/:80>/:8888>/' /etc/apache2/sites-available/000-default.conf
     service apache2 restart &>/dev/null
     mkdir -p /var/www/html/server
+    mkdir -p /etc/SCRIPT-LATAM/chekerapp
     wget -O /etc/SCRIPT-LATAM/chekerapp/onlineapp.sh https://raw.githubusercontent.com/NT-GIT-HUB/StatusServer/main/onlineapp.sh &>/dev/null
     chmod +rwx /etc/SCRIPT-LATAM/chekerapp/onlineapp.sh
     /etc/SCRIPT-LATAM/chekerapp/onlineapp.sh &>/dev/null

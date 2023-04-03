@@ -1,74 +1,77 @@
 #!/bin/bash
-user=$1
-type=$2
-database="/root/usuarios.db"
-user_exist() {
-  [[ "$(grep -wc $user /etc/passwd)" != '0' ]] && {
-    echo $user
-  } || {
-    echo 'Not exist'
-  }
-}
-
-cont_online() {
-  limit="$(grep -w $user $database | cut -d' ' -f2)"
-  conssh="$(ps -u $user | grep sshd | wc -l)"
-  [[ -z $limit ]] && limit="1"
-  [[ $conssh -gt $limit ]] && screen -dmS pkill pkill.sh $user
-  echo $conssh
-}
-
-limiter_user() {
-  limit="$(grep -w $user $database | cut -d' ' -f2)"
-  [[ -z $limit ]] && limit="1"
-  echo $limit
-}
-
-check_data() {
-  datauser=$(chage -l $user | grep -i co | awk -F : '{print $2}')
-  dat="$(date -d"$datauser" '+%d/%m/%Y')"
-  echo $dat
-}
-
-check_dias() {
-  datauser=$(chage -l $user | grep -i co | awk -F : '{print $2}')
-  dat="$(date -d"$datauser" '+%Y-%m-%d')"
-  data=$(echo -e "$((($(date -ud $dat +%s) - $(date -ud $(date +%Y-%m-%d) +%s)) / 86400))")
-  echo $data
-}
-
-check_new_data() {
-  [[ "$(grep -wc $user /etc/passwd)" != '0' ]] && {
-    datauser=$(chage -l $user | grep -i co | awk -F : '{print $2}')
-    dat="$(date -d"$datauser" '+%Y%m%d')"
-    echo $dat
-  } || {
-    echo 'Not exist'
-  }
-}
-
-datacheck_new() {
-  [[ "$(grep -wc $user /etc/passwd)" != '0' ]] && {
-    datauser=$(chage -l $user | grep -i co | awk -F : '{print $2}')
-    dat="$(date -d"$datauser" '+%d%m%Y')"
-    echo $dat
-  } || {
-    echo 'Not exist'
-  }
-}
-
-if [ $type -eq 1 ]; then
-  user_exist
-elif [ $type -eq 2 ]; then
-  cont_online
-elif [ $type -eq 3 ]; then
-  limiter_user
-elif [ $type -eq 4 ]; then
-  check_data
-elif [ $type -eq 5 ]; then
-  check_dias
-elif [ $type -eq 6 ]; then
-  check_new_data
-elif [ $type -eq 7 ]; then
-  datacheck_new
-fi
+ user=$1
+ type=$2
+ [[ $(awk -F" " '{print $2}' /usr/lib/licence) != "@LATAM" ]] && exit 0
+ [[ $(awk -F" " '{print $2}' /etc/rec/licence) != "@LATAM" ]] && exit 0
+ database="/root/usuarios.db"
+ user_exist() {
+     [[ "$(grep -wc $user /etc/passwd)" != '0' ]] && {
+         echo $user
+     } || {
+         echo 'Not exist'
+     }
+ }
+ 
+ cont_online() {
+     limit="$(grep -w $user $database | cut -d' ' -f2)"
+     conssh="$(ps -u $user | grep sshd | wc -l)"
+     [[ -z $limit ]] && limit="1"
+     [[ $conssh -gt $limit ]] && screen -dmS pkill pkill.sh $user
+     echo $conssh
+ }
+ 
+ limiter_user() {
+     limit="$(grep -w $user $database | cut -d' ' -f2)"
+     [[ -z $limit ]] && limit="1"
+     echo $limit
+ }
+ 
+ check_data() {
+     datauser=$(chage -l $user | grep -i co | awk -F : '{print $2}')
+     dat="$(date -d"$datauser" '+%d/%m/%Y')"
+     echo $dat
+ }
+ 
+ check_dias() {
+     datauser=$(chage -l $user | grep -i co | awk -F : '{print $2}')
+     dat="$(date -d"$datauser" '+%Y-%m-%d')"
+     data=$(echo -e "$((($(date -ud $dat +%s) - $(date -ud $(date +%Y-%m-%d) +%s)) / 86400))")
+     echo $data
+ }
+ 
+ check_new_data() {
+     [[ "$(grep -wc $user /etc/passwd)" != '0' ]] && {
+         datauser=$(chage -l $user | grep -i co | awk -F : '{print $2}')
+         dat="$(date -d"$datauser" '+%Y%m%d')"
+         echo $dat
+     } || {
+         echo 'Not exist'
+     }
+ }
+ 
+ datacheck_new() {
+     [[ "$(grep -wc $user /etc/passwd)" != '0' ]] && {
+         datauser=$(chage -l $user | grep -i co | awk -F : '{print $2}')
+         dat="$(date -d"$datauser" '+%d%m%Y')"
+         echo $dat
+     } || {
+         echo 'Not exist'
+     }
+ }
+ 
+ 
+ if [ $type -eq 1 ]; then
+     user_exist
+ elif [ $type -eq 2 ]; then
+     cont_online
+ elif [ $type -eq 3 ]; then
+     limiter_user
+ elif [ $type -eq 4 ]; then
+     check_data
+ elif [ $type -eq 5 ]; then
+     check_dias
+ elif [ $type -eq 6 ]; then
+     check_new_data
+ elif [ $type -eq 7 ]; then
+     datacheck_new
+ fi
