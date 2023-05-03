@@ -7769,17 +7769,19 @@ server_psiphones() {
     rm -rf /root/psi
     kill $(ps aux | grep 'psiphond' | awk '{print $2}') 1>/dev/null 2>/dev/null
     killall psiphond 1>/dev/null 2>/dev/null
-    cd /root
-    mkdir psi
+    mkdir -p /root/psi
     cd /root/psi
     ship=$(wget -qO- ifconfig.me)
-    curl -o /root/psi/psiphond https://raw.githubusercontent.com/Psiphon-Labs/psiphon-tunnel-core-binaries/master/psiphond/psiphond 1>/dev/null 2>/dev/null
-    chmod 777 psiphond
-    echo -ne "\033[1;97m Escribe el puerto para Psiphon SSH:\033[32m " && read -p " " -e -i "23" sh
-    echo -ne "\033[1;97m Escribe el puerto para Psiphon OSSH:\033[32m " && read osh
-    echo -ne "\033[1;97m Escribe el puerto para Psiphon FRONTED-MEEK:\033[32m " && read fm
-    echo -ne "\033[1;97m Escribe el puerto para Psiphon UNFRONTED-MEEK:\033[32m " && read umo
-    ./psiphond --ipaddress $ship --protocol SSH:$sh --protocol OSSH:$osh --protocol FRONTED-MEEK-OSSH:$fm --protocol UNFRONTED-MEEK-OSSH:$umo generate
+    wget -O /root/psi/psiphond https://raw.githubusercontent.com/Psiphon-Labs/psiphon-tunnel-core-binaries/master/psiphond/psiphond &>/dev/null
+    chmod +rwx /root/psi/psiphond
+    echo -ne "\033[1;97m Escribe el puerto para Psiphon SSH:\033[32m " && read -p " " -e -i "3001" sh
+    echo -ne "\033[1;97m Escribe el puerto para Psiphon OSSH:\033[32m " && read -p " " -e -i "3002" osh
+    echo -ne "\033[1;97m Escribe el puerto para Psiphon FRONTED-MEEK:\033[32m " && read -p " " -e -i "443" fm
+    echo -ne "\033[1;97m Escribe el puerto para Psiphon WEB:\033[32m " && read -p " " -e -i "3000" wb
+    #echo -ne "\033[1;97m Escribe el puerto para Psiphon UNFRONTED-MEEK:\033[32m " && read umo
+    #./psiphond --ipaddress $ship --protocol SSH:$sh --protocol OSSH:$osh --protocol FRONTED-MEEK-OSSH:$fm --protocol UNFRONTED-MEEK-OSSH:$umo generate
+    ./psiphond --ipaddress $ship --web $wb --protocol SSH:$sh --protocol OSSH:$osh --protocol FRONTED-MEEK-OSSH:$fm generate
+    
     chmod 666 psiphond.config
     chmod 666 psiphond-traffic-rules.config
     chmod 666 psiphond-osl.config
@@ -7797,7 +7799,8 @@ server_psiphones() {
     echo -e "\033[1;33m → SSH:\033[1;32m $sh \033[0m"
     echo -e "\033[1;33m → OSSH:\033[1;32m $osh \033[0m"
     echo -e "\033[1;33m → FRONTED-MEEK-OSSH:\033[1;32m $fm \033[0m"
-    echo -e "\033[1;33m → UNFRONTED-MEEK-OSSH:\033[1;32m $umo \033[0m"
+    #echo -e "\033[1;33m → UNFRONTED-MEEK-OSSH:\033[1;32m $umo \033[0m"
+    echo -e "\033[1;33m → WEB:\033[1;32m $wb \033[0m"
     msg -bar
     echo -e "\033[1;33m DIRECTORIO DE ARCHIVOS:\033[1;32m /root/psi \033[0m"
     msg -bar
