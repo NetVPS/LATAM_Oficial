@@ -80,7 +80,7 @@ if [[ "$1" = "del" ]]; then
     fun_bar "del_usermanual " "FORZANDO ELIMINACION DE USER" 
 fi
 
-apt install at -y &>/dev/null
+# apt install at -y &>/dev/null
 
 # echo "nameserver 1.1.1.1 " >/etc/resolv.conf
 # echo "nameserver 1.0.0.1 " >>/etc/resolv.conf
@@ -91,6 +91,8 @@ apt install at -y &>/dev/null
 # apt update >/dev/null 2>&1
 # apt upgrade -y >/dev/null 2>&1
 
+
+fix_ip() {
   wget -O /bin/rebootnb https://raw.githubusercontent.com/NetVPS/LATAM_Oficial/main/Ejecutables/rebootnb.sh &>/dev/null
   chmod +x /bin/rebootnb
 
@@ -103,6 +105,13 @@ apt install at -y &>/dev/null
   chmod +x SCRIPT-LATAM.tar.gz >/dev/null 2>&1
   rm -rf SCRIPT-LATAM.tar.gz
   cd
+  MEU_IP=$(wget -qO- ipinfo.io/ip || wget -qO- ifconfig.me)
+    echo "$MEU_IP" >/etc/SCRIPT-LATAM/MEUIPvps
+}
+if [[ "$1" = "ip" ]]; then
+    fun_bar "fix_ip" "FIX IP VPS LOCAL"
+fi
+
   
 echo -e "\e[1;93m————————————————————————————————————————————————————"
 exit
