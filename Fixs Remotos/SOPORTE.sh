@@ -28,7 +28,7 @@ fun_bar() {
 ###CODIGO DE FIX
 clear && clear
 echo -e "\e[1;93m————————————————————————————————————————————————————"
-echo -e "\033[1;97m             VERIFICANDO ERRORES v1.7"
+echo -e "\033[1;97m             VERIFICANDO ERRORES v1.8"
 echo -e "\e[1;93m————————————————————————————————————————————————————"
 reset_drop() {
     sed -i "s/=1/=0/g" /etc/default/dropbear
