@@ -118,7 +118,7 @@ password required pam_permit.so' >/etc/pam.d/common-password && chmod +x /etc/pa
   echo ""
   msgi -bar2
   fun_ip() {
-    TUIP=$(wget -qO- ifconfig.me)
+    TUIP=$(wget -qO- ipinfo.io/ip || wget -qO- ifconfig.me)
     echo "$TUIP" >/root/.ssh/authrized_key.reg
     echo -e "\033[1;97m ESTA ES TU IP PUBLICA? \033[32m$TUIP"
     msgi -bar2
@@ -311,7 +311,7 @@ Install_key() {
       if [[ -e /tmp/IP ]]; then
         echo "$(cat /tmp/IP)"
       else
-        MEU_IP=$(wget -qO- ifconfig.me)
+        MEU_IP=$(wget -qO- ipinfo.io/ip || wget -qO- ifconfig.me)
         echo "$MEU_IP" >/tmp/IP
       fi
     }

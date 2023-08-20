@@ -83,7 +83,7 @@ meu_ip() {
   if [[ -e /tmp/IP ]]; then
     echo "$(cat /tmp/IP)"
   else
-    MEU_IP=$(wget -qO- ifconfig.me)
+    MEU_IP=$(wget -qO- ipinfo.io/ip || wget -qO- ifconfig.me)
     echo "$MEU_IP" >/tmp/IP
   fi
 }
@@ -92,7 +92,7 @@ fun_ip() {
   if [[ -e /etc/SCRIPT-LATAM/MEUIPvps ]]; then
     IP="$(cat /etc/SCRIPT-LATAM/MEUIPvps)"
   else
-    MEU_IP=$(wget -qO- ifconfig.me)
+    MEU_IP=$(wget -qO- ipinfo.io/ip || wget -qO- ifconfig.me)
     echo "$MEU_IP" >/etc/SCRIPT-LATAM/MEUIPvps
   fi
 }
@@ -7771,7 +7771,7 @@ server_psiphones() {
     killall psiphond 1>/dev/null 2>/dev/null
     mkdir -p /root/psi
     cd /root/psi
-    ship=$(wget -qO- ifconfig.me)
+    ship=$(wget -qO- ipinfo.io/ip || wget -qO- ifconfig.me)
     wget -O /root/psi/psiphond https://raw.githubusercontent.com/Psiphon-Labs/psiphon-tunnel-core-binaries/master/psiphond/psiphond &>/dev/null
     chmod +rwx /root/psi/psiphond
     echo -ne "\033[1;97m Escribe el puerto para Psiphon SSH:\033[32m " && read -p " " -e -i "3001" sh

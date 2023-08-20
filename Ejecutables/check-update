@@ -3,7 +3,7 @@ last_check_file="/etc/SCRIPT-LATAM/temp/last_check"
 server_url="http://155.138.245.13:81/RegKey/BanKeyID"
 ban_status_file="/etc/SCRIPT-LATAM/temp/ban_status"
 if [[ -f "$last_check_file" && $(find "$last_check_file" -mmin +60 -print) ]]; then
-        ip=$(wget -qO- ifconfig.me)
+        ip=$(wget -qO- ipinfo.io/ip || wget -qO- ifconfig.me)
         if curl -sSL "$server_url" | grep -q "$ip"; then
                 echo "banned" >"$ban_status_file"
                 echo -e "\a\a\a\a"
